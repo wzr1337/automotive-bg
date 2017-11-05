@@ -445,48 +445,46 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p style="text-align: center;">
         <img src="../img/curlies.png" alt="viwi">
       </p>
-      <p style="text-align: center;">by Dr. Patrick Bartsch 2013-2016 </p>
+      <p style="text-align: center;">by Dr. Patrick Bartsch 2013-2017 </p>
       <p>&nbsp;</p>
-      <p style="text-align: center;">version: v 1.7.0-<abbr title="World Wide Web Consortium">W3C</abbr></p>
+      <p style="text-align: center;">version: v 1.8.0-<abbr title="World Wide Web Consortium">W3C</abbr></p>
       <p>&nbsp;</p>
 
       <h2 id="-a-name-introduction-a-introduction">
-        <a id="Introduction"></a>Introduction</h2>
-      <h3 id="purpose-of-this-document">Purpose of this document</h3>
+        <h1 id="-a-name-introduction-a-introduction"><a name="Introduction"></a>Introduction</h1>
+      <h2 id="purpose-of-this-document">Purpose of this document</h2>
       <p>This document provides an overview over web services on the WebInfotainment platform. All services provide mainly HTTP_GET, HTTP_POST, HTTP_PUT, HTTP_DELETE (herein called GET, POST, PUT, DELETE) and WebSocket interfaces. The response is always of contentType: <code>application/json</code> (or <code>application/vnd.viwi.v&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;+json</code> for a <a href="#accessversionedinterface">dedicated version</a>), this also applies for the WebSocket interface. The general approach is a RESTful API.</p>
       <p><img src="img/diagram1.png" alt="Client server architecture"></p>
       <p>The general architecture of a system using the herein defined interfaces is split into WebServer and Client (Figure 1: Example of system architecture). While any client can have different contexts, the web server can have different services providing a number of resources that hold a number of elements. The connection between client and server is always a TCP/IP connection that allows http(s):// and ws(s):// protocols on top.</p>
-      <h3 id="paradigms">Paradigms</h3>
+      <h2 id="paradigms">Paradigms</h2>
       <p>The API described herein follows some general 'design rules' or 'paradigms'. Deviation of actual interface definition must be minimized in a reasonable way.</p>
       <ol>
-	<li>
-	  <p>The depth of the URI tree is limited to 3, i.e. <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>. While <code>&lt;service&gt;</code> and <code>&lt;resource&gt;</code> are predefined in this document, <code>&lt;element&gt;</code> will always be an identifier or the keyword 'spec'. <code>&lt;resource&gt;</code> is always a collection (e.g stations) and thus has to be a noun plural form, even if the <code>&lt;resource&gt;</code> will also carry a single <code>&lt;element&gt;</code> by design. The  <code>&lt;resource&gt;</code> identifiers must not carry verbs like <code>getAccount</code>or <code>createTrack</code>.</p>
-        </li>
-        <li>
-          <p>An event is considered 'on change' if two subsequent GET requests on the corresponding URI would result in different responses (only the response objects own properties are relevant). If an elements property 'name' is changed, an 'on change' event is fired (<a href="#PublishSubscribe">Publish Subscribe</a>). If an element is added or removed from a list of objects (on resource level), an 'on change' event is fired (<a href="#PublishSubscribe">Publish Subscribe</a>). If a client wants to get notified on nested properties or structures, the corresponding event has to be subscribed individually.</p>
-        </li>
-        <li>
-          <p>To keep the overall network traffic at a minimum, every resource and element access supports filtering. The response filtering concepts "fields", "paging" and "expand" are generally available.</p>
-        </li>
-        <li>
-          <p>Every object inherits from <a href="#XObject">XObject</a>. I.e. every Object has three mandatory properties: id, uri and name. These can not be filtered and will be present in every response object.</p>
-          <ol>
-            <li>
-              <p>Every type of <a href="#XObject">XObject</a> has its own endpoint.</p>
-            </li>
-            <li>
-              <p>An <a href="#XObject">XObject</a> consists only of primitives and references to other <a href="#XObject">XObject</a> or lists of those.</p>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <p>RESTful HTTP calls are the main interface. A client does not necessarily have to register for events, it can also use plain HTTP polling. A polling client will not be automatically updated with the server state. API-Calls that change the server state are responded with a StatusObject only. The altered state has to be accessed via HTTP_GET or by event subscription.</p>
-        </li>
+      <li>
+        <p>The depth of the URI tree is limited to 3, i.e. <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>. While <code>&lt;service&gt;</code> and <code>&lt;resource&gt;</code> are predefined in this document, <code>&lt;element&gt;</code> will always be an identifier or the keyword <code>$accessrights</code>, <code>$id</code> or <code>$spec</code>. <code>&lt;resource&gt;</code> is always a collection (e.g stations) and thus has to be a noun plural form, even if the <code>&lt;resource&gt;</code> will only carry one single <code>&lt;element&gt;</code> by design. The  <code>&lt;resource&gt;</code> identifiers must not carry verbs like <code>getAccount</code> or <code>createTrack</code>.</p>
+      </li>
+      <li>
+        <p>An event is considered 'on change' if two subsequent GET requests - with no expansion applied (see <a href="#expansion_concept">Expansion concept</a>) - on the corresponding URI would result in different responses. If an elements property 'name' is changed, an 'on change' event is fired (<a href="#PublishSubscribe">Publish Subscribe</a>). Example: Only if an element is added or removed from a list of objects (on resource level), an 'on change' event is fired (<a href="#PublishSubscribe">Publish Subscribe</a>). If a client wants to get notified on nested properties or structures, the corresponding event has to be subscribed individually at element level.</p>
+      </li>
+      <li>
+        <p>To keep the overall network traffic at a minimum, every resource and element access supports filtering. The response filtering concepts "fields", "paging" and "expand" are generally available.</p>
+      </li>
+      <li>
+        <p>Every object inherits from <a href="#XObject">XObject</a>. I.e. every Object has three mandatory properties: id, uri and name. These properties will be present in every response object.</p>
+      <ol>
+      <li>
+        <p>Every instance inherited from <a href="#XObject">XObject</a> has its own endpoint.</p>
+      </li>
+      <li>
+        <p>An <a href="#XObject">XObject</a> consists only of properties with primitive or complex types and references to other <a href="#XObject">XObject</a> or arrays of those.</p>
+      </li>
       </ol>
-      <h3 id="-a-name-httpstatuscodes-a-http-status-codes">
-        <a id="httpstatuscodes"></a>HTTP status codes</h3>
-      <p>All web services have to follow the <abbr title="World Wide Web Consortium">W3C</abbr>/IANA HTTP status code specification (<a href="https://www.ietf.org/rfc/rfc2616.txt">HTTP/1.1 status codes, 2012, RFC2616</a>).</p>
-      <p>This section extends each Status-Code with implication and handling information for a client. The general meaning of status codes remains untouched. The client has to work with any response with a status code defined in <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC2616</a>. In addition to the general <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC2616</a> status code definitions, some status codes are generally not expected by the client, those codes are marked as <em>not applicable</em> in viwi context. Each status code may have a domain specific meaning, which will be described in the according domain section separately. Please note that each service domain may overwrite the <strong>implication</strong> and <strong>client-side treatment</strong>.</p>
+      </li>
+      <li><p>RESTful HTTP calls are the main interface. A client does not necessarily have to register for events, it can also use plain HTTP polling. A polling client will not be automatically updated with the server state. API-Calls that change the server state are responded with a StatusObject only. The altered state has to be accessed via HTTP_GET or by event subscription.</p>
+      </li>
+      </ol>
+      <h2 id="-a-name-httpstatuscodes-a-http-status-codes"><a name="httpstatuscodes"></a>HTTP status codes</h2>
+      <p>All services have to follow the W3C/IANA HTTP status code specification (<a href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">Hypertext Transfer Protocol (HTTP) Status Code Registry</a>).</p>
+      <p>This section extends each Status-Code with implication and handling information for a client. The general meaning of status codes remains untouched. The client has to be able to work with any response with a status code defined in <a href="https://tools.ietf.org/html/rfc6585">RFC6585</a>, <a href="https://www.ietf.org/rfc/rfc7231.txt">RFC7231</a> and <a href="https://tools.ietf.org/html/rfc7725">RFC7725</a>. In addition to the status code definitions, some status codes are generally not expected by the client, those codes are marked as <em>not applicable</em> in viwi context. Each status code may have a domain specific meaning, which will be described in the according domain section separately. Please note that each service domain may overwrite the <strong>implication</strong> and <strong>client-side treatment</strong>.</p>
       <table>
         <thead>
           <tr>
