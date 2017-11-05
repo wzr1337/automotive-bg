@@ -486,334 +486,315 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>All services have to follow the W3C/IANA HTTP status code specification (<a href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">Hypertext Transfer Protocol (HTTP) Status Code Registry</a>).</p>
       <p>This section extends each Status-Code with implication and handling information for a client. The general meaning of status codes remains untouched. The client has to be able to work with any response with a status code defined in <a href="https://tools.ietf.org/html/rfc6585">RFC6585</a>, <a href="https://www.ietf.org/rfc/rfc7231.txt">RFC7231</a> and <a href="https://tools.ietf.org/html/rfc7725">RFC7725</a>. In addition to the status code definitions, some status codes are generally not expected by the client, those codes are marked as <em>not applicable</em> in viwi context. Each status code may have a domain specific meaning, which will be described in the according domain section separately. Please note that each service domain may overwrite the <strong>implication</strong> and <strong>client-side treatment</strong>.</p>
       <table>
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>name</th>
-            <th>Implication</th>
-            <th>Client-side treatment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>100</td>
-            <td>Continue</td>
-            <td>Not applicable.</td>
-            <td>None&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          </tr>
-          <tr>
-            <td>101</td>
-            <td>Switching Protocols</td>
-            <td>Only used for establishing websockets, see <a href="https://tools.ietf.org/html/rfc6455#section-4.2.2">RFC6455 section 4.2.2</a>.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>200</td>
-            <td>OK</td>
-            <td>Used for successful HTTP Requests. This code is used to acknowledge successful change of the resource or element.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>201</td>
-            <td>Created</td>
-            <td>Used for successfully creating new entities.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>202</td>
-            <td>Accepted</td>
-            <td>The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon. There is no guarantee that the request will be fullfilled.</td>
-            <td>Subscribe to affected entity, if the actual outcome is of interest.</td>
-          </tr>
-          <tr>
-            <td>203</td>
-            <td>Non-Authoritative Information</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>204</td>
-            <td>No Content</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>205</td>
-            <td>Reset Content</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>206</td>
-            <td>Partial Content</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>300</td>
-            <td>Multiple Choices</td>
-            <td>Used if multiple services match the request criteria (service registry only)</td>
-            <td>Client has to select and re-request</td>
-          </tr>
-          <tr>
-            <td>301</td>
-            <td>Moved Permanently</td>
-            <td>Not applicable, see <a href="#service_registry">service registry</a>.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>302</td>
-            <td>Found</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>303</td>
-            <td>See Other</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>304</td>
-            <td>Not Modified</td>
-            <td>If the entity is not modified, this status code can be sent. This indicates that the client should look for this entity in its cache.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>305</td>
-            <td>Use Proxy</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>306</td>
-            <td>Unused</td>
-            <td>Not applicable, see <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.7">status code 306</a>.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>307</td>
-            <td>Temporary Redirect</td>
-            <td>The requested resource has moved. The new location is send as an absolute URL in the response HTTP-Header <code>Location</code> field.</td>
-            <td>Client should submit a new HTTP request.</td>
-          </tr>
-          <tr>
-            <td>400</td>
-            <td>Bad Request</td>
-            <td>The client submitted a malformed request, repeating the request will not help.</td>
-            <td>Client has to make sure to send a valid request.</td>
-          </tr>
-          <tr>
-            <td>401</td>
-            <td>Unauthorized</td>
-            <td>This request requires authentication.</td>
-            <td>If client is not authenticated, client has to authenticate.</td>
-          </tr>
-          <tr>
-            <td>402</td>
-            <td>Payment Required</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>403</td>
-            <td>Forbidden</td>
-            <td>The client has insufficient rights to obtain the requested information or has submitted an HTTP request with POST method to a property, which is <code>read-only</code> or not allowed to be set by the client(e.g. <code>POST</code> on <code>/car/info</code> property <code>vehicleIdentication</code>).</td>
-            <td>If client do not have access rights, client has to acquire access rights.</td>
-          </tr>
-          <tr>
-            <td>404</td>
-            <td>Not Found</td>
-            <td>The service cannot find the entity, this may be a permanent or temporary condition. Do not expect elements to be generally available. This status code is treated as a valid response. <strong>Use-case specific error handling is required.</strong></td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>405</td>
-            <td>Method Not Allowed</td>
-            <td>Not applicable, because all possible HTTP-Methods are defined by the the viwi document and missing privileges are singnaled by status code 403.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>406</td>
-            <td>Not Acceptable</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>407</td>
-            <td>Proxy Authentication Required</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>408</td>
-            <td>Request Time-out</td>
-            <td>Not applicable. The request sent to the server took longer than the server was prepared to wait. In other words, client connection with server "timed out". Server configuration should rule out this error.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>409</td>
-            <td>Conflict</td>
-            <td>It is not possible to establish the required state. This might be the case if a client wants to set an objects property that is not writable or that currently can not be set. The <code>message</code> property of <a href="#statusobject">StatusObject</a> may have information for the client to recognize the source of the conflict. This information is only for debugging and development purposes.</td>
-            <td>Resource specific treatment is necessary (e.g. media audioSource might be disabled during navigation announcements, the clients tries to un-mute media). See <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10">status code 409</a> for more information.</td>
-          </tr>
-          <tr>
-            <td>410</td>
-            <td>Gone</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>411</td>
-            <td>Length Required</td>
-            <td>Not applicable, see <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.12">status code 411</a>.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>412</td>
-            <td>Precondition Failed</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>413</td>
-            <td>Request Entity Too Large</td>
-            <td>Not applicable, see <a href="#paging">paging</a>.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>414</td>
-            <td>Request-URI Too Large</td>
-            <td>Not applicable, see <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.2.1">RFC2616 section 3.2.1</a>.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>415</td>
-            <td>Unsupported Media Type</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>416</td>
-            <td>Requested range not satisfiable</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>417</td>
-            <td>Expectation Failed</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>418</td>
-            <td>I’m a teapot</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>420</td>
-            <td>Policy Not Fulfilled</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>421</td>
-            <td>Misdirected Request</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>422</td>
-            <td>Unprocessable Entity</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>423</td>
-            <td>Locked</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>424</td>
-            <td>Failed Dependency</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>429</td>
-            <td>Too Many Requests</td>
-            <td>The user has sent too many requests in a given amount of time.</td>
-            <td>Used to rate-limit access to a certain resource or element</td>
-          </tr>
-          <tr>
-            <td>451</td>
-            <td>Unavailable For Legal Reasons</td>
-            <td>A server operator has received a legal demand to deny access to a resource or to a set of resources that includes the requested resource.</td>
-            <td>Sent, when for any legal reason access to a resource or element is (temporarily) blocked</td>
-          </tr>
-          <tr>
-            <td>500</td>
-            <td>Internal Server Error</td>
-            <td>The server encountered an unexpected condition which prevented it from fulfilling the request.</td>
-            <td>There is no client-side fix/solution for this kind of errors.</td>
-          </tr>
-          <tr>
-            <td>501</td>
-            <td>Not Implemented</td>
-            <td>The server does not support the functionality required to fulfill the request. Unless specified otherwise in service specific status code handling, this error indicates a not-permitted error.</td>
-            <td>Not applicable.</td>
-          </tr>
-          <tr>
-            <td>502</td>
-            <td>Bad Gateway</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>503</td>
-            <td>Service Unavailable</td>
-            <td>Service is currently unable to handle the request. This implies a temporary problem which will be solved after a given delay. If known, the delay <strong>may</strong> be indicated in a <code>Retry-After</code> header.</td>
-            <td>Client should retry to submit the request after delay.</td>
-          </tr>
-          <tr>
-            <td>504</td>
-            <td>Gateway Time-out</td>
-            <td>The request can not be fulfilled because server acts as a proxy and did not receive a timely response from remote component (e.g. ECU of driver assistance).</td>
-            <td>There is no client-side fix/solution for this kind of error. If the remote component expected to be reachable after a delay in this power-cycle then server sends a response with status code 503.</td>
-          </tr>
-          <tr>
-            <td>505</td>
-            <td>HTTP Version not supported</td>
-            <td>Not applicable.</td>
-            <td>None</td>
-          </tr>
-        </tbody>
+      <thead>
+      <tr>
+        <th>Code</th>
+        <th>name</th>
+        <th>Implication</th>
+        <th>Client-side treatment</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.2.1">100</a></td>
+        <td>Continue</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.2.2">101</a></td>
+        <td>Switching Protocols</td>
+        <td>Only used for establishing websockets, see <a href="https://tools.ietf.org/html/rfc6455#section-4.2.2">RFC6455 section 4.2.2</a>.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">200</a></td>
+        <td>OK</td>
+        <td>Used for successful HTTP Requests. This code is used to acknowledge successful change of the resource or element.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">201</a></td>
+        <td>Created</td>
+        <td>Used for successfully creating new entities.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.3">202</a></td>
+        <td>Accepted</td>
+        <td>The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon. There is no guarantee that the request will be fullfilled.</td>
+        <td>Subscribe to affected entity, if the actual outcome is of interest.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.4">203</a></td>
+        <td>Non-Authoritative Information</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">204</a></td>
+        <td>No Content</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.6">205</a></td>
+        <td>Reset Content</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7233#section-4.1">206</a></td>
+        <td>Partial Content</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.4.1">300</a></td>
+        <td>Multiple Choices</td>
+        <td>Used if multiple services match the request criteria (service registry only)</td>
+        <td>Client has to select and re-request</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.4.2">301</a></td>
+        <td>Moved Permanently</td>
+        <td>Not applicable, see <a href="#service_registry">service registry</a>.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.4.3">302</a></td>
+        <td>Found</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.4.4">303</a></td>
+        <td>See Other</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7232#section-4.1">304</a></td>
+        <td>Not Modified</td>
+        <td>If the entity is not modified, this status code can be sent. This indicates that the client should look for this entity in its cache.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.4.5">305</a></td>
+        <td>Use Proxy</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.4.7">307</a></td>
+        <td>Temporary Redirect</td>
+        <td>The requested resource has moved. The new location is send as an absolute URL in the response HTTP-Header <code>Location</code> field.</td>
+        <td>Client should submit a new HTTP request.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">400</a></td>
+        <td>Bad Request</td>
+        <td>The client submitted a malformed request, repeating the request will not help.</td>
+        <td>Client has to make sure to send a valid request.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">401</a></td>
+        <td>Unauthorized</td>
+        <td>This request requires authentication.</td>
+        <td>If client is not authenticated, client has to authenticate.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.2">402</a></td>
+        <td>Payment Required</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">403</a></td>
+        <td>Forbidden</td>
+        <td>The client has insufficient rights to obtain the requested information or has submitted an HTTP request with POST method to a property, which is <code>read-only</code> or not allowed to be set by the client(e.g. <code>POST</code> on <code>/car/info</code> property <code>vehicleIdentication</code>).</td>
+        <td>If client do not have access rights, client has to acquire access rights.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">404</a></td>
+        <td>Not Found</td>
+        <td>The service cannot find the entity, this may be a permanent or temporary condition.  Do not expect elements to be generally available. This status code is treated as a valid response. <strong>Use-case specific error handling is required.</strong></td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.5">405</a></td>
+        <td>Method Not Allowed</td>
+        <td>Not applicable, because all possible HTTP-Methods are defined by the the viwi document and missing privileges are singnaled by status code 403.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.6">406</a></td>
+        <td>Not Acceptable</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7235#section-3.2">407</a></td>
+        <td>Proxy Authentication Required</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.7">408</a></td>
+        <td>Request Time-out</td>
+        <td>Not applicable. The request sent to the server took longer than the server was prepared to wait. In other words, client connection with server "timed out". Server configuration should rule out this error.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.8">409</a></td>
+        <td>Conflict</td>
+        <td>It is not possible to establish the required state. This might be the case if a client wants to set an objects property that is not writable or that currently can not be set. The <code>message</code> property of <a href="#statusobject">StatusObject</a> may have information for the client to recognize the source of the conflict. This information is only for debugging and development purposes.</td>
+        <td>Resource specific treatment is necessary (e.g. media audioSource might be disabled during navigation announcements,  the clients tries to un-mute media). See <a href="https://tools.ietf.org/html/rfc7231#section-6.5.8">RFC7231 section 6.5.8</a> for more information.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.9">410</a></td>
+        <td>Gone</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.10">411</a></td>
+        <td>Length Required</td>
+        <td>Not applicable, see  <a href="https://tools.ietf.org/html/rfc7231#section-6.5.10">RFC7231 section 6.5.10</a>.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7232#section-4.2">412</a></td>
+        <td>Precondition Failed</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.11">413</a></td>
+        <td>Request Entity Too Large</td>
+        <td>Not applicable, see <a href="#paging">paging</a>.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.12">414</a></td>
+        <td>Request-URI Too Large</td>
+        <td>Not applicable, see <a href="https://tools.ietf.org/html/rfc7231#section-6.5.12">RFC7231 section 6.5.12</a>.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.13">415</a></td>
+        <td>Unsupported Media Type</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7233#section-4.4">416</a></td>
+        <td>Requested range not satisfiable</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.14">417</a></td>
+        <td>Expectation Failed</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+       <td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.15">426</a></td>
+        <td>Upgrade Required</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc6585#section-3">428</a></td>
+        <td>Precondition Required</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc6585#section-4">429</a></td>
+        <td>Too Many Requests</td>
+        <td>The user has sent too many requests in a given amount of time.</td>
+        <td>Used to rate-limit access to a certain resource or element</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc6585#section-5">431</a></td>
+        <td>Request Header Fields Too Large</td>
+        <td>Client send header fields which are to large or not correctly formated</td>
+        <td>Send smaller and correct header fields</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7725#section-3">451</a></td>
+        <td>Unavailable For Legal Reasons</td>
+        <td>A server operator has received a legal demand to deny access to a resource or to a set of resources that includes the requested resource.</td>
+        <td>Sent, when for any legal reason access to a resource or element is (temporarily) blocked</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.1">500</a></td>
+        <td>Internal Server Error</td>
+        <td>The server encountered an unexpected condition which prevented it from fulfilling the request.</td>
+        <td>There is no client-side fix/solution for this kind of errors.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.2">501</a></td>
+        <td>Not Implemented</td>
+        <td>The server does not support the functionality required to fulfill the request. Unless specified otherwise in service specific status code handling, this error indicates a not-permitted error.</td>
+        <td>Not applicable.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.3">502</a></td>
+        <td>Bad Gateway</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.4">503</a></td>
+        <td>Service Unavailable</td>
+        <td>Service is currently unable to handle the request. This implies a temporary problem which will be solved after a given delay. If known, the delay <strong>may</strong> be indicated in a <code>Retry-After</code> header.</td>
+        <td>Client should retry to submit the request after delay.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.5">504</a></td>
+        <td>Gateway Time-out</td>
+        <td>The request can not be fulfilled because server acts as a proxy and did not receive a timely response from remote component (e.g. ECU of driver assistance).</td>
+        <td>There is no client-side fix/solution for this kind of error. If the remote component is expected to be reachable after a delay in this power-cycle then server sends a response with status code 503.</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc7231#section-6.6.6">505</a></td>
+        <td>HTTP Version not supported</td>
+        <td>Not applicable.</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><a href="https://tools.ietf.org/html/rfc6585#section-6">511</a></td>
+        <td>Network Authentication Required</td>
+        <td>The connection to the vehicle infrastructure is not authenticated.</td>
+        <td>Reauthenticate the connection channel.</td>
+      </tr>
+      </tbody>
       </table>
-      <h4 id="handling-service-responses-with-respecting-status-codes">Handling service responses with respecting status codes</h4>
-      <p>To communicate with the services a client submits an HTTP request and waits for the response. A response is always sent with a status code. The service uses the pre-defined status codes when sending a response. Each client interpret the response with the respective status code.</p>
+      <h3 id="handling-service-responses-with-respecting-status-codes">Handling service responses with respecting status codes</h3>
+      <p>To communicate with the services a client submits an HTTP request and waits for the response. A response is always sent with a status code. The service uses the pre-defined status codes when sending a response. Each client interprets the response with the respective status code.</p>
       <p>Each status code is categorized as successful (2xx), redirection (3xx), client error (4xx) or server error (5xx). If status code is not successful, then the response must be handled by the client as following:</p>
       <ul>
         <li>If an error can be treated by a client, it is categorized as <strong>permitted errors</strong>. For each permitted error a treatment is defined.</li>
         <li>If an error can not be treated by the client, it is categorized as <strong>not permitted error</strong>.</li>
-        <li>Each service domain may overwrite <strong>permitted</strong> and <strong>not permitted</strong> errors.</li>
+        <li>Each service domain may define, which errors are <strong>permitted</strong> and <strong>not permitted</strong>.</li>
       </ul>
-      <h3 id="restful-api">RESTful API</h3>
-      <h4 id="general-information">General information</h4>
+      <h2 id="restful-api">RESTful API</h2>
+      <h3 id="general-information">General information</h3>
       <p>The REST architectural style describes six constraints:</p>
       <ul>
-        <li>uniform interface (resource based, self descriptive, ...)</li>
-        <li>statelessness (necessary state to handle the request is contained within the request itself)</li>
-        <li>cacheability (clients can cache responses)</li>
-        <li>client-server architecture (uniform interface separates client and server)</li>
-        <li>layered system (client cannot ordinarily tell whether it is connected directly or intermediary)</li>
-        <li>code on demand <code>optional</code> (Servers are able to temporarily extend or customize the functionality of a client by transferring logic to it)</li>
+      <li>uniform interface (resource based, self descriptive, ...)</li>
+      <li>statelessness (necessary state to handle the request is contained within the request itself)</li>
+      <li>cacheability (clients can cache responses)</li>
+      <li>client-server architecture (uniform interface separates client and server)</li>
+      <li>layered system (client cannot ordinarily tell whether it is connected directly or intermediary)</li>
+      <li>code on demand <code>optional</code> (Servers are able to temporarily extend or customize the functionality of a client by transferring logic to it)</li>
       </ul>
       <p>Conforming to the REST architectural style, will enable any kind of distributed system to have desirable emergent characteristics, such as performance, scalability, simplicity, modifiability, visibility, portability and reliability.</p>
       <p>These constraints, applied to the architecture, were originally communicated by Roy Fielding in his doctoral dissertation and define the basis of RESTful-style.</p>
-      <p>Source: <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.html">http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.html</a></p>
-      <h5 id="uniform-interface">Uniform interface</h5>
+      <p>Source: <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</a></p>
+      <h4 id="uniform-interface">Uniform interface</h4>
       <p>The uniform interface constraint defines the interface between clients and servers. It simplifies and decouples the architecture, which enables each part to evolve independently. The four guiding principles of the uniform interface are:</p>
       <h6 id="resource-based">Resource-based</h6>
       <p>Individual resources are identified in requests using URIs as
