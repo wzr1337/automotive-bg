@@ -780,8 +780,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>If an error can not be treated by the client, it is categorized as <strong>not permitted error</strong>.</li>
         <li>Each service domain may define, which errors are <strong>permitted</strong> and <strong>not permitted</strong>.</li>
       </ul>
-      <h2 id="restful-api">RESTful API</h2>
-      <h3 id="general-information">General information</h3>
+      <h3 id="restful-api">RESTful API</h3>
+      <h4 id="general-information">General information</h4>
       <p>The REST architectural style describes six constraints:</p>
       <ul>
       <li>uniform interface (resource based, self descriptive, ...)</li>
@@ -794,45 +794,23 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>Conforming to the REST architectural style, will enable any kind of distributed system to have desirable emergent characteristics, such as performance, scalability, simplicity, modifiability, visibility, portability and reliability.</p>
       <p>These constraints, applied to the architecture, were originally communicated by Roy Fielding in his doctoral dissertation and define the basis of RESTful-style.</p>
       <p>Source: <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</a></p>
-      <h4 id="uniform-interface">Uniform interface</h4>
+      <h5 id="uniform-interface">Uniform interface</h5>
       <p>The uniform interface constraint defines the interface between clients and servers. It simplifies and decouples the architecture, which enables each part to evolve independently. The four guiding principles of the uniform interface are:</p>
       <h6 id="resource-based">Resource-based</h6>
-      <p>Individual resources are identified in requests using URIs as
-      resource identifiers. The resources themselves are conceptually
-      separate from the representations that are returned to the
-      client. For example, the server does not send its database, but
-      rather, some HTML, XML or JSON that represents some database
-      records. For instance data for a finnish client, in Finnish
-      language and encoded in UTF-8, depending on the details of the request and the server implementation.</p>
+      <p>Individual resources are identified in requests using URIs as resource identifiers. The resources themselves are conceptually separate from the representations that are returned to the client. For example, the server does not send its database, but rather, some HTML, XML or JSON that represents some database records. For instance data for a finish client, in Finnish language and encoded in UTF-8, depending on the details of the request and the server implementation.</p>
       <h6 id="manipulation-of-resources-through-representations">Manipulation of resources through representations</h6>
       <p>When a client holds a representation of a resource, including any meta data attached, it has enough information to modify or delete the resource on the server, provided it has permission to do so.</p>
       <h6 id="self-descriptive-messages">Self-descriptive messages</h6>
       <p>Each message includes enough information to describe how to process the message. For example, which parser to invoke may be specified by an Internet media type (previously known as a MIME type). Responses also explicitly indicate their cache-ability.</p>
       <h6 id="hypermedia-as-the-engine-of-application-state-hateoas-">Hypermedia as the engine of application state (HATEOAS)</h6>
-      <p>Clients deliver state via body contents, query-string parameters, request headers and the requested URI (the resource name). Services deliver state to clients via body content, response codes, and response headers. This is technically referred-to as hypermedia (or hyperlinks within hypertext). Aside from the description above, HATEOS also means that, where necessary, links are contained in the returned body (or headers) to supply the URI for retrieval of the object itself or related objects. We'll talk about this in more detail later.</p>
+      <p>Clients deliver state via body contents, query-string parameters, request headers and the requested URI (the resource name). Services deliver state to clients via body content, response codes, and response headers. This is technically referred-to as hypermedia (or hyperlinks within hypertext).
+      Aside from the description above, HATEOAS also means that, where necessary, links are contained in the returned body (or headers) to supply the URI for retrieval of the object itself or related objects.</p>
       <p>The uniform interface that any REST services must provide is fundamental to its design.</p>
       <h5 id="statelessness">Statelessness</h5>
-      <p>As REST is an acronym for REpresentational State Transfer,
-      statelessness is key. Essentially, what this means is that the
-      necessary state to handle the request is contained within the
-      request itself, whether as part of the URI, query-string
-      parameters, body, or headers. The URI uniquely identifies the
-      resource and the body contains the state (or state change) of
-      that resource. Then after the server does it's processing, the
-      appropriate state, or the piece(s) of state that matter, are
-      communicated back to the client via headers, status and response
-      body. Classical - statefull - API design provides us with the
-      concept of programming within a container which maintains state
-      across multiple HTTP requests. In REST, the client must include
-      all information for the server to fulfill the request, resending
-      state as necessary if that state must span multiple
-      requests. Statelessness enables greater scalability since the
-      server does not have to maintain, update or communicate that
-      session state. Additionally, load balancers don't have to worry
-      about session affinity for stateless systems. So what's the
-      difference between state and a resource? State, or application
-      state, is that which the server cares about to fulfill a request
-      - data necessary for the current session or request. A resource, or resource state, is the data that defines the resource representation — the data stored in the database, for instance. Consider application state to be data that could vary by client, and per request. Resource state, on the other hand, is constant across every client who requests it. Ever had back-button issues with a web application where it went AWOL (Absent Without Official Leave - military jargon) at a certain point because it expected you to do things in a certain order? That's because it violated the statelessness principle. There are cases that don't honor the statelessness principle, such as three-legged OAuth, API call rate limiting, etc. However, make every effort to ensure that application state doesn't span multiple requests of your service(s).</p>
+      <p>As REST is an acronym for REpresentational State Transfer, statelessness is key. Essentially, what this means is that the necessary state to handle the request is contained within the request itself, whether as part of the URI, query-string parameters, body, or headers. The URI uniquely identifies the resource and the body contains the state (or state change) of that resource. Then after the server does it's processing, the appropriate state, or the piece(s) of state that matter, are communicated back to the client via headers, status and response body.
+      Classical - statefull - API design provides us with the concept of programming within a container which maintains state across multiple HTTP requests. In REST, the client must include all information for the server to fulfill the request, resending state as necessary if that state must span multiple requests. Statelessness enables greater scalability since the server does not have to maintain, update or communicate that session state. Additionally, load balancers don't have to worry about session affinity for stateless systems.
+      So what's the difference between state and a resource? State, or application state, is the one which the server cares about to fulfill a request - data necessary for the current session or request. A resource, or resource state, is the data that defines the resource representation — the data stored in the database, for instance. Consider application state to be data that could vary by client, and per request. Resource state, on the other hand, is constant across every client who requests it.
+      Ever had back-button issues with a web application where it went AWOL (Absent Without Official Leave - military jargon) at a certain point because it expected you to do things in a certain order? That's because it violated the statelessness principle. There are cases that don't honor the statelessness principle, such as three-legged OAuth, API call rate limiting, etc. However, make every effort to ensure that application state doesn't span multiple requests of your service(s).</p>
       <h5 id="cacheability">Cacheability</h5>
       <p>As on the World Wide Web, clients can cache responses. Responses must therefore, implicitly or explicitly, define themselves as cacheable, or not, to prevent clients reusing stale or inappropriate data in response to further requests. Well-managed caching partially or completely eliminates some client-server interactions, further improving scalability and performance.</p>
       <h5 id="client-server-architecture">Client-server architecture</h5>
