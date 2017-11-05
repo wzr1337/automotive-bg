@@ -820,7 +820,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h5 id="code-on-demand-optional-">Code-on-demand <code>optional</code></h5>
       <p>Servers are able to temporarily extend or customize the functionality of a client by transferring logic to it that it can execute. Examples of this may include compiled components such as Java applets and client-side scripts such as JavaScript.</p>
       <h4 id="application-to-viwi">Application to viwi</h4>
-      <p>The interfaces described inhere follow the RESTful (REST: Representational State Transfer) principles. The main concept in REST is the existence of resources (sources of specific information or services), each of which is referenced with a <code>uri</code> as global identifier. The RESTful API is used to retrieve information for the client (request) from the server (response), while Events provide a channel for communication in server to client direction (push information). The supported HTTP request methods are GET, POST, PUT and DELETE. The following table explains the main principle of interface definition for all services defined hereafter:</p>
+      <p>The interfaces described inhere follow the RESTful principles. The main concept in REST is the existence of resources (sources of specific information or services), each of which is referenced with a <code>uri</code> as global identifier. The RESTful API is used to retrieve information for the client (request) from the server (response), while Events provide a channel for communication in server to client direction (push information). The supported HTTP request methods are GET, POST, PUT and DELETE. The following table explains the main principle of interface definition for all services defined hereafter:</p>
       <table>
         <thead>
           <tr>
@@ -907,57 +907,53 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>A client can either delete entire <code>&lt;element&gt;</code>s or just properties on the <code>&lt;element&gt;</code>s properties specified in the <code>$fields</code> query parameters. The mandatory fields <code>id</code>, <code>name</code> and <code>uri</code> can not be deleted. In case of a writable <code>name</code> property on an <code>&lt;element&gt;</code>, a client can reset the name to <code>""</code> by POSTing.</p>
       <h6 id="example-element-deletion">Example element deletion</h6>
       <p>request:</p>
-      <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">medialibrary/tracks/01ACEB4B-002D-4060-A8EB-81868BF0BC37</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
-<span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
-<span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
-<span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
-</code></pre>
-      <p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">/medialibrary/tracks/01aceb4b-002d-4060-a8eb-81868bf0bc37</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
+      <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</span></code>
-</code></pre>
-      <h6 id="example-deletion-of-element-properties-artists-and-rating">Example deletion of element properties artists and rating</h6>
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</span></code>
+      </code></pre><h6 id="example-deletion-of-element-properties-artists-and-rating">Example deletion of element properties artists and rating</h6>
       <p>request:</p>
-      <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">medialibrary/tracks/01ACEB4B-002D-4060-A8EB-81868BF0BC37?$fields=artists,rating</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
-<span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
-<span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
-<span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
-</code></pre>
-      <p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">/medialibrary/tracks/01aceb4b-002d-4060-a8eb-81868bf0bc37?$fields=artists,rating</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
+      <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</span></code>
-</code></pre>
-      <h5 id="post">POST</h5>
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</span></code>
+      </code></pre><h5 id="post">POST</h5>
       <p>Creating or changing an entity should always be done in the most condensed way (one request) possible, except the client explicitly wants to execute a sequence.</p>
       <p>Creating e.g. an element is possible by providing no additional information in some cases and later in time modifying the newly created element to the desired state is possible. Nevertheless, providing all known information with the initial request ensures object integrity and minimum network traffic at the same time.</p>
       <p>Changing an element's properties subsequently may cause unwanted effects like flickering in the maprenderer's case or jumps in the mediarenderer's case.</p>
