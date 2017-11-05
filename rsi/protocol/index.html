@@ -824,54 +824,80 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <table>
         <thead>
           <tr>
-            <th></th>
-            <th>HTTP</th>
-            <th>HTTP</th>
-            <th>HTTP</th>
-            <th>HTTP</th>
-            <th>WebSocket</th>
+            <th>
+              <em>type</em>
+            </th>
+            <th>
+              <em>GET</em> (HTTP)</th>
+            <th>
+              <em>POST</em> (HTTP)</th>
+            <th>
+              <em>PUT</em> (HTTP)</th>
+            <th>
+              <em>DELETE</em> (HTTP)</th>
+            <th>
+              <em>subscribe</em> (WebSocket)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><em>type</em></td>
-            <td><em>GET</em></td>
-            <td><em>POST</em></td>
-            <td><em>PUT</em></td>
-            <td><em>DELETE</em></td>
-            <td><em>subscribe </em></td>
+            <td>root URI, such as
+              <code>/</code> or
+              <code>/api/v1/</code>
+            </td>
+            <td>
+              <strong>List</strong> the URIs and perhaps other details of the service known to the system.</td>
+            <td>n/a</td>
+            <td>
+              <strong>Register new service</strong> with the system. The new service's URI is assigned automatically and is returned by the
+              operation.</td>
+            <td>n/a</td>
+            <td>Get updated on
+              <strong>collection changes</strong> (e.g. addition, removal of elements)</td>
           </tr>
           <tr>
-            <td>root URI, such as <code>/</code> or <code>/api/v1/</code></td>
-            <td><strong>List</strong> the URIs and perhaps other details of the service known to the system.</td>
+            <td>service URI, such as
+              <code>/&lt;service&gt;/</code>
+            </td>
+            <td>
+              <strong>List</strong> all elements matching the request (including query parameters).</td>
             <td>n/a</td>
-            <td><strong>Register new service</strong> with the system. The new service's URI is assigned automatically and is returned by the operation.</td>
             <td>n/a</td>
-            <td>Get updated on <strong>collection changes</strong> (e.g. add, delete of elements)</td>
+            <td>
+              <strong>De-Register new service</strong> with the system.
+              <code>&lt;service&gt;</code> has to be accessed by its uuid. (special permissions needed)</td>
+            <td>Get updated on
+              <strong>collection changes</strong> (e.g. addition, removal of elements)</td>
           </tr>
           <tr>
-            <td>service URI, such as <code>/&lt;service&gt;/</code></td>
-            <td><strong>List</strong> the URIs and perhaps other details of the service resources.</td>
-            <td><strong>Create new resource</strong> within the service. The new resource's URI is assigned automatically and is returned by the operation.</td>
+            <td>Resource URI, such as
+              <code>/&lt;service&gt;/&lt;resource&gt;/</code>
+            </td>
+            <td>
+              <strong>List</strong> the URIs and perhaps other details of the collection's members.</td>
+            <td>
+              <strong>Create new element</strong> in collection or simultaneously
+              <strong>change a collecton of elements</strong>. The new element's URI is assigned automatically and is returned by the operation.</td>
             <td>n/a</td>
-            <td><strong>De-Register new service</strong> with the system. <code>&lt;service&gt;</code> has to be accessed by its uuid. (special permissions needed)</td>
-            <td>Get updated on <strong>collection changes</strong> (e.g. add, delete of elements)</td>
+            <td>n/a</td>
+            <td>Get updated on
+              <strong>collection changes</strong> (e.g. addition, removal of elements)</td>
           </tr>
           <tr>
-            <td>Resource URI, such as <code>/&lt;service&gt;/&lt;resource&gt;/</code></td>
-            <td><strong>List</strong> the URIs and perhaps other details of the collection's members.</td>
-            <td><strong>Create new element</strong> in collection or simultaneously <strong>change a collecton of elements</strong>. The new element's URI is assigned automatically and is returned by the operation.</td>
-            <td>n/a</td>
-            <td>n/a</td>
-            <td>Get updated on <strong>collection changes</strong> (e.g. add, delete of elements)</td>
-          </tr>
-          <tr>
-            <td>Element URI, such as <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code></td>
-            <td><strong>Retrieve</strong> a representation of the addressed <strong>member</strong> of the collection, expressed in an appropriate Internet media type.</td>
-            <td><strong>Update element</strong>. The updated element's URI is assigned automatically and is returned by the operation.</td>
-            <td><strong>Create new element</strong> in collection by sending the entire entity. The new element's URI is assigned accordingly.</td>
-            <td><strong>Delete</strong> the referred entity of the collection (or its attributes)</td>
-            <td>Get updated on <strong>element changes</strong> (e.g. playing tracks offset on media player)</td>
+            <td>Element URI, such as
+              <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>
+            </td>
+            <td>
+              <strong>Retrieve</strong> a representation of the addressed
+              <strong>member</strong> of the collection, expressed in an appropriate Internet media type.</td>
+            <td>
+              <strong>Update element</strong>. The updated element's URI is assigned automatically and is returned by the operation.</td>
+            <td>
+              <strong>Create new element</strong> in collection by sending the entire entity. The new element's URI is assigned accordingly.</td>
+            <td>
+              <strong>Delete</strong> the referred entity of the collection (or its attributes)</td>
+            <td>Get updated on
+              <strong>element changes</strong> (e.g. playing tracks offset on media player)</td>
           </tr>
         </tbody>
       </table>
