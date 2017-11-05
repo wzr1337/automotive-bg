@@ -1184,15 +1184,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h5 id="referenced-object">Referenced object</h5>
       <p>To search for a linked object, use its <code>&lt;uuid&gt;</code> as search value on the search key of its property name.</p>
       <p>request:</p>
-      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">medialibrary/tracks/?artists=bb3372f0-b527-11e3-a5e2-0800200c9a66</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
-<span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
-<span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
-<span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
-</code></pre>
-      <p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/medialibrary/tracks/?artists=bb3372f0-b527-11e3-a5e2-0800200c9a66</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
+      <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
 <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
 <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
