@@ -1716,28 +1716,26 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>The optional <em>interval</em> attribute specifies the update frequency in milliseconds for periodic updates, while the optional <em>updatelimit</em> attribute specifies the maximum update rate in milliseconds for ‘on change’ notification. If <em>interval</em> is set, <em>updatelimit</em> is always overruled.</p>
       <h5 id="on-change">On change</h5>
       <p>If <em>interval</em> is not set, the notification interval is defined ‘on change’ and can be limited by specifying an <em>updatelimit</em>. If an ‘on change’ occours before <em>updatelimit</em> elapsed, an event will be sent as soon as <em>updatelimit</em> elapsed. If there are multiple changes before the next possible update, only the last one know state is sent after <em>updatelimit</em> elapsed.</p>
+      <h5 id="automatic-subscription">Automatic subscription</h5>
+      <p>If <em>autosubscribe</em> is set as true while requesting subscription on resource level, the server will additionally subscribe the client as listener for all elements as well. Furthermore, the server is responsible for maintaining subscriptions, i.e. removing subscriptions for vanished elements, and adding subscriptions for new elements. This is a convenience mechanism used to avoid traffic when a client needs to watch a list of elements.</p>
+      <p>In case a client subscribes with  <code>$offset</code> and <code>$limit</code> set, only the elements of the requested list window are additionally subscribed.</p>
       <h4 id="unsubscribe">Unsubscribe</h4>
       <p>To unsubscribe an <code>event</code>, the client has to send the following JSON-serialized object to the server, regardless of the query parameters<code>?&lt;query-params&gt;</code> used to subscribe:</p>
       <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"unsubscribe"</span></span>,
-  "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;#&lt;uniqueid-per-session&gt;"</span>
-</span>}</code>
-</code></pre>
-      <p>The response to an <code>unsubscribe</code> shall follow the structure noted below if unsubscribing succeeds:</p>
-      <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"unsubscribe"</span></span>,
-  "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</code>
-</code></pre>
+        "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"unsubscribe"</span></span>,
+        "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
+        "<span class="hljs-attribute">autosubscribe</span>": <span class="hljs-value">&lt;<span class="hljs-literal">true</span>|<span class="hljs-literal">false</span>&gt;
+      </span>}</code>
+      </code></pre>
       <h4 id="reauthorize">reauthorize</h4>
-      <p>In case of expiring access tokens (cmp. <a href="#userauth">Authorization</a>), a subscription has to be re-authorizable. To reauthorize a subscription for an <code>&lt;event&gt;</code>, the client has to send the following JSON stringified object to the server:</p>
+      <p>In case of expiring access tokens (cmp. <a href="#userauth">authorization</a>), a subscription has to be re-authorizable.
+      To reauthorize a subscription for an <code>&lt;event&gt;</code>, the client has to send the following JSON stringified object to the server:</p>
       <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"reauthorize"</span>,
-  <span class="hljs-string">"event"</span> : <span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span>,
-  <span class="hljs-string">"Authorization"</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">token</span>&gt;</span>
-}</span></code>
-</code></pre>
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"reauthorize"</span>,
+        <span class="hljs-string">"event"</span> : <span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span>,
+        <span class="hljs-string">"authorization"</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">token</span>&gt;</span>
+      }</span></code>
+      </code></pre>
       <p>The subscription parameters do not change with <code>reauthorize</code>. The client will receive the same fields, with the same rates as for the original subscription.</p>
       <p>The response to a <code>reauthorize</code> must follow the structure if it succeeded or trigger an error message if it fails:</p>
       <pre><code class="lang-javascript"><code class="hljs javascript">{
