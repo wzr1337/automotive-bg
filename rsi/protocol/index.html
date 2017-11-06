@@ -957,44 +957,49 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>Creating or changing an entity should always be done in the most condensed way (one request) possible, except the client explicitly wants to execute a sequence.</p>
       <p>Creating e.g. an element is possible by providing no additional information in some cases and later in time modifying the newly created element to the desired state is possible. Nevertheless, providing all known information with the initial request ensures object integrity and minimum network traffic at the same time.</p>
       <p>Changing an element's properties subsequently may cause unwanted effects like flickering in the maprenderer's case or jumps in the mediarenderer's case.</p>
-      <h5 id="post-to-change-a-collection-of-elements">POST to change a collection of elements</h5>
-      <p>In order to allow simultaneous updates on different elements, combining query parameters as known from a <code>GET</code> request with a <code>POST</code> query on <code>&lt;resource&gt;</code> is used. The idea behind is that a query will select a sub-collection (filter) of the <code>&lt;resource&gt;</code>s elements for which the <code>POST</code> action shall be applied. This is particulary useful, for multi-element-transactions such as setting the color of multiple lights simultaneously. The request will only return a success if all changes were applied successfully, it will fail and return an appropriate code otherwise.</p>
-    <h5 id="light-decoration-example">Light decoration example</h5>
-    <p>Assuming a desire to change the light color of LEDs simultaneously for two decoration elements with the ids 0dde0b53-b862-44ec-bab2-045c049d220c and 1ca1b74-da9a-4933-baa5-1d6f0669dad0, a combined request would be sent instead of two subsequent ones.</p>
-
       <p>The protocol is based on the <strong>last-wins</strong> principle, i.e. last update arriving at the server determines the final state, disregarding the actual time gap between arrival of two subsequent requests.</p>
+      <h5 id="delete-collection-of-elements">DELETE collection of elements</h5>
+      <p>In order to allow simultaneous deletion of different elements, combining query parameters as known from a <code>GET</code> request with a <code>DELETE</code> query on <code>&lt;resource&gt;</code> is used. The idea behind is that a query will select a sub-collection (filter) of the <code>&lt;resource&gt;</code>s elements for which the <code>DELETE</code> action shall be applied. The request will only return a success if all deletions were successful, it will fail and return an appropriate code otherwise.</p>
       <p>request:</p>
-      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">dashboard/decoration/?id=0dde0b53-b862-44ec-bab2-045c049d220c,1ca1b74-da9a-4933-baa5-1d6f0669dad0</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
-<span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
-<span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
-<span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">color</span>": <span class="hljs-value"><span class="hljs-string">"blue"</span>
-</span>}</span></code>
-</code></pre>
-      <p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">/addressbook/contacts/?id=34a96130-4beb-47ed-b5e5-5a835907e0eb,2fb85b19-6eb6-49c1-87c5-dcb987aa23d6</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</span></code>
-</code></pre>
-      <h4 id="-a-name-caching-a-caching">
-        <a id="caching"></a>Caching</h4>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</span></code>
+      </code></pre><h5 id="post-to-change-a-collection-of-elements">POST to change a collection of elements</h5>
+      <p>In order to allow simultaneous updates on different elements, combining query parameters as known from a <code>GET</code> request with a <code>POST</code> query on <code>&lt;resource&gt;</code> is used. The idea behind is that a query will select a sub-collection (filter) of the <code>&lt;resource&gt;</code>s elements for which the <code>POST</code> action shall be applied. This is particularly useful for multi-element-transactions such as setting the color of multiple lights simultaneously. The request will only return a success if all changes were applied successfully, it will fail and return an appropriate code otherwise.</p>
+      <h6 id="light-decoration-example">Light decoration example</h6>
+      <p>Assuming a desire to change the light color of LEDs simultaneously for two decoration elements with the ids 0dde0b53-b862-44ec-bab2-045c049d220c and 1ca1b74-da9a-4933-baa5-1d6f0669dad0, a combined request would be sent instead of two subsequent ones.</p>
+      <p>request:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">POST <span class="hljs-string">/dashboard/decoration/?id=0dde0b53-b862-44ec-bab2-045c049d220c,1ca1b74-da9a-4933-baa5-1d6f0669dad0</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">color</span>": <span class="hljs-value"><span class="hljs-string">"blue"</span>
+      </span>}</span></code>
+      </code></pre><p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</span></code>
+      </code></pre><h4 id="-a-name-caching-a-caching"><a name="caching"></a>Caching</h4>
       <p>Cache control is established by using HTTP headers <code>ETag</code> and <code>If-None-Match</code> (cmp. <a href="https://tools.ietf.org/html/rfc7232#section-2.3">RFC 7232-2.3</a>). Mainly used for web cache validation, a client can make conditional requests based on the response. This allows caches to be more efficient, saves bandwidth and avoid cache-sync problems as a service does not need to send a full response if the content has not changed and a client can use the cached information. This also applies to service-service communication, especially when service <code>A</code> references element owned by service <code>B</code>. <code>A</code> will act as a client and use its own cached information if no changes where detected by <code>B</code>.</p>
       <p>The basic sequence is:
       First: ask for an entity</p>
