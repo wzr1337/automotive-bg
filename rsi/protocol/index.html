@@ -1147,52 +1147,51 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
       </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-  "<span class="hljs-attribute">data</span>":<span class="hljs-value">[
-    {
-    "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-    "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
-    "<span class="hljs-attribute">duration</span>":<span class="hljs-value"><span class="hljs-number">42</span></span>,
-    "<span class="hljs-attribute">artists</span>":<span class="hljs-value">[
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
       {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">albums</span>":<span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/FT1hZIPBHX.gif"</span></span>,
-    "<span class="hljs-attribute">genres</span>":<span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">rating</span>" : <span class="hljs-value"><span class="hljs-string">"5"</span></span>,
-    "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
-    </span>}
-  ]
-</span>}</span></code>
-</code></pre>
-      <h5 id="referenced-object">Referenced object</h5>
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>":<span class="hljs-value">[
+          {
+          "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+          "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
+          "<span class="hljs-attribute">duration</span>":<span class="hljs-value"><span class="hljs-number">42</span></span>,
+          "<span class="hljs-attribute">artists</span>":<span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">albums</span>":<span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/FT1hZIPBHX.gif"</span></span>,
+          "<span class="hljs-attribute">genres</span>":<span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">rating</span>" : <span class="hljs-value"><span class="hljs-string">"5"</span></span>,
+          "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
+          </span>}
+        ]
+      </span>}</span></code>
+      </code></pre><h5 id="referenced-object">Referenced object</h5>
       <p>To search for a linked object, use its <code>&lt;uuid&gt;</code> as search value on the search key of its property name.</p>
       <p>request:</p>
       <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/medialibrary/tracks/?artists=bb3372f0-b527-11e3-a5e2-0800200c9a66</span> HTTP/1.1</span>
@@ -1204,52 +1203,51 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
       </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-  "<span class="hljs-attribute">data</span>":<span class="hljs-value">[
-    {
-    "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-    "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
-    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
-    "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
       {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/FT1hZIPBHX.png"</span></span>,
-    "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
-    "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
-    </span>}
-  ]
-</span>}</span></code>
-</code></pre>
-      <h4 id="fields">Fields</h4>
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>":<span class="hljs-value">[
+          {
+          "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+          "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
+          "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
+          "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/FT1hZIPBHX.png"</span></span>,
+          "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+          "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
+          </span>}
+        ]
+      </span>}</span></code>
+      </code></pre><h4 id="fields">Fields</h4>
       <p>Every <code>GET</code> request is filterable by using the request parameter <code>$fields</code>. The parameter accepts a comma separated list of attribute names. For event subscriptions, the <code>$fields</code> parameter can be set as well. The fields defined by <a href="#XObject">XObject</a> are mandatory, i.e. these are always part of the response. If no ‘field’ parameter is given, the client gets an unfiltered response.</p>
       <h4 id="sorting">Sorting</h4>
       <p>Similar to searching, a generic parameter <code>$sortby</code> can be used for <code>GET</code> requests on resource level to describe sorting rules. Accommodate complex sorting requirements by letting the sort parameter take in a list of comma separated fields, each with a possible unary negative to imply descending sort order.</p>
@@ -1281,66 +1279,65 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
       </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-    "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-    "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
       {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
-    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-    "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">discs</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-    "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image09720.png"</span></span>,
-    "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-  </span>}
-</span>}</span></code>
-</code></pre>
-      <h4 id="single-property-expansion">Single property expansion</h4>
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+          "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+          "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
+          "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+          "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">discs</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+          "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image09720.png"</span></span>,
+          "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+        </span>}
+      </span>}</span></code>
+      </code></pre><h4 id="single-property-expansion">Single property expansion</h4>
       <p>A client might want to expand just a single property on a given element. To achieve single property expansion, a client adds an <code>$expand</code> parameter followed by a comma separated list of property names.</p>
       <p>request:</p>
       <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66?$expand=artists</span> HTTP/1.1</span>
@@ -1352,340 +1349,336 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
       </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-    "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-    "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
       {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-        "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
-        "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image837943.jpg"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
-        "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
-        "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">".dev.portrait2"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
-    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
-    "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">discs</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-    "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image834543.jpg"</span></span>,
-    "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-  </span>}
-</span>}</span></code>
-</code></pre>
-      <h4 id="level-expansion">level expansion</h4>
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+          "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+          "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+              "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+              "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image837943.jpg"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
+              "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
+              "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">".dev.portrait2"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
+          "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
+          "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">discs</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+          "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image834543.jpg"</span></span>,
+          "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+        </span>}
+      </span>}</span></code>
+      </code></pre><h4 id="level-expansion">level expansion</h4>
       <p>A client might want to expand all properties on a certain level for a given element. To achieve level expansion, a client adds an <code>$expand</code> parameter followed a number specifying the expansion level (0-3).</p>
       <p>request:</p>
-      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66?$expand=1</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
-<span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
-<span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
-<span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
-</code></pre>
-      <p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66?$expand=1</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Chrome/34.0.1847.137 Safari/537.36</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip,deflate</span>
+      <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-    "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-    "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
       {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-        "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
-        "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image65476.jpg"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
-        "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
-        "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image837943.jpg"</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
-    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-    "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
-        "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">8</span></span>,
-        "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/We9Hv47YeG.jpg"</span></span>,
-        "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">disc</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>},
-      {
-        "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
-        "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
-        "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">13</span></span>,
-        "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/ZYnb9UpJxU.png"</span></span>,
-        "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>},
-          {
-            "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
-            "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
-            "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
-          </span>}
-        ]</span>,
-        "<span class="hljs-attribute">disc</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-        "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-        "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
-      </span>}
-    ]</span>,
-    "<span class="hljs-attribute">discs</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-    "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/af7643.jpg"</span></span>,
-    "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
-  </span>}
-</span>}</span></code>
-</code></pre>
-      <h4 id="-a-name-paging-a-paging">
-        <a id="paging"></a>Paging</h4>
-      <p>Every GET request is filterable by using the request parameter <code>$offset</code> and <code>$limit</code>. Using these parameters, a list response can be offset by <code>$offset</code> and limited to a total length of <code>$limit</code>. E.g. <code>GET /tuner/stations?$offset=5&amp;$limit=10</code> returns a list of 10 elements in total, starting with the 6th (lists start with index 0) element, closing with the 15th element. Both parameters are applicable for events and requests. The response and event payload may contain a <code>paging</code> property to help the client determining the previous and next page of results.</p>
-      <p><code>$offset</code> can be either an integer value or an <code>uuid</code>. E.g. <code>GET /tuner/stations?$offset=932e5b1e-1848-11e5-b60b-1697f925ec7b&amp;$limit=10</code> returns a list of 10 elements in total, starting with the element <code>932e5b1e-1848-11e5-b60b-1697f925ec7b</code>.</p>
-      <p><code>$limit</code> can be any positive or negative integer. Negative values will return a list of elements before the <code>$offset</code>, <code>$offset</code> being the last element, positive values let the returned list start at <code>$offset</code>.</p>
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+          "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+          "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+              "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+              "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"me and my empty wallet"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/1ebe63c0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image65476.jpg"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
+              "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
+              "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/image837943.jpg"</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">42</span></span>,
+          "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+          "<span class="hljs-attribute">tracks</span>": <span class="hljs-value">[
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"coin"</span></span>,
+              "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">8</span></span>,
+              "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"5088aaa0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"where is my car"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/5088aaa0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/We9Hv47YeG.jpg"</span></span>,
+              "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">disc</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/6ec6abc0-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>},
+            {
+              "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"9df7f840-b528-11e3-a5e2-0800200c9a66"</span></span>,
+              "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"wumpel"</span></span>,
+              "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">13</span></span>,
+              "<span class="hljs-attribute">artists</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b527-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"ich"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b527-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"bb3372f0-b500-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"du"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/artists/bb3372f0-b500-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">albums</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"6149c270-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"its in my pocket"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/ZYnb9UpJxU.png"</span></span>,
+              "<span class="hljs-attribute">genres</span>": <span class="hljs-value">[
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"81c816a0-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Pop"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/81c816a0-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>},
+                {
+                  "<span class="hljs-attribute">id</span>" : <span class="hljs-value"><span class="hljs-string">"92884410-b528-11e3-a5e2-0800200c9a66"</span></span>,
+                  "<span class="hljs-attribute">name</span>" : <span class="hljs-value"><span class="hljs-string">"Rock"</span></span>,
+                  "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/genres/92884410-b528-11e3-a5e2-0800200c9a66"</span>
+                </span>}
+              ]</span>,
+              "<span class="hljs-attribute">disc</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+              "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+              "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/tracks/9df7f840-b528-11e3-a5e2-0800200c9a66"</span>
+            </span>}
+          ]</span>,
+          "<span class="hljs-attribute">discs</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+          "<span class="hljs-attribute">image</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/cdn/images/af7643.jpg"</span></span>,
+          "<span class="hljs-attribute">uri</span>" : <span class="hljs-value"><span class="hljs-string">"http://127.0.0.1:1337/medialibrary/albums/6149c270-b528-11e3-a5e2-0800200c9a66"</span>
+        </span>}
+      </span>}</span></code>
+      </code></pre><h4 id="-a-name-paging-a-paging"><a name="paging"></a>Paging</h4>
+      <p>Every request is filterable by using the request parameter <code>$offset</code> and <code>$limit</code>. Using these parameters, a list response can be offset by <code>$offset</code> and limited to a total length of <code>$limit</code>. E.g. <code>GET /tuner/stations/?$offset=5&amp;$limit=10</code> returns a list of 10 elements in total, starting with the 6th (lists start with index 0) element, closing with the 15th element. Both parameters are applicable for requests and subscriptions. The response and event payload contains a <code>paging</code> object if there are multiple pages to let the client know the previous and next page of results (if applicable). If at least <code>$offset</code> or <code>$limit</code> are provided with the query the <code>paging</code> object is contained in the response.</p>
+      <p><code>$offset</code> can be either an integer value or an <code>uuid</code>. E.g. <code>GET /tuner/stations/?$offset=932e5b1e-1848-11e5-b60b-1697f925ec7b&amp;$limit=10</code> returns a list of 10 elements in total, starting with the element <code>932e5b1e-1848-11e5-b60b-1697f925ec7b</code>.</p>
+      <p><code>$limit</code> can be any positive or negative integer. Positive values let the returned list start at <code>$offset</code>. Negative values will return a list of elements before the <code>$offset</code>, with <code>$offset</code> being just out of scope for the repsonse, i.e. the <code>$offset</code> will be behind the last element returned.</p>
+      <p>The <a href="#pagingobject"><code>PagingObject</code></a> will hold all neccessary information within the <a href="#responseobject"><code>responseObject</code></a>.</p>
       <p><em>Retrieve from the end of a list</em></p>
-      <p>To retrieve a list backwards a client might use a query with negative <code>$limit</code> AND negative <code>$offset</code>. The index -1 marks the last element of a list. E.g. <code>GET /tuner/stations?$offset=-1&amp;$limit=-10</code> will return the last 10 last, <code>$offset=-1</code> marks the last element.</p>
+      <p>To retrieve a list backwards a client might use a query with negative <code>$limit</code> AND negative <code>$offset</code>. The index -1 marks the last element of a list. E.g. <code>GET /tuner/stations/?$offset=-1&amp;$limit=-10</code> will return the last 10 last, <code>$offset=-1</code> marks the last element.</p>
       <p>Paging is not only available on resource level but also on nested lists, even though paging nested lists does not tell the client about the previous and next page. Paging nested lists is only possible together with <code>$fields</code> filtering by adding <code>($offset:&lt;offset&gt;,$limit:&lt;limit&gt;)</code> to the expanded or filtered property name in the query string, link in <code>/addressbook/contacts/?$fields=emails($offset:0,$limit:2)</code>.</p>
       <p><em>Service initiated paging</em></p>
-      <p>In case of queries that can not be answered at once, a service may send a partial result with paging information attached. E.g. if a client queries <code>/navigation/pois</code> (without any filters), the result list might be too big to transfer, so the service will initiate the paging of the result itself, by sending a certain number of results and setting the paging properties accordingly.</p>
+      <p>In case of queries that can not be answered with a single response, a service sends a partial result with paging information attached. E.g. if a client queries <code>/navigation/pois</code> (without any filters), the result list might be too big to transfer, so the service will initiate the paging of the result itself, by sending a certain number of results and setting the paging properties accordingly.</p>
       <h4 id="timestamping">Timestamping</h4>
       <p>All responses can carry an optional relative <code>timestamp</code>. The <code>timestamp</code> is defined as Integer and expresses the time difference in milliseconds between system boot and message creation. The regular interval is limited to 10 milliseconds so that valid values for <code>timestamp</code> always comply to</p>
       <pre><code><code class="hljs applescript">  timestamp <span class="hljs-keyword">mod</span> <span class="hljs-number">10</span> = <span class="hljs-number">0</span></code>
-</code></pre>
       <h3 id="-a-name-publishsubscribe-a-publish-subscribe">
         <a id="PublishSubscribe"></a>Publish-subscribe</h3>
 	<p>In order to allow a server pushing information to a client, the WebSocket technology is used. Any client may register for events on the <code>GET</code> url of a query it is interested in to receive update by this push mechanism.</p>
@@ -1702,21 +1695,21 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h4 id="subscribe">Subscribe</h4>
       <p>To subscribe to an <code>&lt;event&gt;</code>, the client has to send the following JSON stringified object to the server:</p>
       <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"subscribe"</span></span>,
-  "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-  "<span class="hljs-attribute">interval</span>": <span class="hljs-value">&lt;timeStepInMs&gt;</span>,
-  "<span class="hljs-attribute">updatelimit</span>": <span class="hljs-value">&lt;timeStepInMs&gt;</span>,
-  "<span class="hljs-attribute">Authorization</span>": <span class="hljs-value">&lt;token&gt;
-</span>}</code>
-</code></pre>
-      <p>The fields a client is interested in and also the number of items defined by <code>$offset</code> and <code>$limit</code> parameters have to be send in the <em>optional</em> <code>&lt;query-params&gt;</code> section of the subscription. In case a client subscribes with <code>$offset</code> and <code>$limit</code> set, a list window is subscribed.</p>
-      <p>The response to a <code>subscribe</code> must follow the structure if it succeeded or trigger an error message if it fails:</p>
+        "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"subscribe"</span></span>,
+        "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
+        "<span class="hljs-attribute">interval</span>": <span class="hljs-value">&lt;timeStepInMs&gt;</span>,
+        "<span class="hljs-attribute">updatelimit</span>": <span class="hljs-value">&lt;timeStepInMs&gt;</span>,
+        "<span class="hljs-attribute">authorization</span>": <span class="hljs-value">&lt;token&gt;</span>,
+      </span>}</code>
+      </code></pre>
+      <p>The fields a client is interested in and also the number of items defined by <code>$offset</code> and <code>$limit</code> parameters have to be send in the <em>optional</em> <code>&lt;query-params&gt;</code> section of the subscription. In case a client subscribes with  <code>$offset</code> and <code>$limit</code> set, a list window is subscribed.</p>
+      <p>The response to a <code>subscribe</code> must follow the structure if it succeeded or trigger an <a href="#subscriptionerror">error message</a> if it fails:</p>
       <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"subscribe"</span></span>,
-  "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</code>
-</code></pre>
+        "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"subscribe"</span></span>,
+        "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</code>
+      </code></pre>
       <h4 id="filtering">Filtering</h4>
       <p>The subscription takes an optional list of <code>&lt;attrName&gt;</code> strings named <em>fields</em> that specify the attributes the client wants to subscribe to.</p>
       <h5 id="periodic">Periodic</h5>
