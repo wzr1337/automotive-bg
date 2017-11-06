@@ -2062,119 +2062,128 @@ d2cb3c92-ad8f-<span class="hljs-number">496f</span>-b463-<span class="hljs-numbe
       <h3 id="schema">Schema</h3>
       <p>All object properties make use JSON Schema definitions <a href="https://tools.ietf.org/html/rfc7159">RFC7159</a>. In addition to the formats defined in RFC7159 the <code>date-time</code>, <code>date</code> and <code>time</code> formats are derived but not identical to the definition in <a href="https://tools.ietf.org/html/rfc3339">RFC3339</a>. APIs may also use the following (proprietary) formats:</p>
       <pre><code><code class="hljs json">{
-  "<span class="hljs-attribute">uuid</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"unique identifier"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fAF]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"388d3a25-663b-11e3-949a-0800200c9a66"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">geoposition</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"latitude followed by longitude and altitude in meters separated by ';'"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[-+]?[0-9]*\.?[0-9]*;[-+]?[0-9]*\.?[0-9]*;[-+]?[0-9]*\.?[0-9]*$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"37.772323;-122.214897;0"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">e164telephonenumber</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"E.164 encoded Telephone number"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\+?\d{4,23}$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"+49536190"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">macaddress</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"device mac address"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"a3:3E:ff:e3:01:fe"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">rgba</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"rgba color with alpha"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})(?:,\s*(\d(?:\.\d+)?))?\)$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"rgba(25,9,19,0.4)"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">language</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"HTTP1.1 compatible language tag"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^(\w{2})(-\w*)?$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"en-gb"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">servicecategory</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"plain string category name"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[a-z]$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"car"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">duration</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"iso8601 duration"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^P\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"P0003-06-04T12:30:05"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">temperatureUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"temperature measurement unit"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[KCF]{1}$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"C"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">distanceUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"distance unit"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^mi|km|yd|m|ft$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"km"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">pressureUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"pressure measurement unit"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^bar|psi|kPa$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"bar"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">volumeUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"volume measurement unit (ul = microliter)"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^l|ml|ul|gal$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"ml"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">consumptionUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"consumption measurement unit (fluid, gas, electric)"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^l/100km|l/h|km/l|mpgUS|mpgUK|g/h|kg/100km|km/kg|kg/h|m3/100km|km/m3|m3/h|miles/lbs|lbs/h|miles/yard3|yard3/h|miles/kg|miles/m3|kWh/100km|km/kWh|kWh/100miles|miles/kWh|kW|Ws|miles/gal_eqUS$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"l/h"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">weightUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"consumption measurement unit (fluid, gas, electric)"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^t|kg|g|mg|lbs$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"kg"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">speedUnit</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"speed unit"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^kmh|mph|m/s$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"kmh"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">timeFormat</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"the time format for clocks"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^12h|24h$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"12h"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">dateFormat</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"date format"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^ddmmyyyy|mmddyyyy|yyyymmdd$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"mmddyyyy"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">date-time</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"date-time (based on RFC3339 5.6) detailed fraction"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?((Z|(\+|\-)\d{2}:\d{2}))$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"2005-11-12T12:01:42.123+01:00"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">time</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"time (based on RFC3339 5.6) detailed fraction"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{2}:\d{2}:\d{2}(\.\d{3})?((Z|(\+|\-)\d{2}:\d{2}))$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"12:01:42.123+01:00"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">date</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"date (RFC3339 5.6)"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{4}-\d{2}-\d{2}$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"2005-11-12"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">uri</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"uri with schema http(s) or w/o Authority"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^(https?:(\/\/([a-z0-9\-._~%]+|\[[a-f0-9:.]+\])(:[0-9]+)?))?(\/[a-z0-9\-._~%!@include("</span>assets/formats.json<span class="hljs-string">")'()*+,;=:@]+)*\/?(\?[a-z0-9\-._~%!@include("</span>assets/formats.json<span class="hljs-string">")'()*+,;=:@\/?]*)?(\#[a-z0-9\-._~%!@include("</span>assets/formats.json<span class="hljs-string">")'()*+,;=:@\/?]*)?$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/aDocument?foo#bar"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">ical</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">description</span>":<span class="hljs-value"><span class="hljs-string">"iCal format defined in https://tools.ietf.org/html/rfc5545"</span></span>,
-    "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^BEGIN:VCALENDAR[\S\s]+END:VCALENDAR$"</span></span>,
-    "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"BEGIN:VCALENDAR  END:VCALENDAR"</span>
-  </span>}
-</span>}</code>
-</code></pre>
-      <p>It is also allowed to define a dedicated regular expression pattern as format on property definition level.</p>
+        "<span class="hljs-attribute">uuid</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"unique identifier"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"388d3a25-663b-11e3-949a-0800200c9a66"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">geoposition</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"latitude followed by longitude and altitude in meters separated by ';'"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[-+]?[0-9]*\.?[0-9]*;[-+]?[0-9]*\.?[0-9]*;[-+]?[0-9]*\.?[0-9]*$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"37.772323;-122.214897;0"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">e164telephonenumber</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"E.164 encoded Telephone number"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\+?\d{4,23}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"+49536190"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">macaddress</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"device mac address"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"a3:3E:ff:e3:01:fe"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">rgba</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"rgba color with alpha"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})(?:,\s*(\d(?:\.\d+)?))?\)$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"rgba(25,9,19,0.4)"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">language</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"HTTP1.1 compatible language tag"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^(\w{2})(-\w*)?$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"en-gb"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">servicecategory</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"plain string category name"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[a-z]*$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"car"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">duration</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"iso8601 duration"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^P\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"P0003-06-04T12:30:05"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">temperatureUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"temperature measurement unit"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^[KCF]{1}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"C"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">distanceUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"distance unit"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^mi|km|yd|m|ft$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"km"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">pressureUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"pressure measurement unit"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^bar|psi|kPa$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"bar"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">volumeUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"volume measurement unit (ul = microliter, us.dry.gal = dry US gallon, us.liq.gal = liquid US gallon, imp.gal = imperial gallon)"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^l|ml|ul|us.liq.gal|us.dry.gal|imp.gal$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"ml"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">consumptionUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"consumption measurement unit (fluid, gas, electric)"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^l/100km|l/h|km/l|mpgUS|mpgUK|g/h|kg/100km|km/kg|kg/h|m3/100km|km/m3|m3/h|miles/lbs|lbs/h|miles/yard3|yard3/h|miles/kg|miles/m3|kWh/100km|km/kWh|kWh/100miles|miles/kWh|kW|Ws|miles/gal_eqUS$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"l/h"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">weightUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"consumption measurement unit (fluid, gas, electric)"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^t|kg|g|mg|lbs$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"kg"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">speedUnit</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"speed unit"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^kmh|mph|m/s$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"kmh"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">timeFormat</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"the time format for clocks"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^12h|24h$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"12h"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">dateFormat</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"date format"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^ddmmyyyy|mmddyyyy|yyyymmdd$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"mmddyyyy"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">date-time</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"date-time (based on RFC3339 5.6) detailed fraction"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?((Z|(\+|\-)\d{2}:\d{2}))$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"2005-11-12T12:01:42.123+01:00"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">time</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"time (based on RFC3339 5.6) detailed fraction"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{2}:\d{2}:\d{2}(\.\d{3})?((Z|(\+|\-)\d{2}:\d{2}))$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"12:01:42.123+01:00"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">date</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"date (RFC3339 5.6)"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{4}-\d{2}-\d{2}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"2005-11-12"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">uri</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"uri with schema http(s) or w/o Authority"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"(https?:(\/\/([a-z0-9\-._~%]+|\[[a-f0-9:.]+\])(:[0-9]+)?))?(\/[a-zA-Z0-9\-._~%!&amp;\$'()*+,;=:@]+)*\/?(\?[a-zA-Z0-9\-._~%!&amp;\$'()*+,;=:@\/?]*)?(\#[a-zA-Z0-9\-._~%!&amp;\$'()*+,;=:@\/?]*)?"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/aDocument?foo#bar"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">ical</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>":<span class="hljs-value"><span class="hljs-string">"iCal format defined in https://tools.ietf.org/html/rfc5545"</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^BEGIN:VCALENDAR[\S\s]+END:VCALENDAR$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"BEGIN:VCALENDAR  END:VCALENDAR"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">point2D</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The coordinates of a point, where “0;0” is the upper left corner of the coordinate system."</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{6};\d{6}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"300;200"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">rectangle2D</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The description of a rectangle. The first two values describe the upper left corner of the rectangle, where “0;0” is the upper left corner of the coordinate system. Value 3 describes the width, value 4 the height of the rectangle."</span></span>,
+          "<span class="hljs-attribute">regex</span>": <span class="hljs-value"><span class="hljs-string">"^\d{6};\d{6};\d{6};\d{6}$"</span></span>,
+          "<span class="hljs-attribute">example</span>": <span class="hljs-value"><span class="hljs-string">"0;0;1280;640"</span>
+        </span>}
+      </span>}</code>
+      </code></pre><p>It is also allowed to define a dedicated regular expression pattern as format on property definition level.</p>
       <h4 id="number-vs-integer">number vs integer</h4>
       <p>JSON does not allow non-numbers like <code>NaN</code>, nor does it make any distinction between integer and floating point. If the format <code>integer</code> is used in this document or the object definitions, the meaning is that a service will send and expect integer values. The parsing must be compatible with parsing a number into an integer, because there is no distinction during transfer (<code>on the wire</code>). If the format is defined as <code>number</code>, neither client nor service may parse it as an integer.</p>
       <h4 id="language-tags">Language tags</h4>
@@ -2457,15 +2466,14 @@ d2cb3c92-ad8f-<span class="hljs-number">496f</span>-b463-<span class="hljs-numbe
 </code></pre>
       <p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> Created</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">Location</span>: <span class="hljs-string">&lt;URI of created service&gt;</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</span></code>
-</code></pre>
-      <h3 id="unregistration">Unregistration</h3>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">Location</span>: <span class="hljs-string">&lt;URI of created service&gt;</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</span></code>
+      </code></pre><h3 id="unregistration">Unregistration</h3>
       <p>Unregistration is only allowed on <code>id</code> level, i.e. by sending <code>DELETE</code>. <code>DELETE</code> requests on other accessing paths will result in a <a href="#httpstatuscodes">status code</a> 400 Bad request</p>
       <p>request:</p>
       <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">/&lt;service_uuid&gt;</span> HTTP/1.1</span>
