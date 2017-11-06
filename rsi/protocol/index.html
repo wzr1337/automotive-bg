@@ -1687,7 +1687,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>Definition: An event is considered ‘on change’ if two subsequent GET requests on the corresponding url would result in different responses on the first level ($expand=0) of the response object. E.g. if an element object is added or removed from a list of objects an ‘on change’ event is fired or if the name property of a member element object is changed.</p>
       <p><strong>ATTENTION</strong> Subscriptions on levels other than <code>&lt;element&gt;</code> do only support expand level 0.</p>
       <p>An event message is defined as object serialized to JSON that is transmitted via WebSocket. The term <code>&lt;event&gt;</code> specifies the event <code>uri</code> a client wants to subscribe to, unsubscribe from, receive or emit messages for.</p>
-      <p>The <code>&lt;event&gt;</code> follows the the similar syntax as a regular GET request, including query parameters</p>
+      <p>The <code>&lt;event&gt;</code> follows the the similar syntax as a regular GET request</p>
       <pre><code><code class="hljs xml">    /<span class="hljs-tag">&lt;<span class="hljs-title">service</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">resource</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">element</span>&gt;</span>?<span class="hljs-tag">&lt;<span class="hljs-title">query-params</span>&gt;</span>#<span class="hljs-tag">&lt;<span class="hljs-title">uniqueid-per-session</span>&gt;</span></code>
 </code></pre>
       <p>While <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code> describes the actual event <code>uri</code>, or <code>/&lt;service&gt;/&lt;resource&gt;/</code> describes the resource name, the <code>&lt;uniqueid-per-session&gt;</code> parameter allows multiple subscription for the same event with different fields of interest, update rate or updatelimit on client side. Therefore an <em>optional</em> <code>&lt;uniqueid-per-session&gt;</code> is generated on client side. The server does not care about the <code>&lt;uniqueid-per-session&gt;</code> as it is pure client side information. The server <strong>must not</strong> alter or remove <code>&lt;uniqueid-per-session&gt;</code> from the event uri. The <em>optional</em> <code>&lt;query-params&gt;</code> section of the subscription contains the <code>GET</code> parameters, a regular <code>GET</code> query would have in polling mode.</p>
@@ -1700,6 +1700,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         "<span class="hljs-attribute">interval</span>": <span class="hljs-value">&lt;timeStepInMs&gt;</span>,
         "<span class="hljs-attribute">updatelimit</span>": <span class="hljs-value">&lt;timeStepInMs&gt;</span>,
         "<span class="hljs-attribute">authorization</span>": <span class="hljs-value">&lt;token&gt;</span>,
+        "<span class="hljs-attribute">autosubscribe</span>": <span class="hljs-value">&lt;<span class="hljs-literal">true</span>|<span class="hljs-literal">false</span>&gt;
       </span>}</code>
       </code></pre>
       <p>The fields a client is interested in and also the number of items defined by <code>$offset</code> and <code>$limit</code> parameters have to be send in the <em>optional</em> <code>&lt;query-params&gt;</code> section of the subscription. In case a client subscribes with  <code>$offset</code> and <code>$limit</code> set, a list window is subscribed.</p>
@@ -1727,6 +1728,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         "<span class="hljs-attribute">autosubscribe</span>": <span class="hljs-value">&lt;<span class="hljs-literal">true</span>|<span class="hljs-literal">false</span>&gt;
       </span>}</code>
       </code></pre>
+      <h5 id="automatic-unsubscription">Automatic unsubscription</h5>
+      <p>If <em>autosubscribe</em> is set as true while requesting unsubscription on resource level, the server will additionally unsubscribe the client as listener for all elements as well.</p>
+      <p>In case a client unsubscribes with  <code>$offset</code> and <code>$limit</code> set, only the elements of the requested list window are additionally unsubscribed.</p>
       <h4 id="reauthorize">reauthorize</h4>
       <p>In case of expiring access tokens (cmp. <a href="#userauth">authorization</a>), a subscription has to be re-authorizable.
       To reauthorize a subscription for an <code>&lt;event&gt;</code>, the client has to send the following JSON stringified object to the server:</p>
@@ -1739,11 +1743,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>The subscription parameters do not change with <code>reauthorize</code>. The client will receive the same fields, with the same rates as for the original subscription.</p>
       <p>The response to a <code>reauthorize</code> must follow the structure if it succeeded or trigger an error message if it fails:</p>
       <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"reauthorize"</span>,
-  <span class="hljs-string">"event"</span> : <span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span>,
-  <span class="hljs-string">"status"</span> : <span class="hljs-string">"ok"</span>
-}</code>
-</code></pre>
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"reauthorize"</span>,
+        <span class="hljs-string">"event"</span> : <span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span>,
+        <span class="hljs-string">"status"</span> : <span class="hljs-string">"ok"</span>
+      }</code>
+      </code></pre>
       <h4 id="data">Data</h4>
       <p>For now, only the server is able to emit <code>data</code> events. The emitted data is expected to be a JSON formatted object:</p>
       <pre><code class="lang-json"><code class="hljs json">{
@@ -1807,12 +1811,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h4 id="-a-name-subscriptionerror-a-error"><a name="subscriptionerror"></a> Error</h4>
       <p>If any error on the server side occurs an object with type ‘error’ is sent. The following JSON format shall be used:</p>
       <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"error"</span></span>,
-  "<span class="hljs-attribute">code</span>": <span class="hljs-value">&lt;identifier&gt;</span>,
-  "<span class="hljs-attribute">event</span>": <span class="hljs-value">/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;#&lt;uniqueid-per-session&gt;</span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;errormessage&gt;
-</span>}</code>
-</code></pre>
+        "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"error"</span></span>,
+        "<span class="hljs-attribute">code</span>": <span class="hljs-value">&lt;identifier&gt;</span>,
+        "<span class="hljs-attribute">event</span>": <span class="hljs-value">/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;#&lt;uniqueid-per-session&gt;</span>,
+        "<span class="hljs-attribute">message</span>": <span class="hljs-value">&lt;errormessage&gt;
+      </span>}</code>
+      </code></pre>
       <p>The content in <code>&lt;errormessage&gt;</code> must be a describing string for the error, while code contains an identifier from the error codes table.</p>
       <p><strong>Note</strong>: The request leading to this error is NOT processed, i.e. neither subscription, nor unsubscription is processed!</p>
       <p>In case of an error during subscription, an immediate response (e.g. code 403) is sent.</p>
@@ -1865,8 +1869,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="rest-is-not-rpc">REST is not RPC</h3>
       <p>While RPC APIs expose procedures to perform the necessary steps to get from one state to another on the servers side, the REST API has to be understood in a OO (object oriented) way. The server is providing an interface to its objects/models. The client requests changes of the servers models/objects properties.</p>
       <p>There is no mechanism defined to use RPC via the interfaces described in here for a reason. There is no need to, because the server models/objects are defined accordingly.</p>
-      <h3 id="-a-name-exploration-a-exploration">
-        <a id="exploration"></a>Exploration</h3>
+      <h3 id="-a-name-exploration-a-exploration"><a name="exploration"></a>Exploration</h3>
       <p>The server provides access its own interfaces by an explore mechanism via GET.</p>
       <p>The client can start exploring a server from its root (e.g. <code>/</code>or <code>/api/v2/</code>) endpoint, which returns a list of available services.
       </p>
