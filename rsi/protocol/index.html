@@ -2543,21 +2543,32 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p><img src="img/diagram3.png" alt="virtual elements"></p>
       <p><em>Using this approach would allow to conditionally show a previous/next button on client side depending on the relation between current item an List end/beginning. If an element follows, skip is available, if an element precedes, previous is available.</em></p>
       <p><strong>Note</strong> please be aware that this approach only works for unique list elements.Using an index instead of an item reference might be appropriate in some cases.</p>
-      <h2 id="-a-name-apiversioning-a-api-versioning">
-        <a id="APIversioning"></a>API versioning</h2>
+      <h3 id="memory-management">Memory Management</h3>
+      <p>Utilizing RSI as microservice architecture, there are multiple parties creating a lot of resource instances. This section describes a guideline regarding memory management.</p>
+      <p>Typically, the lion's share of instances will be created by services themselves. The lifecycle of an instance is managed by the service that created it. In other words: Each service is responsible for deploying an reasonable memory management strategy (e.g. garbage collection).</p>
+      <p><strong>Limitation</strong>
+      While there won't be a prescribed strategy how to implement this feature, a service <em>must not</em> remove an instance</p>
+      <ul>
+        <li>any (other) party is subscribed to</li>
+        <li>a known reference from another instance exists to</li>
+      </ul>
+      <p>On the other hand, if a client creates an instance, it should be aware of the footprint it is leaving and - if not longer required - remove the instance by deleting it contemporary.</p>
+      <p>A consequence following the limitation mentioned above: If a client removes an instance another client has subscribed to in the meantime, the hosting service should send a appropriate status message (e.g. <em>409 conflict</em>) and keep the instance. The service is then responsible for managing this specific instance.</p>
+      <pre><code><code class="hljs smali">As a rule of thumb the party who is creating an<span class="hljs-instruction"> instance </span>is responsible for managing its lifecycle.</code>
+      </code></pre><h2 id="-a-name-apiversioning-a-api-versioning"><a name="APIversioning"></a>API versioning</h2>
       <p>Building APIs requires more thought up front than agile developer might be used to. Paths, data structure, meta-data and extensibility are important and would be best considered up front. Once those decisions have been made, changes to the structure would potentially result in breaking compatibility to older versions of the API. Thus, API design and setting some rules for future consistency is important.</p>
       <p>The versioning discussed in here only applies to the interface definition and does not tell anything about the service or client versions that implement the interface.</p>
-      <h3 id="-a-name-semver-a-semantic-versioning">
-        <a id="semVer"></a>Semantic versioning</h3>
+      <h3 id="-a-name-semver-a-semantic-versioning"><a name="semVer"></a>Semantic versioning</h3>
       <p>The versioning is based on <a href="http://semver.org/">SemVer 2.0.0</a>. The rules defined there do apply with the following exception.</p>
       <p>The multi digit version number, separated by "." consists of the three:</p>
       <ul>
         <li>major: the API is <strong>entirely reworked</strong></li>
         <li>minor: the API has <strong>breaking changes</strong> to other versions</li>
-        <li>patch: the API has <strong>compatible changes</strong> (including fixes) to other versions that compile to the version number <code>major.minor.patch</code></li>
+        <li>patch: the API has <strong>compatible changes</strong> (including fixes) to other versions
+      that compile to the version number <code>major.minor.patch</code></li>
       </ul>
       <p>The <code>major</code>version can also be considered as the generation which can be part of the root level uri seen in the document (e.g. <code>/api/v1/</code>).</p>
-      <h5 id="reasons-for-changing-the-major-version">Reasons for changing the major version</h5>
+      <h4 id="reasons-for-changing-the-major-version">Reasons for changing the major version</h4>
       <p>In case of a total rework of the API, a new major version has to be used. The following actions are considered being a total rework:</p>
       <ul>
         <li>rearrangement/restructure of <code>&lt;service&gt;</code>s and their <code>&lt;resource&gt;</code>s, i.e. new <code>&lt;service&gt;</code>s are created, older disappear, resources are assigned to a different <code>&lt;service&gt;</code></li>
@@ -2588,33 +2599,26 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>Entities on all level may be deprecated at some point in time. Following the versioning rules, an API can only be marked as <code>deprecated</code> on <code>patch</code> level, being removed earliest on <code>minor</code> level. Marking means putting a marker <code>@deprecated:</code> in front of the description of the entity in question. In case of a replacement, an additional marking <code>@replacedby:</code> is strongly recommended to be placed into the description too.</p>
       <h4 id="pre-release-tagging">Pre-release tagging</h4>
       <p>Any API version can be pre-released mainly for review purposes, following the pre-release rules of SemVer (§9 @ SemVer2.0.0).</p>
-      <h4 id="-a-name-versionranges-a-version-ranges">
-        <a id="versionranges"></a> version ranges</h4>
+      <h4 id="-a-name-versionranges-a-version-ranges"><a name="versionranges"></a> version ranges</h4>
       <p>To express the support of a version range, a service might register with range notation. Only the SemVer (§9 @ SemVer2.0.0) notation <code>~</code> is supported and expresses a range:</p>
       <pre><code><code class="hljs fix"><span class="hljs-attribute">  1.4.1 &lt;</span>=<span class="hljs-string"> ~1.4.1 &lt; 1.5.0</span></code>
-</code></pre>
-      <p>The <code>^</code> notation is NOT supported.</p>
-      <h4 id="-a-name-accessversionedinterface-a-accessing-the-interface-certain-version-">
-        <a id="accessversionedinterface"></a>Accessing the interface (certain version)</h4>
+      </code></pre><p>The <code>^</code> notation is NOT supported.</p>
+      <h4 id="-a-name-accessversionedinterface-a-accessing-the-interface-certain-version-"><a name="accessversionedinterface"></a>Accessing the interface (certain version)</h4>
       <p>To access a specific API version, the client has to provide the desired version indication in the Accept-Header. If no such information is provided, the latest available version is used.</p>
-      <p>To indicate the desired version, the vendor tree following <a href="http://tools.ietf.org/html/rfc4288#section-3.2">http://tools.ietf.org/html/rfc4288#section-3.2</a> is used:</p>
+      <p>To indicate the desired version, the vendor tree following  <a href="http://tools.ietf.org/html/rfc4288#section-3.2">http://tools.ietf.org/html/rfc4288#section-3.2</a> is used:</p>
       <pre><code><code class="hljs xml">Accept: application/vnd.viwi.v<span class="hljs-tag">&lt;<span class="hljs-title">MAJOR</span>&gt;</span>.<span class="hljs-tag">&lt;<span class="hljs-title">MINOR</span>&gt;</span>.<span class="hljs-tag">&lt;<span class="hljs-title">PATCH</span>&gt;</span>+json</code>
-</code></pre>
-      <p>To access the API version 1.4.2 the Accept Header would be:</p>
+      </code></pre><p>To access the API version 1.4.2 the Accept Header would be:</p>
       <pre><code><code class="hljs stylus">Accept: application/vnd<span class="hljs-class">.viwi</span><span class="hljs-class">.v1</span>.<span class="hljs-number">4.2</span>+json</code>
-</code></pre>
-       <p>The response API version shall be at least at the requested API version <code>patch</code> level. The response API version <strong>must</strong> at least match the requested <code>major</code> or <code>minor</code> version.</p>
+      </code></pre><p>The response API version shall be at least at the requested API version <code>patch</code> level. The response API version <strong>must</strong> at least match the requested <code>major</code> or <code>minor</code> version.</p>
       <h4 id="per-service-versioning">Per service versioning</h4>
       <p>Every <code>&lt;service&gt;</code> can work with its own API version, while the resources provided by this <code>&lt;service&gt;</code> have to be consistent with the <code>&lt;service&gt;</code> version.</p>
       <p>There is <strong>NO</strong> package versioning that groups <code>&lt;service&gt;</code> versions into an overall API (global) version.</p>
       <p>Every <code>&lt;service&gt;</code> will tell its supported versions by setting the <code>versions</code> property of the <code>&lt;service&gt;</code> object to a list of supported versions.</p>
-      <h2 id="-a-name-service_registry-a-service-registry">
-        <a id="service_registry"></a> Service registry</h2>
+      <h2 id="-a-name-service_registry-a-service-registry"><a name="service_registry"></a> Service registry</h2>
       <p>A service will register itself by <code>PUT</code>ing itself into the root level providing information about itself with the <a href="#serviceObject">serviceObject</a>. It can unregister itself by using <code>DELETE</code>.</p>
       <p>A detailed explanation of the registration process can be found in an external <code>ServiceRegistry_MSC_*</code> document.</p>
-      <h3 id="-a-name-serviceobject-a-serviceobject">
-        <a id="serviceObject"></a>serviceObject</h3>
-      <p>In order to register a service with the <a href="#service_registry">service registry</a>, a special object called <code>serviceObject</code>, inherited from <a href="#XObject">xObject</a>, definition is available.</p>
+      <h3 id="-a-name-serviceobject-a-serviceobject"><a name="serviceObject"></a>serviceObject</h3>
+      <p>In order to register a service with the <a href="#service_registry">service registry</a>, a special object called <code>serviceObject</code>, inherited from <a href="#XObject">XObject</a>, definition is available.</p>
       <pre><code class="lang-javascript"><code class="hljs javascript">{
   <span class="hljs-string">"id"</span>: {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
