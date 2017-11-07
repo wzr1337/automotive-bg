@@ -2220,55 +2220,147 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>JSON does not allow non-numbers like <code>NaN</code>, nor does it make any distinction between integer and floating point. If the format <code>integer</code> is used in this document or the object definitions, the meaning is that a service will send and expect integer values. The parsing must be compatible with parsing a number into an integer, because there is no distinction during transfer (<code>on the wire</code>). If the format is defined as <code>number</code>, neither client nor service may parse it as an integer.</p>
       <h4 id="language-tags">Language tags</h4>
       <p>The specified JSON format <code>language</code> allows the following tags:</p>
-      <pre><code class="lang-javascript"><code class="hljs javascript">[
-  <span class="hljs-string">"ar"</span>,     <span class="hljs-comment">// arabic</span>
-  <span class="hljs-string">"az"</span>,     <span class="hljs-comment">// azerbaijanian</span>
-  <span class="hljs-string">"bg"</span>,     <span class="hljs-comment">// bulgarian</span>
-  <span class="hljs-string">"bs"</span>,     <span class="hljs-comment">// bosnian</span>
-  <span class="hljs-string">"cs"</span>,     <span class="hljs-comment">// czech</span>
-  <span class="hljs-string">"da"</span>,     <span class="hljs-comment">// danish</span>
-  <span class="hljs-string">"de"</span>,     <span class="hljs-comment">// german</span>
-  <span class="hljs-string">"el"</span>,     <span class="hljs-comment">// greek</span>
-  <span class="hljs-string">"en-gb"</span>,  <span class="hljs-comment">// english UK</span>
-  <span class="hljs-string">"en-us"</span>,  <span class="hljs-comment">// english US</span>
-  <span class="hljs-string">"es-es"</span>,  <span class="hljs-comment">// spanish</span>
-  <span class="hljs-string">"es-mx"</span>,  <span class="hljs-comment">// spanish US</span>
-  <span class="hljs-string">"et"</span>,     <span class="hljs-comment">// estonian</span>
-  <span class="hljs-string">"fi"</span>,     <span class="hljs-comment">// finnish</span>
-  <span class="hljs-string">"fr-ca"</span>,  <span class="hljs-comment">// frensh cnadian</span>
-  <span class="hljs-string">"fr-fr"</span>,  <span class="hljs-comment">// french</span>
-  <span class="hljs-string">"hi"</span>,     <span class="hljs-comment">// hindi</span>
-  <span class="hljs-string">"hr"</span>,     <span class="hljs-comment">// croatian</span>
-  <span class="hljs-string">"hu"</span>,     <span class="hljs-comment">// hungarian</span>
-  <span class="hljs-string">"id"</span>,     <span class="hljs-comment">// indonesian</span>
-  <span class="hljs-string">"it"</span>,     <span class="hljs-comment">// italian</span>
-  <span class="hljs-string">"ja"</span>,     <span class="hljs-comment">// japanese</span>
-  <span class="hljs-string">"ko"</span>,     <span class="hljs-comment">// korean</span>
-  <span class="hljs-string">"lt"</span>,     <span class="hljs-comment">// lithuanian</span>
-  <span class="hljs-string">"lv"</span>,     <span class="hljs-comment">// latvian</span>
-  <span class="hljs-string">"ms"</span>,     <span class="hljs-comment">// malaysian</span>
-  <span class="hljs-string">"nl"</span>,     <span class="hljs-comment">// dutch</span>
-  <span class="hljs-string">"no"</span>,     <span class="hljs-comment">// norwegian</span>
-  <span class="hljs-string">"pl"</span>,     <span class="hljs-comment">// polish</span>
-  <span class="hljs-string">"pt-br"</span>,  <span class="hljs-comment">// portuguese brazil</span>
-  <span class="hljs-string">"pt-pt"</span>,  <span class="hljs-comment">// portuguese</span>
-  <span class="hljs-string">"pt-pt"</span>,  <span class="hljs-comment">// portuguese US</span>
-  <span class="hljs-string">"ro"</span>,     <span class="hljs-comment">// romanian</span>
-  <span class="hljs-string">"ru"</span>,     <span class="hljs-comment">// russian</span>
-  <span class="hljs-string">"sk"</span>,     <span class="hljs-comment">// slovak</span>
-  <span class="hljs-string">"sl"</span>,     <span class="hljs-comment">// slowenian</span>
-  <span class="hljs-string">"sr"</span>,     <span class="hljs-comment">// serbian</span>
-  <span class="hljs-string">"sv"</span>,     <span class="hljs-comment">// swedish</span>
-  <span class="hljs-string">"th"</span>,     <span class="hljs-comment">// thai</span>
-  <span class="hljs-string">"tr"</span>,     <span class="hljs-comment">// turkish</span>
-  <span class="hljs-string">"uk"</span>      <span class="hljs-comment">// ukranian</span>
-  <span class="hljs-string">"zh-cn"</span>,  <span class="hljs-comment">// chinese mandarin</span>
-  <span class="hljs-string">"zh-hk"</span>,  <span class="hljs-comment">// chinese cantonese</span>
-  <span class="hljs-string">"zh-tw"</span>,  <span class="hljs-comment">// chinese tradional</span>
-]</code>
-</code></pre>
-      <h4 id="-a-name-servicecategorynames-a-service-category-names">
-        <a id="serviceCategoryNames"></a>Service category names</h4>
+      <pre><code class="lang-javascript"><code class="hljs javascript">LANGUAGE TAGS
+      [
+      <span class="hljs-string">"af"</span>,    <span class="hljs-comment">//Afrikaans</span>
+      <span class="hljs-string">"ar"</span>,    <span class="hljs-comment">//Arabic</span>
+      <span class="hljs-string">"ar-ae"</span>, <span class="hljs-comment">//Arabic (U.A.E.)</span>
+      <span class="hljs-string">"ar-bh"</span>, <span class="hljs-comment">//Arabic (Bahrain)</span>
+      <span class="hljs-string">"ar-dz"</span>, <span class="hljs-comment">//Arabic (Algeria)</span>
+      <span class="hljs-string">"ar-eg"</span>, <span class="hljs-comment">//Arabic (Egypt)</span>
+      <span class="hljs-string">"ar-iq"</span>, <span class="hljs-comment">//Arabic (Iraq)</span>
+      <span class="hljs-string">"ar-jo"</span>, <span class="hljs-comment">//Arabic (Jordan)</span>
+      <span class="hljs-string">"ar-kw"</span>, <span class="hljs-comment">//Arabic (Kuwait)</span>
+      <span class="hljs-string">"ar-lb"</span>, <span class="hljs-comment">//Arabic (Lebanon)</span>
+      <span class="hljs-string">"ar-ly"</span>, <span class="hljs-comment">//Arabic (Libya)</span>
+      <span class="hljs-string">"ar-ma"</span>, <span class="hljs-comment">//Arabic (Morocco)</span>
+      <span class="hljs-string">"ar-om"</span>, <span class="hljs-comment">//Arabic (Oman)</span>
+      <span class="hljs-string">"ar-qa"</span>, <span class="hljs-comment">//Arabic (Qatar)</span>
+      <span class="hljs-string">"ar-sa"</span>, <span class="hljs-comment">//Arabic (Saudi Arabia)</span>
+      <span class="hljs-string">"ar-sy"</span>, <span class="hljs-comment">//Arabic (Syria)</span>
+      <span class="hljs-string">"ar-tn"</span>, <span class="hljs-comment">//Arabic (Tunisia)</span>
+      <span class="hljs-string">"ar-ye"</span>, <span class="hljs-comment">//Arabic (Yemen)</span>
+      <span class="hljs-string">"az"</span>,    <span class="hljs-comment">//Azerbaijanian</span>
+      <span class="hljs-string">"be"</span>,    <span class="hljs-comment">//Belarusian</span>
+      <span class="hljs-string">"bg"</span>,    <span class="hljs-comment">//Bulgarian</span>
+      <span class="hljs-string">"bn"</span>,    <span class="hljs-comment">//Bengali</span>
+      <span class="hljs-string">"bs"</span>,    <span class="hljs-comment">//Bosnian</span>
+      <span class="hljs-string">"ca"</span>,    <span class="hljs-comment">//Catalan</span>
+      <span class="hljs-string">"cs"</span>,    <span class="hljs-comment">//Czech</span>
+      <span class="hljs-string">"da"</span>,    <span class="hljs-comment">//Danish</span>
+      <span class="hljs-string">"de"</span>,    <span class="hljs-comment">//German</span>
+      <span class="hljs-string">"de-at"</span>, <span class="hljs-comment">//German (Austria)</span>
+      <span class="hljs-string">"de-ch"</span>, <span class="hljs-comment">//German (Switzerland)</span>
+      <span class="hljs-string">"de-li"</span>, <span class="hljs-comment">//German (Liechtenstein)</span>
+      <span class="hljs-string">"de-lu"</span>, <span class="hljs-comment">//German (Luxembourg)</span>
+      <span class="hljs-string">"el"</span>,    <span class="hljs-comment">//Greek</span>
+      <span class="hljs-string">"en"</span>,    <span class="hljs-comment">//English (Caribbean)</span>
+      <span class="hljs-string">"en-au"</span>, <span class="hljs-comment">//English (Australia)</span>
+      <span class="hljs-string">"en-bz"</span>, <span class="hljs-comment">//English (Belize)</span>
+      <span class="hljs-string">"en-ca"</span>, <span class="hljs-comment">//English (Canada)</span>
+      <span class="hljs-string">"en-cn"</span>, <span class="hljs-comment">//English (Chinese)</span>
+      <span class="hljs-string">"en-gb"</span>, <span class="hljs-comment">//English (United Kingdom)</span>
+      <span class="hljs-string">"en-ie"</span>, <span class="hljs-comment">//English (Ireland)</span>
+      <span class="hljs-string">"en-ja"</span>, <span class="hljs-comment">//English (Japanese)</span>
+      <span class="hljs-string">"en-jm"</span>, <span class="hljs-comment">//English (Jamaica)</span>
+      <span class="hljs-string">"en-ko"</span>, <span class="hljs-comment">//English (Korean)</span>
+      <span class="hljs-string">"en-nz"</span>, <span class="hljs-comment">//English (New Zealand)</span>
+      <span class="hljs-string">"en-tt"</span>, <span class="hljs-comment">//English (Trinidad)</span>
+      <span class="hljs-string">"en-tw"</span>, <span class="hljs-comment">//English (Taiwanese)</span>
+      <span class="hljs-string">"en-us"</span>, <span class="hljs-comment">//English (United States)</span>
+      <span class="hljs-string">"en-za"</span>, <span class="hljs-comment">//English (South Africa)</span>
+      <span class="hljs-string">"es"</span>,    <span class="hljs-comment">//Spanish</span>
+      <span class="hljs-string">"es-ar"</span>, <span class="hljs-comment">//Spanish (Argentina)</span>
+      <span class="hljs-string">"es-bo"</span>, <span class="hljs-comment">//Spanish (Bolivia)</span>
+      <span class="hljs-string">"es-cl"</span>, <span class="hljs-comment">//Spanish (Chile)</span>
+      <span class="hljs-string">"es-co"</span>, <span class="hljs-comment">//Spanish (Colombia)</span>
+      <span class="hljs-string">"es-cr"</span>, <span class="hljs-comment">//Spanish (Costa Rica)</span>
+      <span class="hljs-string">"es-do"</span>, <span class="hljs-comment">//Spanish (Dominican Republic)</span>
+      <span class="hljs-string">"es-ec"</span>, <span class="hljs-comment">//Spanish (Ecuador)</span>
+      <span class="hljs-string">"es-gt"</span>, <span class="hljs-comment">//Spanish (Guatemala)</span>
+      <span class="hljs-string">"es-hn"</span>, <span class="hljs-comment">//Spanish (Honduras)</span>
+      <span class="hljs-string">"es-mx"</span>, <span class="hljs-comment">//Spanish (Mexico)</span>
+      <span class="hljs-string">"es-ni"</span>, <span class="hljs-comment">//Spanish (Nicaragua)</span>
+      <span class="hljs-string">"es-pa"</span>, <span class="hljs-comment">//Spanish (Panama)</span>
+      <span class="hljs-string">"es-pe"</span>, <span class="hljs-comment">//Spanish (Peru)</span>
+      <span class="hljs-string">"es-pr"</span>, <span class="hljs-comment">//Spanish (Puerto Rico)</span>
+      <span class="hljs-string">"es-py"</span>, <span class="hljs-comment">//Spanish (Paraguay)</span>
+      <span class="hljs-string">"es-sv"</span>, <span class="hljs-comment">//Spanish (El Salvador)</span>
+      <span class="hljs-string">"es-uy"</span>, <span class="hljs-comment">//Spanish (Uruguay)</span>
+      <span class="hljs-string">"es-ve"</span>, <span class="hljs-comment">//Spanish (Venezuela)</span>
+      <span class="hljs-string">"et"</span>,    <span class="hljs-comment">//Estonian</span>
+      <span class="hljs-string">"eu"</span>,    <span class="hljs-comment">//Basque (Basque)</span>
+      <span class="hljs-string">"fa"</span>,    <span class="hljs-comment">//Farsi</span>
+      <span class="hljs-string">"fi"</span>,    <span class="hljs-comment">//Finnish</span>
+      <span class="hljs-string">"fo"</span>,    <span class="hljs-comment">//Faeroese</span>
+      <span class="hljs-string">"fr"</span>,    <span class="hljs-comment">//French</span>
+      <span class="hljs-string">"fr-be"</span>, <span class="hljs-comment">//French (Belgium)</span>
+      <span class="hljs-string">"fr-ca"</span>, <span class="hljs-comment">//French (Canada)</span>
+      <span class="hljs-string">"fr-ch"</span>, <span class="hljs-comment">//French (Switzerland)</span>
+      <span class="hljs-string">"fr-lu"</span>, <span class="hljs-comment">//French (Luxembourg)</span>
+      <span class="hljs-string">"ga"</span>,    <span class="hljs-comment">//Irish</span>
+      <span class="hljs-string">"gd"</span>,    <span class="hljs-comment">//Gaelic (Scotland)</span>
+      <span class="hljs-string">"gl"</span>,    <span class="hljs-comment">//Galician</span>
+      <span class="hljs-string">"he"</span>,    <span class="hljs-comment">//Hebrew</span>
+      <span class="hljs-string">"hi"</span>,    <span class="hljs-comment">//Hindi</span>
+      <span class="hljs-string">"hr"</span>,    <span class="hljs-comment">//Croatian</span>
+      <span class="hljs-string">"hu"</span>,    <span class="hljs-comment">//Hungarian</span>
+      <span class="hljs-string">"hy"</span>,    <span class="hljs-comment">//Armenian</span>
+      <span class="hljs-string">"id"</span>,    <span class="hljs-comment">//Indonesian</span>
+      <span class="hljs-string">"is"</span>,    <span class="hljs-comment">//Icelandic</span>
+      <span class="hljs-string">"it"</span>,    <span class="hljs-comment">//Italian</span>
+      <span class="hljs-string">"it-ch"</span>, <span class="hljs-comment">//Italian (Switzerland)</span>
+      <span class="hljs-string">"ja"</span>,    <span class="hljs-comment">//Japanese</span>
+      <span class="hljs-string">"ji"</span>,    <span class="hljs-comment">//Yiddish</span>
+      <span class="hljs-string">"ka"</span>,    <span class="hljs-comment">//Georgian</span>
+      <span class="hljs-string">"ko"</span>,    <span class="hljs-comment">//Korean</span>
+      <span class="hljs-string">"lb"</span>,    <span class="hljs-comment">//Luxembourgish</span>
+      <span class="hljs-string">"lt"</span>,    <span class="hljs-comment">//Lithuanian</span>
+      <span class="hljs-string">"lv"</span>,    <span class="hljs-comment">//Latvian</span>
+      <span class="hljs-string">"mk"</span>,    <span class="hljs-comment">//Macedonian (FYROM)</span>
+      <span class="hljs-string">"mn"</span>,    <span class="hljs-comment">//Mongolian</span>
+      <span class="hljs-string">"ms"</span>,    <span class="hljs-comment">//Malaysian</span>
+      <span class="hljs-string">"mt"</span>,    <span class="hljs-comment">//Maltese</span>
+      <span class="hljs-string">"nl"</span>,    <span class="hljs-comment">//Dutch</span>
+      <span class="hljs-string">"nl-be"</span>, <span class="hljs-comment">//Dutch (Belgium)</span>
+      <span class="hljs-string">"no"</span>,    <span class="hljs-comment">//Norwegian</span>
+      <span class="hljs-string">"pl"</span>,    <span class="hljs-comment">//Polish</span>
+      <span class="hljs-string">"pt"</span>,    <span class="hljs-comment">//Portuguese (Portugal)</span>
+      <span class="hljs-string">"pt-br"</span>, <span class="hljs-comment">//Portuguese (Brazil)</span>
+      <span class="hljs-string">"pt-us"</span>, <span class="hljs-comment">//Portuguese (US)</span>
+      <span class="hljs-string">"rm"</span>,    <span class="hljs-comment">//Rhaeto-Romanic</span>
+      <span class="hljs-string">"ro"</span>,    <span class="hljs-comment">//Romanian</span>
+      <span class="hljs-string">"ro-mo"</span>, <span class="hljs-comment">//Romanian (Republic of Moldova)</span>
+      <span class="hljs-string">"ru"</span>,    <span class="hljs-comment">//Russian</span>
+      <span class="hljs-string">"ru-mo"</span>, <span class="hljs-comment">//Russian (Republic of Moldova)</span>
+      <span class="hljs-string">"sb"</span>,    <span class="hljs-comment">//Sorbian</span>
+      <span class="hljs-string">"sk"</span>,    <span class="hljs-comment">//Slovak</span>
+      <span class="hljs-string">"sl"</span>,    <span class="hljs-comment">//Slovenian</span>
+      <span class="hljs-string">"sq"</span>,    <span class="hljs-comment">//Albanian</span>
+      <span class="hljs-string">"sr"</span>,    <span class="hljs-comment">//Serbian (Cyrillic)</span>
+      <span class="hljs-string">"sr"</span>,    <span class="hljs-comment">//Serbian (Latin)</span>
+      <span class="hljs-string">"sv"</span>,    <span class="hljs-comment">//Swedish</span>
+      <span class="hljs-string">"sv-fi"</span>, <span class="hljs-comment">//Swedish (Finland)</span>
+      <span class="hljs-string">"sx"</span>,    <span class="hljs-comment">//Sutu</span>
+      <span class="hljs-string">"sz"</span>,    <span class="hljs-comment">//Sami (Lappish)</span>
+      <span class="hljs-string">"th"</span>,    <span class="hljs-comment">//Thai</span>
+      <span class="hljs-string">"tn"</span>,    <span class="hljs-comment">//Tswana</span>
+      <span class="hljs-string">"tr"</span>,    <span class="hljs-comment">//Turkish</span>
+      <span class="hljs-string">"ts"</span>,    <span class="hljs-comment">//Tsonga</span>
+      <span class="hljs-string">"uk"</span>,    <span class="hljs-comment">//Ukrainian</span>
+      <span class="hljs-string">"ur"</span>,    <span class="hljs-comment">//Urdu</span>
+      <span class="hljs-string">"uz"</span>,    <span class="hljs-comment">//Uzbek</span>
+      <span class="hljs-string">"ve"</span>,    <span class="hljs-comment">//Venda</span>
+      <span class="hljs-string">"vi"</span>,    <span class="hljs-comment">//Vietnamese</span>
+      <span class="hljs-string">"xh"</span>,    <span class="hljs-comment">//Xhosa</span>
+      <span class="hljs-string">"zh-cn"</span>, <span class="hljs-comment">//Chinese (PRC)</span>
+      <span class="hljs-string">"zh-hk"</span>, <span class="hljs-comment">//Chinese (Hong Kong SAR)</span>
+      <span class="hljs-string">"zh-sg"</span>, <span class="hljs-comment">//Chinese (Singapore)</span>
+      <span class="hljs-string">"zh-tw"</span>, <span class="hljs-comment">//Chinese (Taiwan)</span>
+      <span class="hljs-string">"zu"</span>     <span class="hljs-comment">//Zulu</span>
+      ]</code>
+      </code></pre>
+      <h4 id="-a-name-servicecategorynames-a-service-category-names"><a name="serviceCategoryNames"></a>Service category names</h4>
       <p>Services are categorized to let clients register and find similar services. Services are found via <code>GET</code>on root level, using the query parameter <code>?servicecategory=&lt;name&gt;</code>, wherein <code>&lt;name&gt;</code> is one of the following category names:</p>
       <pre><code class="lang-javascript"><code class="hljs javascript">[
         <span class="hljs-string">"addresses"</span>,        <span class="hljs-comment">// address related information</span>
