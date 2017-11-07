@@ -1751,63 +1751,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h4 id="data">Data</h4>
       <p>For now, only the server is able to emit <code>data</code> events. The emitted data is expected to be a JSON formatted object:</p>
       <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"data"</span></span>,
-  "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;payload&gt;</span>,
-  "<span class="hljs-attribute">paging</span>" : <span class="hljs-value">{
-    "<span class="hljs-attribute">total</span>": <span class="hljs-value">Integer</span>,
-    "<span class="hljs-attribute">totalPages</span>": <span class="hljs-value">Integer
-  </span>}</span>,
-  "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value">Integer
-</span>}</code>
-</code></pre>
-      <p>or</p>
+        "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"data"</span></span>,
+        "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;payload&gt;</span>,
+        "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value">Integer
+      </span>}</code>
+      </code></pre>
+      <p>or for subscriptions to collections</p>
       <pre><code class="lang-json"><code class="hljs json">{
-  "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"data"</span></span>,
-  "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;payload&gt;</span>,
-  "<span class="hljs-attribute">paging</span>" : <span class="hljs-value">{
-    "<span class="hljs-attribute">previous</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;?$limit=&lt;limit&gt;&amp;$offset=&lt;previousoffset&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-    "<span class="hljs-attribute">next</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;?$limit=&lt;limit&gt;&amp;$offset=&lt;nextoffset&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
-    "<span class="hljs-attribute">total</span>": <span class="hljs-value">Integer</span>,
-    "<span class="hljs-attribute">totalPages</span>": <span class="hljs-value">Integer
-  </span>}</span>,
-  "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value">Integer
-</span>}</code>
-</code></pre>
+        "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"data"</span></span>,
+        "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"/&lt;service&gt;/&lt;resource&gt;/?&lt;query-params&gt;#&lt;uniqueid-per-session&gt;"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;payload&gt;</span>,
+        "<span class="hljs-attribute">paging</span>" : <span class="hljs-value">&lt;pagingObject&gt;</span>,
+        "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value">Integer
+      </span>}</code>
+      </code></pre>
       <p>The <code>&lt;payload&gt;</code> is defined per event. The server manages the event distribution for all connected clients as defined above, i.e. parsing the event and transmitting it to all registered clients with the expected timing and filtering applied.</p>
-      <p>In case of paged data response, the <code>paging</code> property contains the <code>previous</code>and <code>next</code> pages a client can query. If the data does not have a <code>previous</code> or <code>next</code> page, the corresponding property will be undefined. In case of paged results that reach boundaries (either the end or the beginning) of a list, the paging section will contain <code>previous</code> and <code>next</code> properties that contain appropriate links respecting boundaries like beginning or end.</p>
-      <p>In addition to those pointers, <code>total</code> and <code>totalPages</code> are defined to represent the <code>total</code> number of items available on the server and the number of <code>totalPages</code> resulting in chunking them in <code>$limit</code>elements per page. In case of unknown or uncountable items, the properties might be undefined.</p>
-      <p>A query with <code>?$limit=0</code> (ref. <a href="#paging">Paging</a>) gets the total number of items without actually retrieving a list of items in <code>data</code>, which will be an empty list.</p>
-      <p>request:</p>
-      <pre><code><code class="hljs stata">  GET medialibrary/albums?<span class="hljs-label">$limit</span>=0 HTTP/1.1
-  Host: 127.0.0.1:1337
-  Connection: <span class="hljs-keyword">keep</span>-alive
-  Accept: application/json
-  User-Agent: Chrome/34.0.1847.137 Safari/537.36
-  Accept-Encoding: gzip,deflate
-  Accept-Language: <span class="hljs-keyword">en</span>-<span class="hljs-keyword">US</span>,<span class="hljs-keyword">en</span>;q=0.8,<span class="hljs-keyword">de</span>;q=0.6</code>
-</code></pre>
-      <p>response:</p>
-      <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">[]</span>,
-  "<span class="hljs-attribute">paging</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">314159</span>
-  </span>}
-</span>}</span></code>
-</code></pre>
       <h4 id="-a-name-subscriptionerror-a-error"><a name="subscriptionerror"></a> Error</h4>
       <p>If any error on the server side occurs an object with type ‘error’ is sent. The following JSON format shall be used:</p>
       <pre><code class="lang-json"><code class="hljs json">{
