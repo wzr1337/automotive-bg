@@ -1779,17 +1779,17 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>The content in <code>&lt;errormessage&gt;</code> must be a describing string for the error, while code contains an identifier from the error codes table.</p>
       <p><strong>Note</strong>: The request leading to this error is NOT processed, i.e. neither subscription, nor unsubscription is processed!</p>
       <p>In case of an error during subscription, an immediate response (e.g. code 403) is sent.</p>
-    <h4 id="element-gone">Element gone</h4>
-    <p>Assuming that a subscription to a specific element exists (i.e. <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>), a <code>404</code> or <code>410</code> error shall be sent if the element vanishes for any reason.</p>
-    <h4 id="forbidden-access">Forbidden access</h4>
-    <p>Assuming that a subscription to a specific element (i.e. <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>) or resource (i.e. <code>/&lt;service&gt;/&lt;resource&gt;/</code>) exists, a <code>403</code> error shall be sent if access is restricted for any reason (e.g. expired token or insufficient rights).</p>
-
+      <h5 id="element-gone">Element gone</h5>
+      <p>Assuming that a subscription to a specific element exists (i.e. <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>), a <code>410</code> error shall be sent if the element vanishes for any reason.</p>
+      <h5 id="forbidden-access">Forbidden access</h5>
+      <p>Assuming that a subscription to a specific element (i.e. <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code>) or resource (i.e. <code>/&lt;service&gt;/&lt;resource&gt;/</code>) exists, a <code>403</code> error shall be sent if access is restricted for any reason (e.g. expired token or insufficient rights).</p>
       <h4 id="multi-client-behavior">Multi client behavior</h4>
-      <p>The system and therefore the API is designed to be multi client capable. If two clients send subsequent requests to the server, there is no guaranty that a client achieves the desired system state. E.g. Client A sends a request to tune to a frequency X, Client B may send a request to tune to frequency Y just before tuning to frequency X is finished and clients are notified. The final state will be ‘tuned to frequency Y’. The system works in a <a href="https://en.wikipedia.org/wiki/FIFO_%28computing_and_electronics%29">FIFO</a> fashion, not considering latencies in communicating to different clients. To avoid race conditions, clients <em class="rfc2119" title="MUST">MUST</em> not force the system to desired state by any kind of cheating like continuous requesting.</p>
+      <p>The system and therefore the API is designed to be multi client capable. If two clients send subsequent requests to the server, there is no guaranty that a client achieves the desired system state. E.g. Client A sends a request to tune to a frequency X, Client B may send a request to tune to frequency Y just before tuning to frequency X is finished and clients are notified. The final state will be ‘tuned to frequency Y’.
+      The system works in a <a href="https://en.wikipedia.org/wiki/FIFO_%28computing_and_electronics%29">FIFO</a> fashion, not considering latencies in communicating to different clients. To avoid race conditions, clients MUST not force the system to desired state by any kind of cheating like continuous requesting.</p>
       <h4 id="initial-data-response">Initial data response</h4>
       <p>Immediately after sending the subscription response, a server shall send the first data message, to avoid race conditions by handing multiple clients. This leads to the messaging sequence shown below:</p>
       <p><img src="img/diagram2.png" alt="avoid race conditions"></p>
-      <p>In order to minimize network traffic a client might send the initial <code>GET</code> request filtered for just the mandatory <code>id</code>, <code>uri</code> and <code>name</code> fields by using the <code>fields</code> query parameter.</p>
+      <p>When using <em>autosubscribe</em> on resource level, the server will also send initial data messages for all elements that were automatically subscribed. The same holds true for new elements when automatic subscription is enabled.</p>
       <h4 id="lifecycle">Lifecycle</h4>
       <p>All subscription are strictly bound to the WebSocket connection, if the connection is lost or is terminated in a regular way, subscription become invalid. The client listening for events has to resubscribe.</p>
       <h3 id="error-codes">Error codes</h3>
