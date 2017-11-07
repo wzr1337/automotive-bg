@@ -1830,165 +1830,237 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>There is no mechanism defined to use RPC via the interfaces described in here for a reason. There is no need to, because the server models/objects are defined accordingly.</p>
       <h3 id="-a-name-exploration-a-exploration"><a name="exploration"></a>Exploration</h3>
       <p>The server provides access its own interfaces by an explore mechanism via GET.</p>
-      <p>The client can start exploring a server from its root (e.g. <code>/</code>or <code>/api/v2/</code>) endpoint, which returns a list of available services.
-      </p>
+      <p>The client can start exploring a server from its root (e.g. <code>/</code>or <code>/api/v2/</code>) endpoint, which returns a list of available
+      services represented as <a href="#serviceObject">serviceObjects</a>..</p>
       <p>request:</p>
       <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/api/v2/</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Pragma</span>: <span class="hljs-string">no-cache</span>
-<span class="hljs-attribute">Cache-Control</span>: <span class="hljs-string">no-cache</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span>
-<span class="hljs-attribute">User-Agent</span>: <span class="hljs-string">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36</span>
-<span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip, deflate, sdch</span>
-<span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
-</code></pre>
-      <p>response:</p>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip, deflate, sdch</span>
+      <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
-<span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
-<span class="hljs-attribute">Date</span>: <span class="hljs-string">Thu, 04 Dec 2015 19:47:27 GMT</span>
-<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
-<span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
-
-<span class="json">
-{
-"<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
-"<span class="hljs-attribute">data</span>": <span class="hljs-value">[
-  {
-    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"cdn"</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"cdn"</span></span>,
-    "<span class="hljs-attribute">uri</span>": <span class="hljs-value"><span class="hljs-string">"/api/v1/cdn/"</span></span>,
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The content delivery network is implemented as a service on the headunit to deliver static content like images, music, video etc. It can be understood as the ‘external media interface’."</span>
-  </span>},
-  {
-    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"radio"</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"radio"</span></span>,
-    "<span class="hljs-attribute">uri</span>": <span class="hljs-value"><span class="hljs-string">"/api/v1/radio/"</span></span>,
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">""</span>
-  </span>}
-  ]
-</span>}</span></code>
-</code></pre>
-      <p>Querying the next level <code>/&lt;service&gt;/</code> returns a list of available resources of the service. Both listings (<code>/</code>, <code>/&lt;service&gt;/</code>) use the following schema:</p>
-    <pre><code><code class="hljs ocaml">{
-      <span class="hljs-string">"properties”: {
-        "</span><span class="hljs-keyword">type</span><span class="hljs-string">" : "</span><span class="hljs-built_in">array</span>”,
-        <span class="hljs-string">"items”: {
-          "</span><span class="hljs-keyword">type</span><span class="hljs-string">" : "</span><span class="hljs-keyword">object</span>”,
-          <span class="hljs-string">"properties”: {
-            "</span>id<span class="hljs-string">": {
-              "</span><span class="hljs-keyword">type</span><span class="hljs-string">" :"</span><span class="hljs-built_in">string</span><span class="hljs-string">",
-              "</span>format<span class="hljs-string">" : "</span>uuid<span class="hljs-string">"
-            },
-            "</span>name<span class="hljs-string">":{
-              "</span><span class="hljs-keyword">type</span><span class="hljs-string">" :"</span><span class="hljs-built_in">string</span><span class="hljs-string">"
-            },
-            "</span>uri<span class="hljs-string">": {
-              "</span><span class="hljs-keyword">type</span><span class="hljs-string">" : "</span><span class="hljs-built_in">string</span><span class="hljs-string">",
-              "</span>format<span class="hljs-string">" : "</span>uri<span class="hljs-string">"
-            },
-            "</span>description<span class="hljs-string">": {
-              "</span><span class="hljs-keyword">type</span><span class="hljs-string">" : "</span><span class="hljs-built_in">string</span><span class="hljs-string">"
-            }
-          }
-        }
-      }
-    }</span></code></code></pre>
-      <p>Finally a resource will list all of its elements under <code>/&lt;service&gt;/&lt;resource&gt;/</code>.</p>
+      <span class="hljs-attribute">X-Powered-By</span>: <span class="hljs-string">Express</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">ETag</span>: <span class="hljs-string">"-32550834"</span>
+      <span class="hljs-attribute">Content-Encoding</span>: <span class="hljs-string">gzip</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Thu, 04 Dec 2015 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
+      {
+      "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+      "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
+        &lt;serviceObject&gt;,
+        ...,
+        &lt;serviceObject&gt;
+        ]
+      </span>}</span></code>
+      </code></pre><p>Querying the next level <code>/&lt;service&gt;/</code> - please note the trailing <code>/</code>for a list query - returns a list of available resources of the service. </p>
+      <p>request:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/api/v2/&lt;service&gt;/</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span>
+      <span class="hljs-attribute">Accept-Encoding</span>: <span class="hljs-string">gzip, deflate, sdch</span>
+      <span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en-US,en;q=0.8,de;q=0.6</span></code>
+      </code></pre><p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Thu, 04 Dec 2015 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="clojure">
+      <span class="hljs-collection">{
+      <span class="hljs-string">"status"</span>: <span class="hljs-string">"ok"</span>,
+      <span class="hljs-string">"data"</span>: <span class="hljs-collection">[
+          <span class="hljs-collection">{
+            <span class="hljs-string">"id"</span>: &lt;uui&gt;,
+            <span class="hljs-string">"name"</span>: &lt;string&gt;,
+            <span class="hljs-string">"uri"</span>: &lt;string<span class="hljs-list">(<span class="hljs-keyword">uri</span>)</span>&gt;,
+            <span class="hljs-string">"description"</span>: &lt;detailled description of the resource&gt;,
+          }</span>,
+          <span class="hljs-collection">{
+            ...
+          }</span>
+        ]</span>
+      }</span></span></code>
+      </code></pre><p>Finally a resource will list all of its elements under <code>/&lt;service&gt;/&lt;resource&gt;/</code> - find examples in the <a href="#expansion_concept">Expansion</a> section.</p>
       <h4 id="reserved-keywords">Reserved keywords</h4>
       <p>The protocol knows dedicated keywords that are described below.</p>
-      <h5 id="-spec">$spec</h5>
-      <p>A query that contains the <em>$spec</em> keyword like <code>/&lt;service&gt;/&lt;resource&gt;?$spec</code> will return a schema of the resources interface according to the viwi schema specification (refer to the actual viwi object definition). The resource describes its own object shape this way.</p>
-      <h5 id="-id">$id</h5>
-      <p>A query that contains the <em>$id</em> keyword on any level will return a plain string, the <code>id</code>. In the case of a request on root level, the id is a unique identifier for the system. On all other levels, the id of the element of interest will be return in the same plain way.</p>
-      <p>Example: Request the system id request:
-      </p>
-      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/id</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span></code>
-</code></pre>
-      <p>response:</p>
+      <h5 id="-accessrights">$accessrights</h5>
+      <p>A query on service level that contains the <em>$accessrights</em> keyword (<code>/&lt;service&gt;/$accessrights/</code>) will return a description of the privileges the querying client has. 
+      Every entry describes one access right for the given path. 
+      The given response describes these privileges according to the given JSON schema:</p>
+      <pre><code><code class="hljs json">{
+        "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-06/schema#"</span></span>,
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+        "<span class="hljs-attribute">patternProperties</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">^\/[a-z0-9_]+(\/[A-Za-z0-9_]+)?\/$</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+          "<span class="hljs-attribute">items</span>": <span class="hljs-value">{
+           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+            "<span class="hljs-attribute">enum</span>": <span class="hljs-value">[
+              <span class="hljs-string">"create"</span>,
+              <span class="hljs-string">"read"</span>,
+              <span class="hljs-string">"update"</span>,
+              <span class="hljs-string">"delete"</span>
+              ]
+            </span>}
+          </span>}
+        </span>}</span>,
+        "<span class="hljs-attribute">additionalProperties</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+      </span>}</code>
+      </code></pre><p>Example: Request priveleges for the connecting client for media</p>
+      <p>request:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/media?accessrights</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-
-<span class="cpp">
-d2cb3c92-ad8f-<span class="hljs-number">496f</span>-b463-<span class="hljs-number">7</span>a86973c677a</span></code>
-</code></pre>
-      <p>Example: Request a <code>&lt;service&gt;</code>s id request:
-      </p>
-      <pre><code><code class="hljs http"><span class="hljs-request">DELETE <span class="hljs-string">/&lt;service&gt;/id</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span></code>
-</code></pre>
-      <p>response:</p>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      
+      <span class="json">
+      {
+          "<span class="hljs-attribute">/media/titles/</span>": <span class="hljs-value">[ <span class="hljs-string">"create"</span> ]</span>,
+          "<span class="hljs-attribute">/media/artists/</span>": <span class="hljs-value">[<span class="hljs-string">"create"</span>, <span class="hljs-string">"update"</span>]</span>,
+          "<span class="hljs-attribute">/media/</span>": <span class="hljs-value">[<span class="hljs-string">"read"</span>]
+      </span>}</span></code>
+      </code></pre><h5 id="-id">$id</h5>
+      <p>A query that contains the <em>$id</em> keyword on any level will return a plain string, the <code>id</code>. In the case of a request on root level, the id is a unique identifier for the system. On all other levels, the id of the element of interest will be return in the same plain way - note the Accept header being set to <code>text/plain</code>.</p>
+      <p>Example: Request the system id</p>
+      <p>request:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/$id</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">text/plain</span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-
-<span class="autohotkey">
-<span class="hljs-number">864</span>d79f9-a1ea-<span class="hljs-number">405</span><span class="hljs-literal">a</span>-<span class="hljs-number">82</span>a3-<span class="hljs-number">2</span>a62c3745f25</span></code>
-</code></pre>
-      <h2 id="-a-name-globaljsonobjects-a-global-json-objects">
-        <a id="GlobalJSONobjects"></a> Global JSON objects</h2>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">text/plain; charset=utf-8</span>
+      
+      <span class="cpp">
+      d2cb3c92-ad8f-<span class="hljs-number">496f</span>-b463-<span class="hljs-number">7</span>a86973c677a</span></code>
+      </code></pre><p>Example: Request a <code>&lt;service&gt;</code>s id</p>
+      <p>request:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/&lt;service&gt;$id</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">text/plain</span></code>
+      </code></pre><p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">text/plain; charset=utf-8</span>
+      
+      <span class="autohotkey">
+      <span class="hljs-number">864</span>d79f9-a1ea-<span class="hljs-number">405</span><span class="hljs-literal">a</span>-<span class="hljs-number">82</span>a3-<span class="hljs-number">2</span>a62c3745f25</span></code>
+      </code></pre><h5 id="-spec">$spec</h5>
+      <p>A query that contains the <em>$spec</em> keyword like <code>/&lt;service&gt;/$spec</code> will return a schema of the resources interface according to the viwi schema specification (refer to the actual viwi object definition). The resource describes its own object shape this way.</p>
+      <p>Example: Request a service's schema</p>
+      <p>request:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">GET <span class="hljs-string">/media/$spec</span> HTTP/1.1</span>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span></code>
+      </code></pre><p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      
+      <span class="json">
+      {
+          "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"viwi.service.media"</span></span>,
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+          "<span class="hljs-attribute">resources</span>": <span class="hljs-value">{
+              "<span class="hljs-attribute">collections</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The media collections can also be understood as media queues of the renderer. Media collections can only contain playable media like tracks, videos or pictures."</span></span>,
+                  "<span class="hljs-attribute">model</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"mediaCollectionObject"</span></span>,
+                      "<span class="hljs-attribute">resource</span>": <span class="hljs-value"><span class="hljs-string">"media.collections"</span></span>,
+                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"collection id"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                              "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"uuid"</span>
+                          </span>}</span>,
+                          "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"collection name"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                          </span>}</span>,
+                          "<span class="hljs-attribute">uri</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"object uri"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                              "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"uri"</span>
+                          </span>}
+                      </span>}
+                  </span>}</span>,
+                  "<span class="hljs-attribute">endpoints</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">get</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+                          </span>}
+                      </span>}</span>,
+                      "<span class="hljs-attribute">element</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">get</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+                          </span>}</span>,
+                          "<span class="hljs-attribute">delete</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+                          </span>}
+                      </span>}
+                  </span>}
+              </span>}</span>,
+              "<span class="hljs-attribute">renderers</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"The media player renderer can be understood as the actual media player. It accepts media objects and applies actions like play, pause etc. to them."</span></span>,
+                  "<span class="hljs-attribute">model</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"rendererObject"</span></span>,
+                      "<span class="hljs-attribute">resource</span>": <span class="hljs-value"><span class="hljs-string">"media.renderers"</span></span>,
+                      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"renderer id"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                              "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"uuid"</span>
+                          </span>}</span>,
+                          "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"renderer name"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+                          </span>}</span>,
+                          "<span class="hljs-attribute">uri</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"object uri"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                              "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"uri"</span>
+                          </span>}</span>,
+                          "<span class="hljs-attribute">type</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"type of medium"</span></span>,
+                              "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                              "<span class="hljs-attribute">enum</span>": <span class="hljs-value">[
+                                  <span class="hljs-string">"track"</span>,
+                                  <span class="hljs-string">"video"</span>,
+                                  <span class="hljs-string">"image"</span>
+                              ]
+                          </span>}
+                      </span>}
+                  </span>}</span>,
+                  "<span class="hljs-attribute">endpoints</span>": <span class="hljs-value">{
+                      "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">get</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+                          </span>}
+                      </span>}</span>,
+                      "<span class="hljs-attribute">element</span>": <span class="hljs-value">{
+                          "<span class="hljs-attribute">get</span>": <span class="hljs-value">{
+                              "<span class="hljs-attribute">parameters</span>": <span class="hljs-value">{}
+                          </span>}
+                      </span>}
+                  </span>}</span>,
+                  "<span class="hljs-attribute">systemTriggeredEvents</span>": <span class="hljs-value">[
+                      <span class="hljs-string">"element"</span>,
+                      <span class="hljs-string">"resource"</span>
+                  ]
+              </span>}
+          </span>}
+      </span>}</span></code>
+      </code></pre><h2 id="-a-name-globaljsonobjects-a-global-json-objects"><a name="GlobalJSONobjects"></a> Global JSON objects</h2>
       <h3 id="general">General</h3>
       <p>General object structures are introduced below. All keys in request and response (including event payload) JSON have to be treated with regard of their casing (case sensitive), to avoid conflicts reading or writing values from or to a JSON object. E.g. the property name <code>RouteCalculationProgress</code> is different to <code>routecalculationprogress</code>.</p>
-      <h4 id="responseobject">ResponseObject</h4>
-      <p>All viwi objects are JSON (objects), that are encapsulated in a general response structure, except binary data such as images, videos etc.. This response structure is different between HTTP payload and <a href="#PublishSubscribe">Publish-Subscribe</a> messages, while the <code>data</code> property in both cases is identical and is considered being the actual <em>payload</em>. If a request was successfully processed (HTTP 200), an object in the following notation is returned:</p>
-      <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"status"</span> : <span class="hljs-string">"ok"</span>,
-  <span class="hljs-string">"data"</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Response</span>&gt;</span>,
-  "paging" : {
-    "total": Integer,
-    "totalPages": Integer,
-    "previous": String,
-    "next": String
-  },
-  "timestamp": Integer
-}</span></code>
-</code></pre>
-      <p>In case of paged data response, the <code>paging</code> property contains the <code>previous</code>and <code>next</code> pages a client can query. Of course, paging only applies to <code>/&lt;service&gt;/&lt;resource&gt;</code> queries. If the data does not have a <code>previous</code> or <code>next</code> page, the corresponding property will be undefined.</p>
-      <p>The <code>&lt;response&gt;</code> contains the actual JSON payload that is defined separately for each REST endpoint. If a request failed, status is set to ‘error’ and an additional errorMessage is attached to the response as follows:</p>
-      <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"status"</span> : <span class="hljs-string">"error"</span>,
-  <span class="hljs-string">"data"</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Response</span>&gt;</span>,
-  "message": <span class="hljs-tag">&lt;<span class="hljs-title">String</span>&gt;</span>,
-  "code": <span class="hljs-tag">&lt;<span class="hljs-title">Identifier</span>&gt;</span>
-}</span></code>
-</code></pre>
-      <p>For responses on <code>&lt;service&gt;</code> level (e.g. <code>/api/v1/myService</code>), a ResponseObject contains an additional <code>service</code> field to represent itself as a <a href="#serviceObject">serviceObject</a>:</p>
-      <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"status"</span> : <span class="hljs-string">"ok"</span>,
-  <span class="hljs-string">"data"</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Response</span>&gt;</span>,
-  "paging" : {
-    "total": Integer,
-    "totalPages": Integer,
-    "previous": String,
-    "next": String
-  },
-  "timestamp": Integer,
-  "service": serviceObject
-}</span></code>
-</code></pre>
-      <h4 id="-a-name-statusobject-a-statusobject">
-        <a id="statusobject"></a> StatusObject</h4>
-      <p>A StatusObject is a general object without data (payload) attribute. For HTTP response code 201 (Created), the HTTP header ‘Location’ is the one of the new element which was created by the request (<a href="https://www.ietf.org/rfc/rfc2616.txt">HTTP/1.1 status codes, 2012, RFC2616</a>). Possible StatusObjects are shown below:</p>
-      <h5 id="ok">OK</h5>
-      <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"status"</span> : <span class="hljs-string">"ok"</span>
-}</code>
-</code></pre>
-      <h5 id="error2">Error</h5>
-      <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"status"</span> : <span class="hljs-string">"error"</span>,
-  <span class="hljs-string">"message"</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">String</span>&gt;</span>,
-  "code": <span class="hljs-tag">&lt;<span class="hljs-title">identifier</span>&gt;</span>
-}</span></code>
-</code></pre>
-      <h3 id="-a-name-xobject-a-xobject">
-        <a id="XObject"></a>XObject</h3>
+      <h4 id="-a-name-xobject-a-xobject"><a name="XObject"></a>XObject</h4>
+      <h5 id="mandatory-properties">Mandatory properties</h5>
       <p>The XObject is the general object used to derive all detailed objects from. Thus, every object exchanged through the API defined inhere has at least all XObject properties (mandatory). Optional properties for any object are only sent if applicable. A missing property is treated as being <code>undefined</code> and thus not processable for the client.</p>
       <table>
         <thead>
