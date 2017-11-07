@@ -1259,14 +1259,17 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <pre><code><code class="hljs perl">  http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">1337</span>/medialibrary/tracks/?<span class="hljs-variable">$sortby</span>=rating&amp;name=me<span class="hljs-variable">%20an</span><span class="hljs-variable">%my</span><span class="hljs-variable">%20empty</span><span class="hljs-variable">%20wallet</span></code>
       </code></pre><h5 id="ordering-by-primitives">Ordering by primitives</h5>
       <p>Ordering by primitive value properties is possible alphabetical an numerical.</p>
-      <h5 id="ordering-by-complex-objects">Ordering by complex objects</h5>
-      <p>The default ordering by references to complex object is defined by the mandatory <code>name</code> member of the complex object. A service might implement a different behavior that has to be specified per service, if different to the default.</p>
-      <h5 id="ordering-by-list-properties">Ordering by list properties</h5>
-      <p>Ordering by list of primitive or list of complex object is solved by comparison similar to string comparison. Instead of comparing characters, list elements are compared. Lists of complex values follow the default behavior defined for ordering by complex objects regarding comparison.</p>
+      <h5 id="ordering-by-xobjects-xobject-">Ordering by <a href="#XObject">XObjects</a></h5>
+      <p>The default ordering by references to <a href="#XObject">XObjects</a> is defined by the mandatory <code>name</code> member of the object. A service might implement a different behavior that has to be specified per service, if different to the default.</p>
+      <h5 id="ordering-by-complex-types">Ordering by complex types</h5>
+      <p>Complex types do not provide a default field for sorting. Therefore, sorting on complex types is not supported.</p>
+      <h5 id="ordering-by-array-properties">Ordering by array properties</h5>
+      <p>Ordering by array of primitive or array of <a href="#XObject">XObjects</a> is solved by comparison similar to string comparison. Instead of comparing characters, array elements are compared. Arrays of inlined objects do not support sorting. Arrays of <a href="#XObject">XObjects</a> follow the default behavior defined for ordering by <a href="#XObject">XObjects</a> regarding comparison.</p>
+      <p>Ordering by array of primitive or array of <a href="#XObject">XObjects</a> is solved by comparison similar to string comparison. Instead of comparing characters, array elements are compared. Arrays of inlined objects do not support sorting. Arrays of <a href="#XObject">XObjects</a> follow the default behavior defined for ordering by <a href="#XObject">XObjects</a> regarding comparison.</p>
       <pre><code><code class="hljs prolog">[] &lt; [<span class="hljs-string">"a"</span>,<span class="hljs-string">"b"</span>,<span class="hljs-string">"c"</span>,<span class="hljs-string">"d"</span>] &lt; [<span class="hljs-string">"a"</span>,<span class="hljs-string">"b"</span>,<span class="hljs-string">"d"</span>]</code>
-</code></pre>
-      <h3 id="the-expansion-concept">The expansion concept</h3>
-      <p>Some of the services defined in this document deliver objects, that have reference to each other. The media library for example delivers a list of tracks, where every track can have a reference to an album. An album has a list of tracks itself. To avoid having too many circular references, the concept of resolve level is introduced. The default expansion level is 0 and might be 3 at maximum. Every data structure that potentially contains <a href="#XObject">XObjects</a> supports the expansion level request parameter <code>$expand</code>. A client can also request the expansion of certain object references by providing a list of property name on a request.</p>
+      </code></pre><h3 id="-a-name-expansion_concept-a-the-expansion-concept"><a name="expansion_concept"></a>The expansion concept</h3>
+      <p>Some of the services defined in this document deliver objects, that have reference to each other. The media library for example delivers a list of tracks, where every track can have a reference to an album. An album has a list of tracks itself. To avoid having too many circular references, the concept of resolve level is introduced. The default expansion level is 0 and might be 3 at maximum. Every data structure that potentially contains <a href="#XObject">XObjects</a> supports the expansion level request parameter <code>$expand</code>. A client can also request the expansion of certain object references by providing a list of property name on a request. 
+      If a query requests on one or more properties to be expanded and also on one certain level, e.g. <code>$expand=foo,bar,3</code>, only the level expansion should be used. The level expansion has priority over described property expansions.</p>
       <p>Expansion does only work on JSON payload. If an object references to binary data, like images, expansion does NOT apply. Of course binary data can NOT be embedded into JSON payload and thus can not be expanded.</p>
       <h4 id="no-expansion">No expansion</h4>
       <p>request:</p>
@@ -1679,18 +1682,20 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h4 id="timestamping">Timestamping</h4>
       <p>All responses can carry an optional relative <code>timestamp</code>. The <code>timestamp</code> is defined as Integer and expresses the time difference in milliseconds between system boot and message creation. The regular interval is limited to 10 milliseconds so that valid values for <code>timestamp</code> always comply to</p>
       <pre><code><code class="hljs applescript">  timestamp <span class="hljs-keyword">mod</span> <span class="hljs-number">10</span> = <span class="hljs-number">0</span></code>
-      <h3 id="-a-name-publishsubscribe-a-publish-subscribe">
-        <a id="PublishSubscribe"></a>Publish-subscribe</h3>
-	<p>In order to allow a server pushing information to a client, the WebSocket technology is used. Any client may register for events on the <code>GET</code> url of a query it is interested in to receive update by this push mechanism.</p>
-      <p>There is only one WebSocket connection established per client. The WebSockets endpoint is the same as the regular root uri (e.g. <code>/</code> or <code>/api/v2/</code>). The same port number as for regular http requests shall be used.</p>
-      <p><em>Note: WebSockets payload may get concatenated if two messages shall be sent within a frame of 50ms (according to <abbr title="World Wide Web Consortium">W3C</abbr> specification). Thus, payload objects always shall have a trailing ‘\n’. for client side separation.</em></p>
-      <p>Definition: An event is considered ‘on change’ if two subsequent GET requests on the corresponding url would result in different responses on the first level ($expand=0) of the response object. E.g. if an element object is added or removed from a list of objects an ‘on change’ event is fired or if the name property of a member element object is changed.</p>
+      </code></pre><h3 id="-a-name-publishsubscribe-a-publish-subscribe"><a name="PublishSubscribe"></a>Publish-subscribe</h3>
+      <p>In order to allow a server pushing information to a client, the WebSocket technology is used. Any client may register for events on the <code>GET</code> url of a query it is interested in to receive update by this push mechanism.</p>
+      <p>There is only one WebSocket connection established per client and server port. If a client tries to open a second WebSocket connection on the same server port, the server rejects with a <code>409 Conflict</code> message. The <a href="#errorobject">ErrorObject</a> contains the following message: <code>Dude, the higlander principle applies.. I warned you.</code>. The WebSockets endpoint is the same as the regular root uri (e.g. <code>/</code> or <code>/api/v2/</code>). The same port number as for regular http requests shall be used.</p>
+      <p><em>Note: WebSockets payload may get concatenated if two messages shall be sent within a frame of 50ms (according to W3C specification). Thus, payload objects always shall have a trailing ‘\n’. for client side separation.</em></p>
+      <h6 id="definition">Definition</h6>
+      <p>An event is considered <code>on change</code> if two subsequent GET requests on the corresponding url would result in different responses on the first level (<code>$expand=0</code>) of the response object (<code>&lt;element&gt;</code> level) or list characteristics, i.e. if an element object is added or removed from a list of objects an <code>on change</code> event is fired. In case of an <code>id</code> based <code>$offset</code>, an <code>on change</code> is fired as well, if the <a href="#pagingobject">PagingObject</a> nested in the <code>paging</code> will change its content, e.g. if the <code>offsetIndex</code> would change due to list modifications outside the list scope a client subscribed to or if the <code>total</code> changes.</p>
+      <p><em>Note: This means, list subscriptions will not fire an event if the elements content changes, so if a client is interested in <code>&lt;element&gt;</code> level changes, dedicated subscriptions to each <code>&lt;element&gt;</code> of interest are needed</em></p>
       <p><strong>ATTENTION</strong> Subscriptions on levels other than <code>&lt;element&gt;</code> do only support expand level 0.</p>
       <p>An event message is defined as object serialized to JSON that is transmitted via WebSocket. The term <code>&lt;event&gt;</code> specifies the event <code>uri</code> a client wants to subscribe to, unsubscribe from, receive or emit messages for.</p>
       <p>The <code>&lt;event&gt;</code> follows the the similar syntax as a regular GET request</p>
       <pre><code><code class="hljs xml">    /<span class="hljs-tag">&lt;<span class="hljs-title">service</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">resource</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">element</span>&gt;</span>?<span class="hljs-tag">&lt;<span class="hljs-title">query-params</span>&gt;</span>#<span class="hljs-tag">&lt;<span class="hljs-title">uniqueid-per-session</span>&gt;</span></code>
-</code></pre>
-      <p>While <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code> describes the actual event <code>uri</code>, or <code>/&lt;service&gt;/&lt;resource&gt;/</code> describes the resource name, the <code>&lt;uniqueid-per-session&gt;</code> parameter allows multiple subscription for the same event with different fields of interest, update rate or updatelimit on client side. Therefore an <em>optional</em> <code>&lt;uniqueid-per-session&gt;</code> is generated on client side. The server does not care about the <code>&lt;uniqueid-per-session&gt;</code> as it is pure client side information. The server <strong>must not</strong> alter or remove <code>&lt;uniqueid-per-session&gt;</code> from the event uri. The <em>optional</em> <code>&lt;query-params&gt;</code> section of the subscription contains the <code>GET</code> parameters, a regular <code>GET</code> query would have in polling mode.</p>
+      </code></pre><p>The known parameters (e.g. filters, paging, etc.) applicable on GET requests could be applied to subscriptions on an <code>&lt;event&gt;</code> too. This approach is reasonable for elements as well as resources.</p>
+      <pre><code><code class="hljs xml">    /<span class="hljs-tag">&lt;<span class="hljs-title">service</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">resource</span>&gt;</span>?<span class="hljs-tag">&lt;<span class="hljs-title">query-params</span>&gt;</span>#<span class="hljs-tag">&lt;<span class="hljs-title">uniqueid-per-session</span>&gt;</span></code>
+      </code></pre><p>While <code>/&lt;service&gt;/&lt;resource&gt;/&lt;element&gt;</code> describes the actual event <code>uri</code>, or <code>/&lt;service&gt;/&lt;resource&gt;/</code> describes the resource name, the <code>&lt;uniqueid-per-session&gt;</code> parameter allows multiple subscription for the same event with different fields of interest, update rate or updatelimit on client side. Therefore an <em>optional</em> <code>&lt;uniqueid-per-session&gt;</code> is generated on client side. The server does not care about the <code>&lt;uniqueid-per-session&gt;</code> as it is pure client side information. The server <strong>must not</strong> alter or remove <code>&lt;uniqueid-per-session&gt;</code> from the event uri. The <em>optional</em> <code>&lt;query-params&gt;</code> section of the subscription contains the <code>GET</code> parameters, a regular <code>GET</code> query would have in polling mode.</p>
       <p>There are two mandatory properties for every message sent via WebSocket that are <code>type</code> and <code>uri</code> (=event). The first describes the intention (e.g. ‘subscribe’) of the message sent, while the later identifies the endpoint itself.</p>
       <h4 id="subscribe">Subscribe</h4>
       <p>To subscribe to an <code>&lt;event&gt;</code>, the client has to send the following JSON stringified object to the server:</p>
@@ -2089,6 +2094,88 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </tbody>
       </table>
       <p>The <code>uri</code> of an XObject can be either relative or absolute. If the XObject refers to an element available on the same host and port, the <code>uri</code> has to be relative, else if the referred element is stored on a different host or port, the <code>uri</code> must be absolute, to keep the amount of redundant data and thus traffic at a minimum.</p>
+      <h5 id="types-for-xobject-properties">Types for XObject properties</h5>
+      <p>The properties of a XObject can be of one of the following types:</p>
+      <ul>
+      <li>primitives like 'boolean', 'integer', 'number', 'string', 'enum'</li>
+      <li>complex types, treated like primitives</li>
+      <li>references to other XObjects</li>
+      <li>arrays of one of the other types</li>
+      </ul>
+      <h5 id="complex-types">Complex types</h5>
+      <p>A complex type is a kind of named inline object that is not a XObject and therefore can not be addressed or referenced by it's own 'uri' and thus has no mandatory properties. It's comparable to structs in C programming language and may contain primitives, complex types, references to XObjects and arrays of those. Complex types can be reused in multiple XObject or other complex type definitions once specified.</p>
+      <h4 id="-a-name-statusobject-a-statusobject"><a name="statusobject"></a> StatusObject</h4>
+      <p>A StatusObject is a general object without data (payload) attribute. For HTTP response code 201 (Created), the HTTP header ‘Location’ is the one of the new element which was created by the request (<a href="https://www.ietf.org/rfc/rfc2616.txt">HTTP/1.1 status codes, 2012, RFC2616</a>). Possible StatusObjects are shown below:</p>
+      <h5 id="ok">OK</h5>
+      <pre><code class="lang-json"><code class="hljs json">{
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</code>
+      </code></pre>
+      <h5 id="-a-name-errorobject-a-error"><a name="errorobject"></a>Error</h5>
+      <pre><code class="lang-json"><code class="hljs json">{
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"error"</span></span>,
+        "<span class="hljs-attribute">message</span>": <span class="hljs-value">&lt;String&gt;</span>,
+        "<span class="hljs-attribute">code</span>": <span class="hljs-value">&lt;identifier&gt;
+      </span>}</code>
+      </code></pre>
+      <h4 id="-a-name-pagingobject-a-pagingobject"><a name="pagingobject"></a> PagingObject</h4>
+      <p>In case of paged data response, the <code>paging</code> property contains the <code>previous</code>and <code>next</code> pages a client can query. If the data does not have a <code>previous</code> or <code>next</code> page, the corresponding property will be undefined. Lists are linear, i.e. the first page has no predecessor, the last page has no successor.</p>
+      <p>In addition to those pointers, <code>total</code> and <code>totalPages</code> are defined to represent the <code>total</code> number of items available on the server and the number of <code>totalPages</code> resulting in chunking them in <code>$limit</code>elements per page. In case of unknown or uncountable items, the properties might be undefined. If the data does not have a <code>previous</code> or <code>next</code> page, the corresponding property will be undefined.</p>
+      <p>The <code>$offset</code> is returned with the repsonse in two ways, <code>offsetId</code> expresses the offset as number, <code>offsetIndex</code> expresses the offset as elements uuid, regardless of the type of the query, i.e. independently from wether an id or an numeric <code>$offset</code>was used in the request.</p>
+      <p>The general structure of an paging object is described as follows</p>
+      <pre><code class="lang-javascript"><code class="hljs javascript">{
+        <span class="hljs-string">"offsetId"</span>: <span class="hljs-built_in">String</span>,       <span class="hljs-comment">// offset expressed as element id (uuid)</span>
+        <span class="hljs-string">"offset"</span>: Integer,        <span class="hljs-comment">// offset expressed as index (numeric)</span>
+        <span class="hljs-string">"total"</span>: Integer,         <span class="hljs-comment">// total number of elements</span>
+        <span class="hljs-string">"totalPages"</span>: Integer,    <span class="hljs-comment">// total number of pages based on limit</span>
+        <span class="hljs-string">"previous"</span>: <span class="hljs-built_in">String</span>,       <span class="hljs-comment">// link to previous page</span>
+        <span class="hljs-string">"next"</span>: <span class="hljs-built_in">String</span>,           <span class="hljs-comment">// link to next page</span>
+        <span class="hljs-string">"limit"</span>: Integer          <span class="hljs-comment">// the limit used</span>
+      }</code>
+      </code></pre>
+      <p>A query with <code>?$limit=0</code> (ref. <a href="#paging">Paging</a>) gets the total number of items without actually retrieving a list of items in <code>data</code>, which will be an empty list.</p>
+      <p>request:</p>
+      <pre><code><code class="hljs stata">  GET medialibrary/albums?<span class="hljs-label">$limit</span>=0 HTTP/1.1
+        Host: 127.0.0.1:1337
+        Accept: application/json
+        Accept-Encoding: gzip,deflate
+        Accept-Language: <span class="hljs-keyword">en</span>-<span class="hljs-keyword">US</span>,<span class="hljs-keyword">en</span>;q=0.8,<span class="hljs-keyword">de</span>;q=0.6</code>
+      </code></pre><p>response:</p>
+      <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
+      <span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept-Encoding</span>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      <span class="hljs-attribute">Date</span>: <span class="hljs-string">Tue, 13 Jun 2014 19:47:27 GMT</span>
+      <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+      <span class="hljs-attribute">Transfer-Encoding</span>: <span class="hljs-string">chunked</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">[]</span>,
+        "<span class="hljs-attribute">paging</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">314159</span>
+        </span>}
+      </span>}</span></code>
+      </code></pre><h4 id="-a-name-responseobject-a-responseobject"><a name="responseobject"></a>ResponseObject</h4>
+      <p>All viwi objects are JSON (objects), that are encapsulated in a general response structure, except binary data such as images, videos etc.. This response structure is different between HTTP payload and <a href="#PublishSubscribe">Publish-Subscribe</a> messages, while the <code>data</code> property in both cases is identical and is considered being the actual <em>payload</em>. If a request was successfully processed (HTTP 200), an object in the following notation is returned:</p>
+      <pre><code class="lang-json"><code class="hljs json">{
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;Response&gt;</span>,
+        "<span class="hljs-attribute">paging</span>" : <span class="hljs-value">&lt;PagingObject&gt;</span>,
+        "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value">Integer
+      </span>}</code>
+      </code></pre>
+      <p>In case of paged data response, the <code>paging</code> property contains the  <a href="#pagingobject"><code>PagingObject</code></a> described above. Of course, paging only applies to <code>/&lt;service&gt;/&lt;resource&gt;/</code> queries.</p>
+      <p>The <code>&lt;response&gt;</code> contains the actual JSON payload that is defined separately for each REST endpoint. If a request failed, status is set to <code>error</code> and <a href="#errorobject"><code>ErrorObject</code></a> is sent.</p>
+      <p>For responses on <code>&lt;service&gt;</code> level (e.g. <code>/api/v1/myService</code> - note the missing trailing <code>/</code> for an element like accesss), a ResponseObject contains an additional <code>service</code> field to represent itself as a <a href="#serviceObject">serviceObject</a>:</p>
+      <pre><code class="lang-json"><code class="hljs json">{
+        "<span class="hljs-attribute">status</span>" : <span class="hljs-value"><span class="hljs-string">"ok"</span></span>,
+        "<span class="hljs-attribute">data</span>": <span class="hljs-value">&lt;Response&gt;</span>,
+        "<span class="hljs-attribute">paging</span>" : <span class="hljs-value">&lt;pagingObject&gt;</span>,
+        "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value">Integer</span>,
+        "<span class="hljs-attribute">service</span>": <span class="hljs-value">&lt;serviceObject&gt;
+      </span>}</code>
+      </code></pre>
       <h3 id="binary-content">binary content</h3>
       <p>There are endpoints like the cdn service that delivery binary data. This data is transmitted with regular HTTP headers according to its MIME-type. Subscription on binary data like images, video, certificates etc. is not possible. Binary data is considered being <code>static</code>.</p>
       <h3 id="schema">Schema</h3>
@@ -2400,18 +2487,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="version-4-random-">Version 4 (random)</h3>
       <p>Version 4 UUIDs use a scheme relying only on random number generations.  This algorithm sets the version number (4 bits) as well as two reserved bits. All other bits (the remaining 122 bits) are set using a random or pseudorandom data source.  Version 4 UUIDs have the form</p>
       <pre><code><code class="hljs undefined">  xxxxxxxx-xxxx-4xxx-Yxxx-xxxxxxxxxxxx</code>
-</code></pre>
-      <p>where <code>x</code> is any hexadecimal digit and <code>Y</code> is one of 8, 9, A or B.</p>
+      </code></pre><p>where <code>x</code> is any hexadecimal digit and <code>Y</code> is one of 8, 9, A or B.</p>
       <h3 id="version-5-sha-1-hash-namespace-">Version 5 (SHA-1 hash &amp; namespace)</h3>
       <p>Version 5 UUIDs use a scheme with <code>SHA-1</code> hashing. Note that the 160 bit SHA-1 hash is truncated to 128 bits to make the length work out.</p>
       <h4 id="uniqueness-criteria">uniqueness criteria</h4>
       <p>In order to generate deterministic <code>uuid</code>s for entities that need to be recognized being identical on different systems, Version 5 shall be used. The characteristics used to determine similarity shall be used as inputs for the hashing function. An example for such an entity is a FM radio station, which is exactly characterized by its <code>ecc</code> and <code>pi</code> codes. The generation rule in this case would be</p>
       <pre><code><code class="hljs gcode">  uuid = sha<span class="hljs-number">1</span><span class="hljs-comment">(namespace.toBytes()</span>+eec.toBytes<span class="hljs-comment">()</span>+pi.toBytes<span class="hljs-comment">()</span>).substr<span class="hljs-comment">(0,32)</span>;</code>
-</code></pre>
-      <p>Thus, the same broadcasting station will get the same <code>uuid</code> on every system. Transferring presets based on station ids or finding the correct station icon becomes very easy when using this approach.</p>
+      </code></pre><p>Thus, the same broadcasting station will get the same <code>uuid</code> on every system. Transferring presets based on station ids or finding the correct station icon becomes very easy when using this approach.</p>
       <p>The uniqueness criteria and thus the generation rule have to be defined on a per resource basis.</p>
-      <h2 id="-a-name-interfacedesignpatterns-a-interface-design-patterns">
-        <a id="InterfaceDesignPatterns"></a>Interface design patterns</h2>
+      <h2 id="-a-name-interfacedesignpatterns-a-interface-design-patterns"><a name="InterfaceDesignPatterns"></a>Interface design patterns</h2>
       <h3 id="settings">Settings</h3>
       <p>When ever a service needs general settings which also may include a reset to factory defaults, a <code>settings</code> resource is used. The individual settings are evaluated by their name and value/state.</p>
       <h3 id="naturally-delayed-responses">Naturally delayed responses</h3>
