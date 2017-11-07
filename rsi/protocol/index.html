@@ -2513,19 +2513,31 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <ul>
         <li>for <code>&lt;service&gt;</code> names use the most specific noun possible to group its <code>&lt;resource&gt;</code>s</li>
         <li><code>&lt;resource&gt;</code> has to be a plural noun to express that it holds a list of <code>&lt;element&gt;</code>s</li>
-        <li>APIs should be easily readable and understandable like <code>GET /media/renderers</code> or <code>DELETE /medialibrary/albums/ED757E27-BA8B-4A67-9798-360F78AF6445?$fields=releasedate</code></li>
+        <li>APIs should be easily readable and understandable like <code>GET /media/renderers</code> or <code>DELETE /medialibrary/albums/ed757e27-ba8b-4a67-9798-360f78af6445?$fields=releasedate</code></li>
       </ul>
-      <h3 id="property-naming">Property naming</h3>
-      <p>JSON properties are treated as keys in a map/dictionary. Thus, the property names are case-sensitive. In order to make the API more readable and consistent, property names shall be camelCased starting with a lower case character. Properties on the same object must not only be distinguishable by their casing, such a situation is considered a collision without technically being one.</p>
-      <h3 id="do-not-use-inline-objects">Do not use inline objects</h3>
-      <p>Following the design rule that every object in the system can be referenced to by its own <code>uri</code>, any kind of inline object definition is forbidden. If optimized data structures (like structs in OO languages) are needed, first ask, if some other component may have an interest in the complex structure of question. If this is not he case and will never be the case in future, consider moving sub-properties of structure in question one level up to be regular properties of the object. If that does not work, e.g. because you need a list of more complex structures, define a regex format (schema) and use strings instead.</p>
+      <h3 id="property-and-enumeration-naming">Property and Enumeration naming</h3>
+      <p>JSON properties are treated as keys in a map/dictionary. Thus, the property names are case-sensitive. In order to make the API more readable and consistent, property names and enumeration members shall be camelCased starting with a lower case character. Properties on the same object must not only be distinguishable by their casing, such a situation is considered a collision without technically being one.</p>
+      <h3 id="using-inlined-objects">Using inlined objects</h3>
+      <p>Following the design rule that every <code>XObject</code> in the system can be referenced by its own <code>uri</code>, use of inline object definitions is discouraged, as it limits the API capabilities such as filtering, expansion, property access and subscription. If optimized data structures (like structs in OO languages) are needed, first ask, if some other component may have an interest in the complex structure in question at all. If this is not the case consider moving the inlined object properties up to be regular properties of the <code>XObject</code>.
+      Following rules should be respected:</p>
+      <ul>
+        <li>keep the number of levels low
+        ** the object seems to complicated and a sub part is most likely to be referenced seperately</li>
+        <li>keep the lists within an object short
+      <strong> unclear how much data the client has to handel
+      </strong> unclear how much data has to be transfered</li>
+        <li>keep the number of properties in an object as low as possible
+        ** filtering is generally not available in inlined objects</li>
+        <li>keep the size of an object instance low
+        ** filtering is generally not available in inlined objects</li>
+      </ul>
       <h3 id="virtual-collection-content">Virtual collection content</h3>
       <p>There are cases in which an endpoint needs to present a list of items to strictly follow REST principles and/or to allow a convenient access to its information despite a lack of knowledge about these items. In particular, cases where a list is dynamically appended or prepended based on a selection made in this list by the holding object itself. An example for these use cases is a media renderer for bluetooth media - the next bluetooth track is only available once playback of this track has already started.</p>
       <p>The list will contain 0,1 or 2 virtual elements that are accessible but will just have a valid <code>id</code> and <code>uri</code> for as long as they are not pointed at. These elements will be placed at either end of the list. Once the element is referenced / pointed to by the client, an <code>atomic</code> action is executed:</p>
       <ul>
-      <li>making the virtual element non-virtual</li>
-      <li>creating a new virtual element</li>
-      <li>extend the list</li>
+        <li>making the virtual element non-virtual</li>
+        <li>creating a new virtual element</li>
+        <li>extend the list</li>
       </ul>
       <p>Only on success, an update on the list and the reference is sent.</p>
       <p><img src="img/diagram3.png" alt="virtual elements"></p>
