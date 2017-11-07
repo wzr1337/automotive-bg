@@ -2620,73 +2620,70 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="-a-name-serviceobject-a-serviceobject"><a name="serviceObject"></a>serviceObject</h3>
       <p>In order to register a service with the <a href="#service_registry">service registry</a>, a special object called <code>serviceObject</code>, inherited from <a href="#XObject">XObject</a>, definition is available.</p>
       <pre><code class="lang-javascript"><code class="hljs javascript">{
-  <span class="hljs-string">"id"</span>: {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-string">"description"</span>: <span class="hljs-string">"service id (if sent with registration request, it will be ignored by the registry)"</span>,
-    <span class="hljs-string">"format"</span>: <span class="hljs-string">"uuid"</span>
-  },
-  <span class="hljs-string">"name"</span>: {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-string">"description"</span>: <span class="hljs-string">"service name"</span>
-  },
-  <span class="hljs-string">"uri"</span>: {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-string">"description"</span>: <span class="hljs-string">"service uri (the desired &lt;service_path&gt; relative to the root of the service registry)"</span>,
-    <span class="hljs-string">"format"</span>: <span class="hljs-string">"uri"</span>
-  },
-  <span class="hljs-string">"description"</span>: {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-string">"description"</span>: <span class="hljs-string">"human readable description of the micro service"</span>
-  },
-  <span class="hljs-string">"port"</span>: {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"integer"</span>,
-    <span class="hljs-string">"description"</span>: <span class="hljs-string">"TCP port the service is running on"</span>
-  },
-  <span class="hljs-string">"serviceCategories"</span>: {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"array"</span>,
-    <span class="hljs-string">"items"</span>: {
-      <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-      <span class="hljs-string">"description"</span>: <span class="hljs-string">"predefined key words"</span>
-    }
-  },
-  <span class="hljs-string">"privileges"</span>:  {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"array"</span>,
-    <span class="hljs-string">"items"</span>: {
-      <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-      <span class="hljs-string">"description"</span>: <span class="hljs-string">"relative path to the service or resource"</span>
-    }
-  },
-  <span class="hljs-string">"versions"</span>:  {
-    <span class="hljs-string">"type"</span>: <span class="hljs-string">"array"</span>,
-    <span class="hljs-string">"items"</span>: {
-      <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>
-      <span class="hljs-string">"description"</span>: <span class="hljs-string">"supported version in semVer notation"</span>
-    }
-  }
-}</code>
-</code></pre>
+        <span class="hljs-string">"id"</span>: {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-string">"description"</span>: <span class="hljs-string">"service id (if sent with registration request, it will be ignored by the registry)"</span>,
+          <span class="hljs-string">"format"</span>: <span class="hljs-string">"uuid"</span>
+        },
+        <span class="hljs-string">"name"</span>: {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-string">"description"</span>: <span class="hljs-string">"service name"</span>
+        },
+        <span class="hljs-string">"uri"</span>: {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-string">"description"</span>: <span class="hljs-string">"service uri (the desired &lt;service_path&gt; relative to the root of the service registry)"</span>,
+          <span class="hljs-string">"format"</span>: <span class="hljs-string">"uri"</span>
+        },
+        <span class="hljs-string">"description"</span>: {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-string">"description"</span>: <span class="hljs-string">"human readable description of the micro service"</span>
+        },
+        <span class="hljs-string">"port"</span>: {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"integer"</span>,
+          <span class="hljs-string">"description"</span>: <span class="hljs-string">"TCP port the service is running on"</span>
+        },
+        <span class="hljs-string">"serviceCategories"</span>: {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"array"</span>,
+          <span class="hljs-string">"items"</span>: {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-string">"description"</span>: <span class="hljs-string">"predefined key words"</span>
+          }
+        },
+        <span class="hljs-string">"privileges"</span>:  {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"array"</span>,
+          <span class="hljs-string">"items"</span>: {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+            <span class="hljs-string">"description"</span>: <span class="hljs-string">"relative path to the service or resource"</span>
+          }
+        },
+        <span class="hljs-string">"versions"</span>:  {
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"array"</span>,
+          <span class="hljs-string">"items"</span>: {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>
+            <span class="hljs-string">"description"</span>: <span class="hljs-string">"supported version in semVer notation"</span>
+          }
+        }
+      }</code>
+      </code></pre>
       <p><code>privileges</code> lists the obtainable privileges for a service or resource.
-        <code>serviceCategories</code> lists the <a href="#serviceCategoryNames">categories</a> a service is assigned to. The supported API versions are listed as strings in <a href="#semVer">semVer</a> format (major.minor.patch) under <code>version</code>.</p>
+      <code>serviceCategories</code> lists the <a href="#serviceCategoryNames">categories</a> a service is assigned to. The supported API versions are listed as strings in <a href="#semVer">semVer</a> format (major.minor.patch) under <code>version</code>.</p>
       <h3 id="registration">Registration</h3>
       <p>The service registers itself by providing the name it wants to be accessible under, relative to the root level uri (e.g. <code>/</code> or <code>/api/v1</code>).</p>
-      <p>The registering service needs to provide privileges as an array containing the Micro Services access rights structure (e.g. /car/settings, /car/units, /tuner), i.e. privileges contains either a <code>&lt;service&gt;</code> list or a <code>/&lt;service&gt;/&lt;resource&gt;</code> list. <code>&lt;service&gt;</code>s and <code>/&lt;service&gt;/&lt;resource&gt;</code> may be mixed in this list.</p>
+      <p>The registering service needs to provide privileges as an array containing the Micro Services access rights structure (e.g. /car/settings, /car/units, /tuner), i.e. privileges contains either a <code>&lt;service&gt;</code> list or a <code>/&lt;service&gt;/&lt;resource&gt;/</code> list. <code>&lt;service&gt;</code>s and <code>/&lt;service&gt;/&lt;resource&gt;/</code> may be mixed in this list.</p>
       <p>The service registry generates an id (uuid) for the service and responds with the newly registered services id in the <code>Location</code> header like in the following example:</p>
       <pre><code><code class="hljs xml">Location: https://<span class="hljs-tag">&lt;<span class="hljs-title">IP-address_of_service_registry</span>&gt;</span>:<span class="hljs-tag">&lt;<span class="hljs-title">port_of_service_registry</span>&gt;</span>/api/v1/<span class="hljs-tag">&lt;<span class="hljs-title">uuid_of_service</span>&gt;</span></code>
-</code></pre>
-      <p>or</p>
+      </code></pre><p>or</p>
       <pre><code><code class="hljs http"><span class="hljs-attribute">Location</span>: <span class="hljs-string">/&lt;uuid_of_service&gt;</span></code>
-</code></pre>
-      <p>Refer to <a href="#versionranges">version ranges</a> to determine the necessary versions notation.</p>
+      </code></pre><p>Refer to <a href="#versionranges">version ranges</a> to determine the necessary versions notation.</p>
       <p>registration example:</p>
       <p>request:</p>
       <pre><code><code class="hljs http"><span class="hljs-request">PUT <span class="hljs-string">/&lt;service_path&gt;</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span>
-
-<span class="apache">
-<span class="hljs-tag">&lt;serviceObject&gt;</span></span></code>
-</code></pre>
-      <p>response:</p>
+      <span class="hljs-attribute">Host</span>: <span class="hljs-string">127.0.0.1:1337</span>
+      <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span>
+      
+      <span class="apache">
+      <span class="hljs-tag">&lt;serviceObject&gt;</span></span></code>
+      </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> Created</span>
       <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
       <span class="hljs-attribute">Location</span>: <span class="hljs-string">&lt;URI of created service&gt;</span>
