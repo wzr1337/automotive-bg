@@ -2388,11 +2388,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h4 id="language">Language</h4>
       <p>Every request may contain an <code>Accept-Language</code> Header field, which allows the client to let the service know about the accepted languages (cmp. <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">RFC2616#14.4</a>).</p>
       <p>In case of language depended content (e.g. city names), the service shall add the <code>Content-Language</code> Header to the response representing the actual language used to generate the content.</p>
-      <h2 id="-a-name-uuidgeneration-a-uuid-generation">
-        <a id="uuidGeneration"></a>uuid generation</h2>
-      <p>The viwi protocol uses <code>uuid</code>s for element identification on different levels. A <code>uuid</code> is a 128bit number (dorucre <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">https://en.wikipedia.org/wiki/Universally_unique_identifier</a>). In its canonical form, a UUID is represented by 32 lowercase hexadecimal digits, displayed in five groups separated by hyphens, in the form <code>8-4-4-4-12</code> for a total of 36 characters (32 alphanumeric characters and four hyphens). For example:</p>
-      <pre><code><code class="hljs cpp">  <span class="hljs-number">5967E93</span>F-<span class="hljs-number">40F</span>9-<span class="hljs-number">4F</span>39-<span class="hljs-number">893</span>E-CC0DA890DB2E</code>
-</code></pre>
+      <h2 id="-a-name-uuidgeneration-a-uuid-generation"><a name="uuidGeneration"></a>uuid generation</h2>
+      <p>The viwi protocol uses <code>uuid</code>s for element identification on different levels. A <code>uuid</code> is a 128bit number (dorucre <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">https://en.wikipedia.org/wiki/Universally_unique_identifier</a>). In its canonical form, a UUID is represented by 32 hexadecimal digits, displayed in five groups separated by hyphens, in the form <code>8-4-4-4-12</code> for a total of 36 characters (32 alphanumeric characters and four hyphens). 
+      For example <code>5967e93f-40f9-4f39-893e-cc0da890db2e</code>.</p>
       <p>In the canonical representation, <code>xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx</code>, the most significant bits of N indicates the variant (depending on the variant; one, two, or three bits are used). The variant covered by the UUID specification is indicated by the two most significant bits of <code>N</code> being 1 0 (i.e., the hexadecimal <code>N</code> will always be 8, 9, A, or B).</p>
       <p><a href="https://www.ietf.org/rfc/rfc4122.txt">UUID specification</a> describes five versions. The four bits of <code>M</code> indicate the UUID <code>version</code> (i.e., the hexadecimal <code>M</code> will be either 1, 2, 3, 4, or 5).</p>
       <p>Each <code>version</code> uses different information to generate the <code>uuid</code> and thus some may be more appropriate than the others in specific use cases. According to the specification, Version 1 UUIDs are generated from date-time and MAC address, Version 2 UUIDs are generated from group or user id and date-time, Version 3 &amp; 5 produces deterministic UUIDs generated from a user-specified namespace and user-supplied data, and Version 4 is generated from pseudo-random number.</p>
@@ -2605,14 +2603,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json;q=0.8</span></code>
       </code></pre><p>response:</p>
       <pre><code><code class="hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
-
-<span class="json">
-{
-  "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"ok"</span>
-</span>}</span></code>
-</code></pre>
-      <p>Only the user (TLS user identity) which has registered the service is allowed to unregister the service. If the wrong user (client or service) tries to delete the service, the Service Registry will deny the <code>DELETE</code> request by sending the HTTP 403 Forbidden <a href="#httpstatuscodes">status code</a>.</p>
+      <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json; charset=utf-8</span>
+      
+      <span class="json">
+      {
+        "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"ok"</span>
+      </span>}</span></code>
+      </code></pre><p>Only the entity which has registered the service is allowed to unregister the service. If the wrong user (client or service) tries to delete the service, the Service Registry will deny the <code>DELETE</code> request by sending the HTTP 403 Forbidden <a href="#httpstatuscodes">status code</a>.</p>
       <h3 id="valid-status-codes">valid status codes</h3>
       <p>The Service Registry may respond with different status codes, depending on the requested action. The <code>30X</code> range differs from regular viwi.</p>
       <table>
