@@ -2740,45 +2740,232 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tr>
         </tbody>
       </table>
-      <h2 id="-a-name-userauth-a-user-authentication-and-authorization">
-        <a id="userauth"></a>User Authentication and Authorization</h2>
-      <p>In order to secure API access and guarantee delivery of authorized content only, a token mechanism (cmp. <a href="https://tools.ietf.org/html/rfc6749">OAuth 2.0 - RFC6749</a>, <a href="https://tools.ietf.org/html/rfc7519">JWT - RFC7519</a>) is used. The token mechanism can be understood as a dedicated valet key for valet services. This key often only allows the car to be driven a particular distance, and typically does not unlock the trunk and glove box. OAuth is often referred to as a valet key for the web in that it grants an application access to protected data only for specific use cases and often for a limited amount of time. Also, authentication via tokens never requires actually passing user credentials from one client or service to another. Once the authentication and validation process begins, the user is redirected to a secure URL where credentials are requested, but those credentials are never shared outside of that secure URL.</p>
-      <p>The client logging to the system may receive two different tokens upon successful login, the <code>accessToken</code> and the <code>refreshToken</code>. While the <code>accessToken</code> can be handed between clients and services, clients and clients as well as services and services, the <code>refreshToken</code> is a secret that shall be kept by the client that logged in to the system by any authorization mechanism. The <code>refreshToken</code> is used to obtain a new <code>accessToken</code> once it becomes invalid or expires. To avoid latency, a client shall check the expiration of the <code>accessToken</code> and request a new <code>accessToken</code> before the actual expiration.</p>
-      <p>HTTP provides a dedicated <code>Authorization</code> Header for transferring the <code>accessToken</code> with each request. In case of indirect request, i.e. request a service to deliver information that rely on another services information, the <code>accessToken</code> is handed from one to the other service.</p>
-      <p>WebSockets multiplex messages that might be affected by authorization, so the <code>subscribe</code> message (<a href="#PublishSubscribe">Publish Subscribe</a>) contains the optional <code>Authorization</code> property. Once an <code>accessToken</code> expires, the corresponding subscription(s) will send an <code>error</code> message with the error code 403. This is the indication that a new subscription with a valid token has to be sent or a reauthorization of the subscription with a new, valid <code>accessToken</code> is needed.</p>
+      <h2 id="-a-name-userauth-a-user-authentication-and-authorization"><a name="userauth"></a>User Authentication and Authorization</h2>
+      <p>In order to secure API access and to guarantee delivery of authorized content only, a token mechanism (cmp. <a href="https://tools.ietf.org/html/rfc6749">OAuth 2.0 - RFC6749</a>, <a href="https://tools.ietf.org/html/rfc7519">JWT - RFC7519</a>) is used. The token mechanism can be understood as a dedicated valet key for valet services. This key often only allows the car to be driven a particular distance, and typically does not unlock the trunk and the glove box. OAuth is often referred to as a valet key for the web in that it grants an application access to protected data only for specific use cases and often for a limited amount of time. Also, authentication via tokens never requires actually passing user credentials from one client or service to another. Once the OAuth authentication and validation process begins, the user is redirected to a secure URL where credentials are requested, but those credentials are never shared outside of that secure URL.</p>
+      <p>HTTP provides a dedicated <code>Authorization</code> Header for transferring the <code>accessToken</code> with each request or an <code>idToken</code> with the login request. In case of indirect request, i.e. request a service to deliver information that rely on another services information, the <code>accessToken</code> might be handed from one to the other service.</p>
+      <p>WebSockets multiplex messages that might need authorization, so the <code>subscribe</code> message (<a href="#PublishSubscribe">Publish Subscribe</a>) contains the optional <code>authorization</code> property. Once an <code>accessToken</code> expires, the corresponding subscription(s) will send an <code>error</code> message with the error code 403. This is the indication that a new subscription with a valid token has to be setup or a reauthorization of the subscription with a new, valid <code>accessToken</code> is needed.</p>
       <h3 id="token-types">Token types</h3>
-      <p>While the protocol itself is agnostic to the type of token used for accessing restricted resources, the following section shall give a short overview of technologies that best fit the needs of the protocol. The type of token to be used in an actual implementation may vary from <code>&lt;service&gt;</code> to <code>&lt;service&gt;</code>, if not otherwise specified in an overall system specification. The protocol itself is neither limited nor does it benefit from choosing the one or the other alternative.</p>
-      <h4 id="-a-name-auth_jwt-a-jwt">
-        <a id="auth_JWT"></a> JWT</h4>
+      <p>The following section gives a short overview of technologies that best fit the needs of the protocol. The type of the token to be used in an actual implementation may vary from <code>&lt;service&gt;</code> to <code>&lt;service&gt;</code>, if not otherwise specified in an overall system specification. The protocol itself is neither limited nor does it benefit from choosing the one or the other alternative.</p>
+      <h4 id="-a-name-auth_jwt-a-jwt"><a name="auth_JWT"></a> JWT</h4>
       <p>JSON Web Token (JWT) is an open standard <a href="https://tools.ietf.org/html/rfc7519">RFC 7519</a> that defines a compact and <strong>self-contained</strong> way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can generally be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA.</p>
-      <p>For the application to the viwi protocol, the Token issuer has to provide access to its public key for Token verification. The payload contains all the required information about the user, avoiding the need to query the database more than once, thus they are called <strong>self-contained</strong>, so verification is important and shall be implemented by all service handling sensitive information.</p>
-      <p><img src="img/diagram4.png" alt="JWT workflow"></p>
+      <p>For the application to the protocol, the token issuer (<code>iss</code> claim) has to provide access to its public key (<code>sigurl</code>claim) for token verification. The payload contains all the required information like the scope (<code>scp</code> claim), avoiding the need to query the database more than once, thus they are called <strong>self-contained</strong>. Token verification is crucial and MUST be implemented by all service handling sensitive information.</p>
       <p>JWT tokens will be sent in the <code>Authorization</code> header, following with term <code>JWT</code> and a space character.</p>
       <p>Example that assumes <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UifQ.xuEv8qrfXu424LZk8bVgr9MQJUIrp1rHcPyZw_KSsds</code> is the actual token:</p>
-      <pre><code><code class="hljs stylus">  GET /&lt;service&gt;/&lt;resource&gt; HTTP/<span class="hljs-number">1.1</span>
-  Host: <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">1337</span>
-  Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9<span class="hljs-class">.eyJuYW1lIjoiSm9obiBEb2UifQ</span><span class="hljs-class">.xuEv8qrfXu424LZk8bVgr9MQJUIrp1rHcPyZw_KSsds</span></code>
-</code></pre>
-      <h5 id="expiry">Expiry</h5>
-      <p>JWTs are stateless keys to information that needs to protected. Therefore a token has to be <em>revokable</em>. As the underlying concept of self-containing tokens does not allow revocation by a central component on a request by request basis, JWTs shall expiry quickly. This makes the possible time window for using a token without permission small. A new token can be requested early/in advance by using the <code>refresh_token</code>.</p>
+      <pre><code><code class="hljs stylus">  GET /&lt;service&gt;/&lt;resource&gt;/ HTTP/<span class="hljs-number">1.1</span>
+        Host: <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">1337</span>
+        Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9<span class="hljs-class">.eyJuYW1lIjoiSm9obiBEb2UifQ</span><span class="hljs-class">.xuEv8qrfXu424LZk8bVgr9MQJUIrp1rHcPyZw_KSsds</span></code>
+      </code></pre><h5 id="expiry">Expiry</h5>
+      <p>JWTs are stateless keys to information that needs to protected. Therefore a token has to be <em>revokable</em>. As the underlying concept of self-containing tokens does not allow revocation by a central component on a request by request basis, JWTs shall expiry quickly. This makes the possible time window for using a token without permission small.</p>
       <h5 id="identification">Identification</h5>
-      <p>Every JWT shall contain a <code>jti</code> claim in its header to ensure blacklisting possibilities and to allow one time use. Every JWT shall contain a <code>aud</code> claim in its header to allow identification of the audience a token was issued to. This is especially of interest when tokens are handed between <code>&lt;service&gt;</code>s.</p>
+      <p>Every JWT shall contain a <code>jti</code> claim in its header to ensure blacklisting possibilities and to allow one time use.</p>
       <h5 id="trust-decisions">Trust decisions</h5>
-      <p>The contents of a JWT cannot be relied upon in a trust decision unless its contents have been cryptographically secured and bound to the context necessary for the trust decision. In particular, the key(s) used to sign and/or encrypt the JWT will typically need to verifiable be under the control of the party identified as the issuer of the JWT.</p>
-      <p>Every JWT shall contain an <code>iss</code> claim in its header to identify the principal that issued the token by its absolute <code>uri</code>.</p>
+      <p>The contents of a JWT cannot be relied upon in a trust decision unless its contents have been cryptographically secured and bound to the context necessary for the trust decision. In particular, the key(s) used to sign and/or encrypt the JWT will typically be under the control of the party identified as the issuer of the JWT.</p>
+      <p>Every JWT shall contain an <code>iss</code> (issuer) claim in its header to identify the principal that issued the token by its absolute <code>uri</code>.</p>
       <h5 id="privacy-considerations">Privacy considerations</h5>
-      <p>A JWT may contain privacy-sensitive information. When this is the case, measures must be taken to prevent disclosure of this information to unintended parties. One way to achieve this is to use an encrypted JWT. Another way is to ensure that JWTs containing unencrypted privacy-sensitive information are only transmitted over encrypted channels or protocols, such as TLS. Those Tokens must not be shared between services.</p>
-      <h4 id="-a-name-auth_oauth-a-oauth">
-        <a id="auth_OAuth"></a> OAuth</h4>
-      <p>Other than the <a href="#auth_JWT">JWT</a>, an OAuth Token does not carry any information about the user, the privileges etc. The OAuth Token is therefore more compact. In order to obtain information about privileges, a services needs to ask the issuer of the token for its validity before responding. The big advantage is that the Token does not have to expire, because it can be revoked between requests easily. The down sid is of course the number of requests send to and from the token issuer.</p>
-      <p><img src="img/diagram5.png" alt="OAuth workflow"></p>
-      <p>OAuth tokens will be sent in the <code>Authorization</code> header, following with term <code>Bearer</code> and a space character.</p>
+      <p>A JWT may contain privacy-sensitive information. When this is the case, measures must be taken to prevent disclosure of this
+      information to unintended parties. One way to achieve this is to use an encrypted JWT. Another way is to ensure that JWTs containing unencrypted privacy-sensitive information are only transmitted over encrypted channels or protocols, such as TLS. Those Tokens MUST NOT be shared between services.</p>
+      <h4 id="-a-name-auth_oauth-a-oauth"><a name="auth_OAuth"></a> OAuth</h4>
+      <p>Other than the <a href="#auth_JWT">JWT</a>, an OAuth Token does not carry any information about the user, the scope etc. The OAuth Token is therefore more compact. In order to obtain information about privileges, a services needs to ask the issuer of the token for its validity before responding. The big advantage is that the Token does not have to expire, because it can be revoked between requests easily. The down side is of course the number of requests sent to and from the token issuer.</p>
+      <p>OAuth tokens are sent with the <code>Authorization</code> header, following with term <code>Bearer</code> and a space character.</p>
       <p>Example that assumes <code>mF_9.B5f-4.1JqM</code> is the actual token:</p>
-      <pre><code><code class="hljs xml">  GET /<span class="hljs-tag">&lt;<span class="hljs-title">service</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">resource</span>&gt;</span> HTTP/1.1
-  Host: 127.0.0.1:1337
-  Authorization: Bearer mF_9.B5f-4.1JqM</code>
-</code></pre></article>
-  </section>
-
-</body>
+      <pre><code><code class="hljs xml">  GET /<span class="hljs-tag">&lt;<span class="hljs-title">service</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-title">resource</span>&gt;</span>/ HTTP/1.1
+        Host: 127.0.0.1:1337
+        Authorization: Bearer mF_9.B5f-4.1JqM</code>
+      </code></pre><h3 id="authentication-process-security-recommendation-">Authentication Process &amp; Security (recommendation)</h3>
+      <p>Applying the token mechanisms discussed earlier in this chapter allows authentication and authorization based on these tokens.</p>
+      <h4 id="security-by-osi-level">Security by OSI Level</h4>
+      <p>For security reasons, the system has to implement specific security related mechanisms on different levels of the networking layer:</p>
+      <table>
+      <thead>
+      <tr>
+      <th>OSI</th>
+      <th></th>
+      <th>mechanism</th>
+      <th>Protocol(s)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>7</td>
+      <td>Application</td>
+      <td>Token Authentication + Authorization</td>
+      <td>HTTPS + secure WebSocket</td>
+      </tr>
+      <tr>
+      <td>6</td>
+      <td>Presentation</td>
+      <td></td>
+      <td></td>
+      </tr>
+      <tr>
+      <td>5</td>
+      <td>Session</td>
+      <td>encryption</td>
+      <td>TLS</td>
+      </tr>
+      <tr>
+      <td>4</td>
+      <td>Transport</td>
+      <td>Firewall</td>
+      <td>TCP</td>
+      </tr>
+      <tr>
+      <td>3</td>
+      <td>Network</td>
+      <td>Firewall</td>
+      <td>IP</td>
+      </tr>
+      <tr>
+      <td>2</td>
+      <td>Data-Link</td>
+      <td></td>
+      <td></td>
+      </tr>
+      <tr>
+      <td>1</td>
+      <td>Physical</td>
+      <td></td>
+      </tr>
+      </tbody>
+      </table>
+      <h4 id="firewall">Firewall</h4>
+      <p>Each server shall be assigned a port number, on demand or per runtime configuration, based on the general security requirements for the system. A firewall shall ONLY let the traffic pass it is configured for. All other ports shall be blocked by default. </p>
+      <h4 id="transport-layer-security">Transport Layer Security</h4>
+      <p>To secure the transfer of messages, transport layer security shall be established through the TLS protocol. For more detailed requirements on the required TLS version and cipher suites. Whether a concrete interface needs to be encrypted is subject of the security specification.
+      All necessary measures to allow TLS must be implemented, such as reliable time and secure certificate storage on the device using the certificate to authenticate, in case of mutual auth.</p>
+      <h5 id="communication-types">Communication types</h5>
+      <p>There are two different types of communication – internal and external.
+      Communication is considered internal when two trusted devices communicate with each other, e.g. the communication between two ECUs that are under full control (quality, security, testing etc.) of the vendor is considered <code>internal</code> while the communication with at least one 3rd party device is considered <code>external</code> (e.g. Smartphone).</p>
+      <h4 id="use-cases">Use Cases</h4>
+      <p>For the different use case for API usage, different cipher suites and ssl versions are recommended:</p>
+      <table>
+      <thead>
+      <tr>
+      <th>Communication between</th>
+      <th>Cipher Suite</th>
+      <th>Minimum supported SSL libraries (most recent incl. bug fixes may be needed)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>vehicle internal clients with encryption, with token based authentication (default - internal)</td>
+      <td>TLS_PSK_WITH_AES_128_CBC_SHA256</td>
+      <td>OpenSSL 1.0.2l, OpenSSL 1.1.0f, wolfSSL 3.10.0</td>
+      </tr>
+      <tr>
+      <td>vehicle internal clients with encryption, with tls based authentication (e.g. certificate) (mutual auth with certificate pinning)</td>
+      <td>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 with ECC: secp256r1 (prime256v1)</td>
+      <td>OpenSSL 1.0.2l, OpenSSL 1.1.0f, wolfSSL 3.10.0</td>
+      </tr>
+      <tr>
+      <td>vehicle internal clients without encryption, with authentication (might be decided to be used on per-service basis)</td>
+      <td>TLS_PSK_WITH_NULL_SHA256</td>
+      <td>OpenSSL 1.0.2l, OpenSSL 1.1.0f, wolfSSL 3.10.0</td>
+      </tr>
+      <tr>
+      <td>vehicle and vehicle external clients with encryption, with token based authentication (e.g. certificate) (default - external)</td>
+      <td>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 with ECC: secp256r1 (prime256v1)</td>
+      <td>OpenSSL 1.0.2l, OpenSSL 1.1.0f, wolfSSL 3.10.0</td>
+      </tr>
+      <tr>
+      <td>vehicle and vehicle external clients without encryption or without authentication</td>
+      <td>-</td>
+      <td>Not allowed</td>
+      </tr>
+      </tbody>
+      </table>
+      <p> </p>
+      <h4 id="token-based-authentication-authorization">Token based Authentication &amp; Authorization</h4>
+      <p>On a case by case basis a token based authorization and authentication mechanism used to grant access to RSI APIs shall be applied. Therefore, a central access rights management service implementation is recommended. Token types JWT and Bearer (e.g. OAuth3) as defined above shall be supported.</p>
+      <h5 id="general-approach">General approach</h5>
+      <p>The RSI security concept relies on token mechanisms known from OAuth or OpenId approaches. It uses <code>idToken</code> and <code>accessToken</code> exchange for scoping API access (authorization) and authentication. The image below shows a brief overview</p>
+      <h5 id="skeleton-of-the-idtoken-">Skeleton of the <code>idToken</code></h5>
+      <p>The <code>idToken</code> is a JWT (<a href="https://jwt.io">https://jwt.io</a>, <a href="https://tools.ietf.org/html/rfc7519">https://tools.ietf.org/html/rfc7519</a>) Token. The token can be signed by a trusted entity.</p>
+      <h6 id="token-header">Token Header</h6>
+      <p>Claims in the <code>idToken</code> header are – find the claim key for JSON in parentheses:</p>
+      <h7 id="issuer-iss-">Issuer (iss)</h7>
+      <p>The <code>iss</code> (issuer) claim identifies the principal that issued the JWT. The processing of this claim is generally application specific.The "iss" value is a case-sensitive string containing a String or URI value. This claim is MANDATORY.</p>
+      <h7 id="link-to-public-key-used-for-signature-sigurl-">Link to public key used for signature (sigurl)</h7>
+      <p>The <code>sigurl</code> claim (signature url) contains an url pointing to the public key to be applied for token signature verification. This public key has to be assigned to and issued by a trusted source. This claim is MANDATORY.</p>
+      <h7 id="issuing-date-iat-">Issuing date (iat)</h7>
+      <p>The <code>iat</code> (issued at) claim identifies the time at which the JWT was issued. This claim can be used to determine the age of the JWT. Its value MUST be a unix timestamp. This claim is MANDATORY.</p>
+      <h7 id="expiration-time-exp-">Expiration time (exp)</h7>
+      <p>The <code>exp</code> (expiration time) claim identifies the expiration time on or after which the JWT MUST NOT be accepted for processing. The processing of the <code>exp</code> claim requires that the current date/time MUST be before the expiration date/time listed in the <code>exp</code> claim. Implementers MAY provide for some small leeway, usually no more than a few minutes, to account for clock skew. Its value MUST be a unix timestamp. This claim is MANDATORY.</p>
+      <h7 id="jwt-identifier-jti-">JWT identifier (jti)</h7>
+      <p>The <code>jti</code> (JWT ID) claim provides a unique identifier for the JWT. The identifier value MUST be assigned in a manner that ensures that there is a negligible probability that the same value will be accidentally assigned to a different data object The <code>jti</code> claim can be used to prevent the JWT from being replayed. The <code>jti</code> value is a case-sensitive string, it SHALL be used to revoke a token. This claim is MANDATORY.</p>
+      <h6 id="token-payload">Token payload</h6>
+      <p>Mandatory claims in the <code>idToken</code> payload – find the claim key for JSON in parentheses:</p>
+      <h7 id="client-id-cid-">Client Id (cid)</h7>
+      <p>The <code>cid</code> (Client Id) claim provides a unique identifier for the Client requesting authorization. The identifier value MUST be assigned in a manner that ensures that there is a negligible probability that the same value will be accidentally assigned to a client. The <code>cid</code> claim SHALL be used to prevent the JWT from being used by unauthorized clients. The <code>cid</code> value is a case-sensitive string. This claim is MANDATORY.</p>
+      <h7 id="username-userid-uid-">Username/Userid (uid)</h7>
+      <p>The <code>uid</code> (User Id) claim provides a unique identifier for the User requesting authorization. Usually the <code>uid</code> claim will hold the users username or user id. The <code>uid</code> claim MUST be used to prevent the JWT from being used by unauthorized users. The <code>cid</code> value is a case-sensitive string. The <code>uid</code> MUST be compared to the user logged in on the main unit. In case of a match, the Token is sufficient for authorization, if there is no match, the active user on the main unit MUST be asked for (temporary) access by any means of user interaction (e.g. popup). This claim is MANDATORY.</p>
+      <h7 id="scope-scp-">Scope (scp)</h7>
+      <p>The <code>scp</code> (Scope) claim provides a set of information about the APIs, a particular <code>uid</code> and <code>cid</code> combination is authorized to use. The <code>uid</code> claim MUST be used to prevent the APIs from being used by unauthorized users or unauthorized clients. The <code>cid</code> value is a JSON object describing the access rights on a per resource basis. This claim is MANDATORY.</p>
+      <h6 id="scoping">Scoping</h6>
+      <p>As the scope claim holds a complex structure, its data definition is elaborated more in detail. The scope MUST express the resource as a key and the access modes as an array of string in its value. Known modes are Create/Read/Update/Delete (CRUD). The scope object sent with the <code>idToken</code> MUST validate against the following JSONschema:</p>
+      <pre><code><code class="hljs json">{
+        "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-06/schema#"</span></span>,
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+        "<span class="hljs-attribute">patternProperties</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">^\/[A-Za-z0-9_]+\/[A-Za-z0-9_]+\/$</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+          "<span class="hljs-attribute">items</span>": <span class="hljs-value">{
+           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+            "<span class="hljs-attribute">enum</span>": <span class="hljs-value">[
+              <span class="hljs-string">"create"</span>,
+              <span class="hljs-string">"read"</span>,
+              <span class="hljs-string">"update"</span>,
+              <span class="hljs-string">"delete"</span>
+              ]
+            </span>}
+          </span>}
+        </span>}</span>,
+        "<span class="hljs-attribute">additionalProperties</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+      </span>}</code>
+      </code></pre><p>An example scope object which validates against above schema:</p>
+      <pre><code><code class="hljs json">{
+        "<span class="hljs-attribute">/media/renderers/</span>": <span class="hljs-value">[<span class="hljs-string">"read"</span>, <span class="hljs-string">"update"</span>]</span>,
+        "<span class="hljs-attribute">/media/collections/</span>": <span class="hljs-value">[<span class="hljs-string">"create"</span>, <span class="hljs-string">"read"</span>, <span class="hljs-string">"update"</span>, <span class="hljs-string">"delete"</span>]
+      </span>}</code>
+      </code></pre><h7 id="read">Read</h7>
+      <p>List resource content, read element details, converts to GET on resource and element level in RSI.</p>
+      <h7 id="create">Create</h7>
+      <p>Allows a client to create new entities in the RSI space, converts into POST on resource level or PUT on element level. Implies Read access.</p>
+      <h7 id="update">Update</h7>
+      <p>Update elements by using POST on element level. Implies Read access.</p>
+      <h7 id="delete">Delete</h7>
+      <p>DELETE elements from resources or DELETE properties on element level. Implies Read access.</p>
+      <h6 id="login-process-idtoken-retrieval">Login process / <code>idToken</code> retrieval</h6>
+      <p>There are one to two steps to retrieve the <code>idToken</code>. A login can be performed multiple times. Every time a login is performed, the full procedure (e.g. requesting user interaction) is underwent.</p>
+      <h6 id="token-creation">Token creation</h6>
+      <p>A client application MUST create a local JWT token based on the information given in 4.2. The Token can be signed OPTIONALY by an authorized entity. After this step an UNSIGNED Token is available.</p>
+      <h6 id="signing-the-token">Signing the token</h6>
+      <p>The token is then sent to the signing entity (e.g. MBB) together with all credentials needed to authenticate the user requesting the signature, i.e. login information. The user specified in the <code>uid</code> claim MUST be the user requesting signature. The signing entity has to check permissions of the user and collate them with the requested resources stated in the <code>scope</code> claim. Signature MUST only be applied when all checks are positive and the user shall be granted access to the resources scoped for the particular client (<code>cid</code> claim) that requested. After this step a SIGNED Token is available.</p>
+      <h6 id="revocation">Revocation</h6>
+      <p>An <code>idToken</code> carries its own identifier, so the Backend system signing the <code>idToken</code>s MUST provide a mechanism for the Auth-Service to check if a certain token is still valid. A push mechanism for token revocation SHALL be implemented as well. The Auth-Service SHALL be able to listen for changes on tokens it “knows”, i.e. the Auth-Service provides a list of token identifiers to listen on for updates.
+      The Auth-Service MUST implement a TRL (Token Revocation List) that contains the revoked token identifiers (jti) as described above. Independenly of the token being revoked remotely or locally (offline and friends in the car use cases), the jti has to be maintained in the TRL.</p>
+      <h5 id="access-token">Access token</h5>
+      <p>An access token is needed to access the APIs of the head unit. The <code>accessToken</code> is sent by the client with each request and with each WebSocket subscription. The AuthService MUST deny access any API access without a token being provided. The tokens validity MUST be checked for each request and before any Websocket update. The <code>accessToken</code> is Bearer token with a maximum length of 255 characters, i.e. a caseSenstive string value of maximum 255 characters. The token length SHALL be limited to a reasonable size.
+       <code>accessToken</code>s are strictly bound to the user who granted access, i.e. in a single user system they are only valid for the resources of the logged in user, in a multi user system, <code>accessToken</code>s can be used to access information of users known to the system, but not logged in on the system during the access time.</p>
+      <h6 id="retrieval">Retrieval</h6>
+      <p>The <code>idToken</code> is sent to the main unit with the Authorization header on POST /auth/logins/ to request the creation of a viwi.service.auth loginObject. Example:</p>
+      <pre><code><code class="hljs http"><span class="hljs-request">POST <span class="hljs-string">/auth/logins/</span> HTTP/1.1</span>
+        <span class="hljs-attribute">Host</span>: <span class="hljs-string">172.0.0.1:443</span>
+        <span class="hljs-attribute">Authorization</span>: <span class="hljs-string">JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UifQ.xuEv8qrfXu424LZk8bVgr9MQJUIrp1rHcPyZw_KSsds</span></code>
+      </code></pre><p>Every <code>idToken</code> MUST be checked and a specific <code>accessToken</code> for the system and the particular <code>idToken</code> MUST be provided in exchange by the authorization service (<code>/auth/</code>), therefore it will only work for a particular user on a particular system for a particular client. The <code>accessToken</code> and its expiration timestamp MUST be sent with the headers (<code>Authorization</code> and <code>Expires</code>) of the HTTP response. If the current system user matches the user specified in the <code>uid</code> claim, authorization MUST pass through without any further user interaction. If either the user specified in the <code>uid</code> claim does NOT match the current system user – friends in the car mode – or the token is not signed by a trusted authorization entity (e.g. Backend) – offline use case – the system MUST ask the user to grant (temporary) access to the scope defined in the token. If the integrity of the <code>idToken</code> cannot be proven (manipulated token), the system MUST deny access. An <code>accessToken</code> MUST only be responded – in the response body – after authorization is granted. The system MUST have a list of valid tokens that is checked on every request and WebSocket update.</p>
+      <h6 id="revocation-expiration">Revocation / expiration</h6>
+      <p>The Headunit MUST revoke an <code>accessToken</code> once the <code>idToken</code> it was created based on expires or if the <code>idToken</code> is revoked itself. If an <code>accessToken</code> is not valid anymore, all API access MUST be prohibited. On Expiration or revocation re-retrieval of a new <code>accessToken</code> MUST be executed by the client. An appropriate status code MUST be sent as a response. A reliable time MUST be available to check validity/expiration.</p>
+      <h6 id="refresh">Refresh</h6>
+      <p>There is no such thing like a refresh token in regular OAuth, because at any time, a new <code>accessToken</code> can be obtained by handing over a valid <code>idToken</code>.</p>
+      <h5 id="api-access">API access</h5>
+      <p>The client MUST send the <code>accessToken</code> with each request and each Websocket subscription. API access MUST be denied if no token is given or is invalidated for any reason.</p>
+      <h5 id="token-sequence-overview">Token sequence overview</h5>
+      <p>The following diagram shows a brief overview of the authentication and authorization flow, omitting details like the actual HTTPS calls and Websocket message syntax. The viwi.service.auth service definition contains the object description for the <a href="#loginObject">loginObject</a>.</p>
+      <p><img src="img/diagram6.png" alt="Authentication &amp; Authorization workflow"></p>
+      <h4 id="scope-check">Scope check</h4>
+      <p>As a Client may not be granted the full access requested by the scope set in its <code>idToken</code>, The /auth/logins/loginObject MUST carriy the scope a client was granted access for as an embedded structure of the same kind given by the <code>idToken</code> definition. At any time, a client MUST be able to query the loginObject created during the login process, providing a valid <code>accessToken</code>. A Client SHALL register for changes on this loginObject in case a user revokes or grants access rights after the login.
+      A Client MIGHT use the scope information to adapt its User Interface (UI). A Client may reask for permission at any time.</p>
+      </article>
+    </section>
+  </body>
 </html>
